@@ -17,7 +17,7 @@ exports.catchError = function catchError(inputFunction, args) {
   }
 };
 
-exports.dec2bin = function dec2bin(dec, length) {
+function dec2bin(dec, length) {
   if (!length) length = 8;
   var binary = (dec >>> 0).toString(2).split("");
 
@@ -28,7 +28,8 @@ exports.dec2bin = function dec2bin(dec, length) {
   }
 
   return binary.join("");
-};
+}
+exports.dec2bin = dec2bin;
 
 // combines [MSB, LS7bits] to single decimal
 exports.combineBits = function combineBits(MSB, LS7) {
@@ -42,9 +43,10 @@ exports.combineBits = function combineBits(MSB, LS7) {
 
 exports.opHexArr = [86, 70, 54, 38, 22, 6];
 
-exports.conditionalPost = function (postContent) {
+function conditionalPost(postContent) {
   if (g.enablePosting) post(postContent + "\n");
-};
+}
+exports.conditionalPost = conditionalPost;
 
 exports.mapDbValues = function (dbObj) {
   return dbObj.map(function (indexValueObj) {
@@ -52,25 +54,31 @@ exports.mapDbValues = function (dbObj) {
   });
 };
 
-// function encodeIndexValues(valuesArr, baseCollId, collIndex) {
-//   var dataTableModel = tgDataModels[baseCollId];
-//   var dataTableObject = dataTableModel.filter(function (obj) {
-//     return obj.index == collIndex;
-//   });
-//   // TODO: test V1 concatentation technique
-//   var conditions = dataTableObject[0].condition.map(function (condition) {
-//     var outputArr = [];
-//     if (condition.V1) {
-//       outputArr.concat(V1);
-//     }
-//     outputArr.concat(V2);
+exports.writeToGBulk = function (collectionId, dataToWrite) {
+  g = new Global("VOICE");
+  var gBulkColl = g.bulk[collectionId];
+  var validInput = gBulkColl.length == dataToWrite.length;
 
-//     return outputArr;
-//   });
+  post(
+    "Writing collection: " +
+      collectionId +
+      " to g.bulk " +
+      dataToWrite.length +
+      " / " +
+      gBulkColl.length +
+      "\n"
+  );
 
-//   // values and conditions lengths should be the same
-//   // conditions for index 19 should be [[3, 2, 1, 0], [7, 6, 5, 4]]
-//   for (var i = 0; i < valuesArr.length; i++) {
-//     var binValue = dec2bin(valuesArr[i], conditions[i].length);
-//   }
-// }
+  if (validInput) {
+    conditionalPost(
+      "WRITING COLLECTION " + collectionId + " to GBULK --- utilities.js"
+    );
+    for (var i = 0; i < dataToWrite.length; i++) {
+      gBulkColl[i].value = dataToWrite[i];
+    }
+  } else {
+    error(
+      "writeToGBulk --- utilities.js: data length does not match db collection length"
+    );
+  }
+};

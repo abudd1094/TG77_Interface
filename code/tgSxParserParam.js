@@ -213,6 +213,11 @@ function parseParameterChange(props) {
   // fetch tg state data from g.bulk
   var tgState = fetchTgState(computedCollId, computedCollIndex);
   // store value in g.bulk
+  conditionalPost("baseCollId");
+  conditionalPost(baseCollId);
+  conditionalPost("computedCollIndex");
+  conditionalPost(computedCollIndex);
+
   storeParameterValue(dataModel, tgState, computedValue);
 }
 

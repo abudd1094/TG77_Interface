@@ -655,7 +655,13 @@ exports.tgDataModels = {
       note: "Velocity Sensitivity",
       condition: [],
     },
-    // reserve index 18
+    {
+      index: 18,
+      name: "RESERVE",
+      range: [0, 0],
+      note: "RESERVE",
+      condition: [],
+    },
     {
       index: 19,
       name: "ALGSRC0, ALGSRC1",

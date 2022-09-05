@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 1546.0, 87.0, 1852.0, 959.0 ],
+		"rect" : [ 1546.0, 87.0, 1404.0, 959.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -39,6 +39,47 @@
 		"subpatcher_template" : "",
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"comment" : "SxData Out",
+					"id" : "obj-3",
+					"index" : 0,
+					"maxclass" : "outlet",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 377.0, 2493.0, 30.0, 30.0 ],
+					"tricolor" : [ 1.0, 0.0, 0.0, 1.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"comment" : "SxParam Out",
+					"id" : "obj-2",
+					"index" : 0,
+					"maxclass" : "outlet",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 286.0, 2493.0, 30.0, 30.0 ],
+					"tricolor" : [ 0.023529411764706, 0.0, 1.0, 1.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"annotation" : "data in: collection 1.6 depending on element",
+					"comment" : "Data In",
+					"hint" : "data in: collection 1.6 depending on element",
+					"id" : "obj-1",
+					"index" : 0,
+					"maxclass" : "inlet",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 284.0, 12.0, 30.0, 30.0 ]
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-1849",
 					"maxclass" : "newobj",

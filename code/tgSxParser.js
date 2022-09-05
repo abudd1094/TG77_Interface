@@ -11,8 +11,6 @@ function msg_int(v) {
   if (v == 247) {
     sysExMessage.push(v);
     parseSysExType();
-    // reset for next message
-    sysExMessage = [];
   } else {
     sysExMessage.push(v);
   }
@@ -32,4 +30,6 @@ function parseSysExType() {
     // BULK DUMP
     outlet(1, sysExMessage);
   }
+  // reset for next message
+  sysExMessage = [];
 }

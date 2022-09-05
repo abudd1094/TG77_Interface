@@ -4314,54 +4314,6 @@ exports.defaultBulk = {
       index: 28,
       value: 0,
     },
-    {
-      index: 29,
-      value: 0,
-    },
-    {
-      index: 30,
-      value: 0,
-    },
-    {
-      index: 31,
-      value: 0,
-    },
-    {
-      index: 32,
-      value: 0,
-    },
-    {
-      index: 33,
-      value: 0,
-    },
-    {
-      index: 34,
-      value: 0,
-    },
-    {
-      index: 35,
-      value: 0,
-    },
-    {
-      index: 36,
-      value: 0,
-    },
-    {
-      index: 37,
-      value: 0,
-    },
-    {
-      index: 38,
-      value: 0,
-    },
-    {
-      index: 27,
-      value: 0,
-    },
-    {
-      index: 28,
-      value: 0,
-    },
   ],
   // 1.10.El#.Flt#
   // 6 filters each
