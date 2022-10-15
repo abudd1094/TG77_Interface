@@ -45,7 +45,6 @@ function parseOperatorNumber(parsedData) {
 
 // TODO DEBUG
 function parseElementFilterNumber(parsedData) {
-  post("PARSE FILTER NUMBER \n");
   var dataObj = parsedData.filter(function (obj) {
     return /Filter Number/.test(obj.label);
   });
@@ -166,14 +165,15 @@ exports.computeCollId = function computeCollId(collId, parsedSxArr) {
   }
   if (collId == "1.10") {
     // determine el and op numbers and use to compute new collId
-    // var elementNumber = parseElementFilterNumber(parsedSxArr)[0];
-    // var filterNumber = parseElementFilterNumber(parsedSxArr)[1];
-    // computedCollId =
-    //   collId.toString() +
-    //   "." +
-    //   elementNumber.toString() +
-    //   "." +
-    //   filterNumber.toString();
+    var elementNumber = parseElementFilterNumber(parsedSxArr)[0];
+    var filterNumber = parseElementFilterNumber(parsedSxArr)[1];
+
+    computedCollId =
+      collId.toString() +
+      "." +
+      elementNumber.toString() +
+      "." +
+      filterNumber.toString();
   }
 
   return computedCollId;

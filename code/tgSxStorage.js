@@ -1,14 +1,18 @@
-// inlet 0 = value,
-// inlet 1 = coll index,
-// inlet 2 = coll ID
-inlets = 3;
 outlets = 1;
+inlets = 1;
+
+// Global Object
+g = new Global("VOICE");
+
 // set storage location
 var storageLocation = "/Users/abudd/Documents/myTg77Interface.json";
 var tgDataModels = require("tgDataModels");
+var { dec2bin, conditionalPost } = require("utilities");
+var { defaultBulk } = require("defaultBulk");
 
 var sysExMessage = [];
 
+// STORAGE
 function write() {
   post("TEST WRITE FILE \n");
 

@@ -5,8 +5,6 @@ var sxArr = [];
 var store = false;
 
 function dump() {
-  // post("BULK DUMP" + "\n");
-  // post(sxArr + "\n");
   outlet(0, sxArr);
 }
 

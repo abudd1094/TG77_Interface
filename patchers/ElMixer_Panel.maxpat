@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 1474.0, 87.0, 1574.0, 959.0 ],
+		"rect" : [ 1546.0, 87.0, 1489.0, 959.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -1322,7 +1322,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 2503.666666666666515, 1996.433341205120087, 54.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 764.666665434837341, 119.735091743119256, 54.0, 18.0 ],
+					"presentation_rect" : [ 764.666665434837341, 123.735091743119256, 54.0, 18.0 ],
 					"text" : "Microtune",
 					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"textjustification" : 0
@@ -1340,7 +1340,7 @@
 					"parameter_enable" : 1,
 					"patching_rect" : [ 2520.041666666666515, 2021.433341205120087, 21.25, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 781.041665434837341, 139.646788990825712, 21.25, 19.0 ],
+					"presentation_rect" : [ 781.041665434837341, 143.646788990825712, 21.25, 19.0 ],
 					"rounded" : 2.0,
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
@@ -1604,7 +1604,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 2218.439388612905987, 2007.433341205120087, 55.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 675.666665434837341, 119.735091743119256, 55.0, 18.0 ],
+					"presentation_rect" : [ 675.666665434837341, 123.735091743119256, 55.0, 18.0 ],
 					"text" : "Pan Table",
 					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"textjustification" : 0
@@ -1697,7 +1697,7 @@
 					"parameter_enable" : 1,
 					"patching_rect" : [ 2218.439388612905987, 2029.698249205120192, 100.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 675.666665434837341, 139.646788990825712, 90.0, 19.0 ],
+					"presentation_rect" : [ 675.666665434837341, 143.646788990825712, 90.0, 19.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_enum" : [ "I1", "I2", "I3", "I4", "I5", "I6", "I7", "I8", "I9", "I10", "I11", "I12", "I13", "I14", "I15", "I16", "I17", "I18", "I19", "I20", "I21", "I22", "I23", "I24", "I25", "I26", "I27", "I28", "I29", "I30", "I31", "I32", "P1_Center", "P2_Right-6", "P3_Right-5", "P4_Right-4", "P5_Right-3", "P6_Right-2", "P7_Right-1", "P8_Left-6", "P9_Left-5", "P10_Left-4", "P11_Left-3", "P12_Left-2", "P13_Left-1", "P14_L>R-slow", "P15_L>R", "P16_L>R-fast", "P17_R>L-slow", "P18_R>L", "P19_R>L-fast", "P20_C>R-slow", "P21_C>R", "P22_C>R-fast", "P23_C->R-slow", "P24_C->R", "P25_C->R-fast", "P26_C>L-slow", "P27_C>L", "P28_C>L-fast", "P29_C->L-slow", "P30_C->L", "P31_C->L-fast", "P32_L<>R-slow", "P33_L<>R", "P34_L<>R-narrow", "P35_L<>R-fast", "P36_R<>L-slow", "P37_R<>L", "P38_R<>L-narrow", "P39_R<>L-fast", "P40", "P41", "P42", "P43", "P44", "P45", "P46", "P47", "P48", "P49", "P50", "P51", "P52", "P53", "P54", "P55", "P56", "P57", "P58", "P59", "P60", "P61", "P62", "P63" ],
@@ -1728,7 +1728,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 77.22295025984431, 1920.433341205119177, 20.0, 172.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 650.166665434837341, -4.0, 20.0, 172.0 ],
+					"presentation_rect" : [ 650.166664999999966, 0.0, 20.0, 170.0 ],
 					"varname" : "ELVL[3]"
 				}
 
@@ -1882,7 +1882,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 398.656410972277172, 1975.433341205119177, 135.0, 21.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 676.166665434837341, -3.0, 137.0, 21.0 ],
+					"presentation_rect" : [ 676.166665434837341, 0.0, 137.0, 21.0 ],
 					"text" : "Element 4",
 					"textcolor" : [ 0.847058823529412, 0.847058823529412, 0.847058823529412, 1.0 ],
 					"textjustification" : 0
@@ -2068,7 +2068,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 2486.666666666666515, 1415.433341205120087, 54.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 544.5, 119.735091743119256, 54.0, 18.0 ],
+					"presentation_rect" : [ 544.5, 123.735091743119256, 54.0, 18.0 ],
 					"text" : "Microtune",
 					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"textjustification" : 0
@@ -2086,7 +2086,7 @@
 					"parameter_enable" : 1,
 					"patching_rect" : [ 2503.041666666666515, 1440.433341205120087, 21.25, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 560.875, 139.646788990825712, 21.25, 19.0 ],
+					"presentation_rect" : [ 560.875, 143.646788990825712, 21.25, 19.0 ],
 					"rounded" : 2.0,
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
@@ -2350,7 +2350,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 2201.439388612905987, 1426.433341205120087, 55.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 455.5, 119.735091743119256, 55.0, 18.0 ],
+					"presentation_rect" : [ 455.5, 123.735091743119256, 55.0, 18.0 ],
 					"text" : "Pan Table",
 					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"textjustification" : 0
@@ -2443,7 +2443,7 @@
 					"parameter_enable" : 1,
 					"patching_rect" : [ 2201.439388612905987, 1448.698249205120192, 100.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 455.5, 139.646788990825712, 90.0, 19.0 ],
+					"presentation_rect" : [ 455.5, 143.646788990825712, 90.0, 19.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_enum" : [ "I1", "I2", "I3", "I4", "I5", "I6", "I7", "I8", "I9", "I10", "I11", "I12", "I13", "I14", "I15", "I16", "I17", "I18", "I19", "I20", "I21", "I22", "I23", "I24", "I25", "I26", "I27", "I28", "I29", "I30", "I31", "I32", "P1_Center", "P2_Right-6", "P3_Right-5", "P4_Right-4", "P5_Right-3", "P6_Right-2", "P7_Right-1", "P8_Left-6", "P9_Left-5", "P10_Left-4", "P11_Left-3", "P12_Left-2", "P13_Left-1", "P14_L>R-slow", "P15_L>R", "P16_L>R-fast", "P17_R>L-slow", "P18_R>L", "P19_R>L-fast", "P20_C>R-slow", "P21_C>R", "P22_C>R-fast", "P23_C->R-slow", "P24_C->R", "P25_C->R-fast", "P26_C>L-slow", "P27_C>L", "P28_C>L-fast", "P29_C->L-slow", "P30_C->L", "P31_C->L-fast", "P32_L<>R-slow", "P33_L<>R", "P34_L<>R-narrow", "P35_L<>R-fast", "P36_R<>L-slow", "P37_R<>L", "P38_R<>L-narrow", "P39_R<>L-fast", "P40", "P41", "P42", "P43", "P44", "P45", "P46", "P47", "P48", "P49", "P50", "P51", "P52", "P53", "P54", "P55", "P56", "P57", "P58", "P59", "P60", "P61", "P62", "P63" ],
@@ -2474,7 +2474,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 60.22295025984431, 1339.433341205119177, 20.0, 172.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 430.0, -4.0, 20.0, 172.0 ],
+					"presentation_rect" : [ 432.0, 0.0, 20.0, 170.0 ],
 					"varname" : "ELVL[2]"
 				}
 
@@ -2628,7 +2628,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 381.656410972277172, 1394.433341205119177, 135.0, 21.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 456.0, -3.0, 137.0, 21.0 ],
+					"presentation_rect" : [ 456.0, 0.0, 137.0, 21.0 ],
 					"text" : "Element 3",
 					"textcolor" : [ 0.847058823529412, 0.847058823529412, 0.847058823529412, 1.0 ],
 					"textjustification" : 0
@@ -2814,7 +2814,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 2482.818716406822205, 818.433341205120087, 54.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 329.5, 118.735091743119256, 54.0, 18.0 ],
+					"presentation_rect" : [ 329.5, 123.735091743119256, 54.0, 18.0 ],
 					"text" : "Microtune",
 					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"textjustification" : 0
@@ -2832,7 +2832,7 @@
 					"parameter_enable" : 1,
 					"patching_rect" : [ 2499.193716406822205, 843.433341205120087, 21.25, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 345.875, 138.646788990825712, 21.25, 19.0 ],
+					"presentation_rect" : [ 345.875, 143.646788990825712, 21.25, 19.0 ],
 					"rounded" : 2.0,
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
@@ -3148,7 +3148,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 2197.591438353061676, 829.433341205120087, 55.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 240.5, 118.735091743119256, 55.0, 18.0 ],
+					"presentation_rect" : [ 240.5, 123.735091743119256, 55.0, 18.0 ],
 					"text" : "Pan Table",
 					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"textjustification" : 0
@@ -3241,7 +3241,7 @@
 					"parameter_enable" : 1,
 					"patching_rect" : [ 2197.591438353061676, 851.698249205120192, 100.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 240.5, 138.646788990825712, 90.0, 19.0 ],
+					"presentation_rect" : [ 240.5, 143.646788990825712, 90.0, 19.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_enum" : [ "I1", "I2", "I3", "I4", "I5", "I6", "I7", "I8", "I9", "I10", "I11", "I12", "I13", "I14", "I15", "I16", "I17", "I18", "I19", "I20", "I21", "I22", "I23", "I24", "I25", "I26", "I27", "I28", "I29", "I30", "I31", "I32", "P1_Center", "P2_Right-6", "P3_Right-5", "P4_Right-4", "P5_Right-3", "P6_Right-2", "P7_Right-1", "P8_Left-6", "P9_Left-5", "P10_Left-4", "P11_Left-3", "P12_Left-2", "P13_Left-1", "P14_L>R-slow", "P15_L>R", "P16_L>R-fast", "P17_R>L-slow", "P18_R>L", "P19_R>L-fast", "P20_C>R-slow", "P21_C>R", "P22_C>R-fast", "P23_C->R-slow", "P24_C->R", "P25_C->R-fast", "P26_C>L-slow", "P27_C>L", "P28_C>L-fast", "P29_C->L-slow", "P30_C->L", "P31_C->L-fast", "P32_L<>R-slow", "P33_L<>R", "P34_L<>R-narrow", "P35_L<>R-fast", "P36_R<>L-slow", "P37_R<>L", "P38_R<>L-narrow", "P39_R<>L-fast", "P40", "P41", "P42", "P43", "P44", "P45", "P46", "P47", "P48", "P49", "P50", "P51", "P52", "P53", "P54", "P55", "P56", "P57", "P58", "P59", "P60", "P61", "P62", "P63" ],
@@ -3272,7 +3272,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 56.375, 742.433341205119177, 20.0, 172.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 215.0, -5.0, 20.0, 172.0 ],
+					"presentation_rect" : [ 215.0, 0.0, 20.0, 170.0 ],
 					"varname" : "ELVL[1]"
 				}
 
@@ -3426,7 +3426,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 377.808460712432861, 797.433341205119177, 135.0, 21.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 241.0, -4.0, 137.0, 21.0 ],
+					"presentation_rect" : [ 241.0, -1.0, 137.0, 21.0 ],
 					"text" : "Element 2",
 					"textcolor" : [ 0.847058823529412, 0.847058823529412, 0.847058823529412, 1.0 ],
 					"textjustification" : 0
@@ -3966,7 +3966,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 56.375, 229.433341205119177, 20.0, 172.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ -0.000000655651093, 0.0, 20.0, 172.0 ],
+					"presentation_rect" : [ 0.0, 0.0, 20.0, 170.0 ],
 					"varname" : "ELVL"
 				}
 

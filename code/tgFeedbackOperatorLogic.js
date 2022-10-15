@@ -1,7 +1,7 @@
 // 0 = from umenuFb1, 1 = from umenuFb2, 2 = from umenuFb3, 3 = info from distributor, 4 = FM algorithm
 inlets = 5;
-// 0 = Op #, 1 = computed value, 2 = bang outlet
-outlets = 3;
+// 0 = Prev Op #, 1 = Prev computed value, 2 = bang outlet, 3 = Op # to parse, 4 = computed value to parse
+outlets = 5;
 
 var { dec2bin, opHexArr, conditionalPost } = require("utilities");
 var { tgAlgorithms } = require("tgAlgorithms");
@@ -75,9 +75,11 @@ function msg_int(v) {
       break;
   }
   // update all menus
-  updateUmenus();
+  if (inlet != 3) {
+    updateUmenus();
+  }
 
-  if (newFbOp != prevFbOp) {
+  if (newFbOp != prevFbOp && inlet != 3 && inlet != 4) {
     conditionalPost("FB OP SLOT " + inlet + " CHANGED ");
     handleOpChange(newFbOp, prevFbOp, inlet + 1);
   }
@@ -93,7 +95,7 @@ function computeValue(fbOpSlot, opNo) {
       : "add opNo " + opNo + "\n to fbOpSlot " + fbOpSlot
   );
   conditionalPost("algoOpData" + "");
-  conditionalPost(JSON.stringify(tgAlgorithms));
+  conditionalPost(JSON.stringify(algoOpData));
   conditionalPost("");
 
   var binaryArr = [0, 0, 0];
@@ -125,6 +127,9 @@ function handleOpChange(newFbOp, prevFbOp, fbOpSlot) {
 }
 
 function updateUmenus(bangOnCompletion) {
+  umenuFb1 = this.patcher.getnamed("umenuFb1");
+  umenuFb2 = this.patcher.getnamed("umenuFb2");
+  umenuFb3 = this.patcher.getnamed("umenuFb3");
   // if all fb ops are defined
   if (fbOp1 != 0 && fbOp2 != 0 && fbOp3 != 0) {
     // ops not used are available for all umenus
@@ -161,6 +166,7 @@ function updateUmenus(bangOnCompletion) {
 
       var opSpecificArr = availableOps.slice();
       opSpecificArr.unshift(fbOp);
+
       // populate each fbOp umenu with A) the corresponding FB Op as first option and B) the remaining available operators
       opSpecificArr.forEach(function (umenuOption, index) {
         umenu.message("setitem", index, umenuOption);
@@ -171,9 +177,11 @@ function updateUmenus(bangOnCompletion) {
       // if fbOp is fixed, disable umenu
       if (disabled == 1) {
         umenu.message("ignoreclick", 1);
-        umenu.message("setitem", 0, opSpecificArr[0].toString() + "F");
+        umenu.message("setitem", 0, opSpecificArr[0]);
+        umenu.message("textcolor", 1.0, 0.71, 0.196, 1.0);
       } else {
         umenu.message("ignoreclick", 0);
+        umenu.message("textcolor", 0.969, 0.969, 0.969, 1.0);
       }
     }
 

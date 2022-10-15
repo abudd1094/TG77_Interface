@@ -12,10 +12,7 @@ function formatValues(dataModel, values) {
   switch (dataModel.name) {
     // 1.7.19
     case "ALGSRC0, ALGSRC1":
-      formattedValues = [
-        formatInputSrc0(values[0]),
-        formatInputSrc0(values[1]),
-      ];
+      formattedValues = [formatInputSrc(values[0]), formatInputSrc(values[1])];
       break;
     default:
       formattedValues = values;
@@ -25,32 +22,13 @@ function formatValues(dataModel, values) {
   return formattedValues;
 }
 
-function formatInputSrc0(inputSrc) {
+function formatInputSrc(inputSrc) {
   switch (inputSrc) {
     // FB OPs
     case 1:
     case 2:
     case 3:
       return inputSrc + 5;
-    // AWM
-    case 4:
-      return 2;
-    case 5:
-      return 10;
-    default:
-      return inputSrc;
-  }
-}
-
-function formatInputSrc1(inputSrc) {
-  switch (inputSrc) {
-    // FB OPs
-    case 1:
-      return 60;
-    case 2:
-      return 70;
-    case 3:
-      return inputSrc;
     // AWM
     case 4:
       return 2;
@@ -106,12 +84,11 @@ exports.computeMultiBitValue = function computeMultiBitValue(
   // iterate through binary indexes and replace in the binary arr
   binaryIndexes.forEach(function (binaryIndexArr, index) {
     var binaryValue = dec2bin(formattedValues[index], binaryIndexArr.length);
+    var binaryValueArr = binaryValue.split("");
 
-    binaryArr.splice(
-      7 - binaryIndexArr[binaryIndexArr.length - 1],
-      binaryIndexArr.length,
-      binaryValue
-    );
+    for (var i = 0; i < binaryIndexArr.length; i++) {
+      binaryArr[7 - binaryIndexArr[i]] = binaryValueArr[i];
+    }
   });
   // form a binaryString, convert to decimal, and return
   var binaryString = binaryArr.join("");

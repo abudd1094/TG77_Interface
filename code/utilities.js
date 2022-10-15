@@ -54,20 +54,11 @@ exports.mapDbValues = function (dbObj) {
   });
 };
 
-exports.writeToGBulk = function (collectionId, dataToWrite) {
+exports.writeCollToGBulk = function (collectionId, dataToWrite) {
   g = new Global("VOICE");
+
   var gBulkColl = g.bulk[collectionId];
   var validInput = gBulkColl.length == dataToWrite.length;
-
-  post(
-    "Writing collection: " +
-      collectionId +
-      " to g.bulk " +
-      dataToWrite.length +
-      " / " +
-      gBulkColl.length +
-      "\n"
-  );
 
   if (validInput) {
     conditionalPost(
@@ -78,7 +69,25 @@ exports.writeToGBulk = function (collectionId, dataToWrite) {
     }
   } else {
     error(
-      "writeToGBulk --- utilities.js: data length does not match db collection length"
+      "writeCollToGBulk --- utilities.js: data length does not match db collection length"
     );
   }
+};
+
+exports.writeIndexToGBulk = function (
+  collectionId,
+  collectionIndex,
+  dataValueToWrite
+) {
+  g = new Global("VOICE");
+  var gBulkColl = g.bulk[collectionId];
+
+  conditionalPost(
+    "WRITING COLLECTION " +
+      collectionId +
+      " INDEX " +
+      collectionIndex +
+      " to GBULK --- utilities.js"
+  );
+  gBulkColl[collectionIndex].value = dataValueToWrite;
 };

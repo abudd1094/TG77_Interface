@@ -115,14 +115,12 @@ function generateSxArr(collId, collIndex, value, twoHexValue) {
   var V1 = 0;
   var V2 = value;
 
-  if (twoHexValue) {
-    var binaryValue = dec2bin(value).split("");
-    var MSB = parseInt(binaryValue.shift(), 2);
-    var LS7bits = parseInt(binaryValue.join(""), 2);
+  var binaryValue = dec2bin(value).split("");
+  var MSB = parseInt(binaryValue.shift(), 2);
+  var LS7bits = parseInt(binaryValue.join(""), 2);
 
-    V1 = MSB;
-    V2 = LS7bits;
-  }
+  V1 = MSB;
+  V2 = LS7bits;
 
   // fetch sx message format based on param change type
   if (collId == "1.3") {
@@ -210,15 +208,13 @@ function parseParameterChange(props) {
 
   // fetch tg data model
   var dataModel = fetchTgStateModel(baseCollId, computedCollIndex);
-  // fetch tg state data from g.bulk
-  var tgState = fetchTgState(computedCollId, computedCollIndex);
   // store value in g.bulk
-  conditionalPost("baseCollId");
-  conditionalPost(baseCollId);
-  conditionalPost("computedCollIndex");
-  conditionalPost(computedCollIndex);
-
-  storeParameterValue(dataModel, tgState, computedValue);
+  storeParameterValue(
+    dataModel,
+    computedValue,
+    computedCollId,
+    computedCollIndex
+  );
 }
 
 // combine data that uses MSB LS7 format for storage
@@ -259,6 +255,7 @@ function computeStorageValue(parsedSxArr) {
 function fetchTgState(computedCollId, computedCollIndex) {
   g = new Global("VOICE");
   var tableArrIndex = null;
+
   // var tgState = tgDatabase.tgDatabase[computedCollId];
   var tgState = g.bulk[computedCollId];
 
@@ -272,7 +269,15 @@ function fetchTgState(computedCollId, computedCollIndex) {
   return dbObj;
 }
 
-function storeParameterValue(dataModel, tgState, computedValue) {
+function storeParameterValue(
+  dataModel,
+  computedValue,
+  computedCollId,
+  computedCollIndex
+) {
+  // fetch tg state data from g.bulk
+  var tgState = fetchTgState(computedCollId, computedCollIndex);
+
   // store element mode globally for UI config
   if (dataModel.name == "ELMODE") {
     g.elementMode = computedValue;
@@ -281,7 +286,13 @@ function storeParameterValue(dataModel, tgState, computedValue) {
   // store in DB
   tgState.value = computedValue;
 
-  // TODO: remove post after testing
-  conditionalPost("Change stored in DB" + "");
+  // conditional posts
+  conditionalPost(
+    "Change stored in DB: " +
+      computedCollId +
+      " index " +
+      computedCollIndex +
+      ""
+  );
   conditionalPost(JSON.stringify(tgState) + "");
 }
