@@ -4202,104 +4202,726 @@ exports.defaultBulk = {
       index: 0,
       value: 0,
     },
-        {
+    {
       index: 1,
       value: 0,
     },
-        {
+    {
       index: 2,
       value: 0,
     },
-        {
+    {
       index: 3,
       value: 0,
     },
-        {
+    {
       index: 4,
       value: 0,
     },
-        {
+    {
       index: 5,
       value: 0,
     },
-        {
+    {
       index: 6,
       value: 0,
     },
-        {
+    {
       index: 7,
       value: 0,
     },
-        {
+    {
       index: 8,
       value: 0,
     },
-        {
+    {
       index: 9,
       value: 0,
     },
-        {
+    {
       index: 10,
       value: 0,
     },
-        {
+    {
       index: 11,
       value: 0,
     },
-        {
+    {
       index: 12,
       value: 0,
     },
-        {
+    {
       index: 13,
       value: 0,
     },
-        {
+    {
       index: 14,
       value: 0,
     },
-        {
+    {
       index: 15,
       value: 0,
     },
-        {
+    {
       index: 16,
       value: 0,
     },
-        {
+    {
       index: 17,
       value: 0,
     },
-        {
+    {
       index: 18,
       value: 0,
     },
-        {
+    {
       index: 19,
       value: 0,
     },
-        {
+    {
       index: 20,
       value: 0,
     },
-        {
+    {
       index: 21,
       value: 0,
     },
-        {
+    {
       index: 22,
       value: 0,
     },
-        {
+    {
       index: 23,
       value: 0,
     },
-        {
+    {
       index: 24,
       value: 0,
     },
-        {
+    {
       index: 25,
+      value: 0,
+    },
+    {
+      index: 25,
+      value: 0,
+    },
+    {
+      index: 79,
+      value: 0,
+    },
+    {
+      index: 80,
+      value: 0,
+    },
+    {
+      index: 81,
+      value: 0,
+    },
+    {
+      index: 82,
+      value: 0,
+    },
+    {
+      index: 83,
+      value: 0,
+    },
+    {
+      index: 84,
+      value: 0,
+    },
+    {
+      index: 85,
+      value: 0,
+    },
+    {
+      index: 86,
+      value: 0,
+    },
+    {
+      index: 87,
+      value: 0,
+    },
+    {
+      index: 88,
+      value: 0,
+    },
+    {
+      index: 89,
+      value: 0,
+    },
+    {
+      index: 90,
+      value: 0,
+    },
+    {
+      index: 91,
+      value: 0,
+    },
+    {
+      index: 92,
+      value: 0,
+    },
+    {
+      index: 93,
+      value: 0,
+    },
+    {
+      index: 94,
+      value: 0,
+    },
+    {
+      index: 95,
+      value: 0,
+    },
+    {
+      index: 96,
+      value: 0,
+    },
+  ],
+  "1.8.1": [
+    {
+      index: 0,
+      value: 0,
+    },
+    {
+      index: 1,
+      value: 0,
+    },
+    {
+      index: 2,
+      value: 0,
+    },
+    {
+      index: 3,
+      value: 0,
+    },
+    {
+      index: 4,
+      value: 0,
+    },
+    {
+      index: 5,
+      value: 0,
+    },
+    {
+      index: 6,
+      value: 0,
+    },
+    {
+      index: 7,
+      value: 0,
+    },
+    {
+      index: 8,
+      value: 0,
+    },
+    {
+      index: 9,
+      value: 0,
+    },
+    {
+      index: 10,
+      value: 0,
+    },
+    {
+      index: 11,
+      value: 0,
+    },
+    {
+      index: 12,
+      value: 0,
+    },
+    {
+      index: 13,
+      value: 0,
+    },
+    {
+      index: 14,
+      value: 0,
+    },
+    {
+      index: 15,
+      value: 0,
+    },
+    {
+      index: 16,
+      value: 0,
+    },
+    {
+      index: 17,
+      value: 0,
+    },
+    {
+      index: 18,
+      value: 0,
+    },
+    {
+      index: 19,
+      value: 0,
+    },
+    {
+      index: 20,
+      value: 0,
+    },
+    {
+      index: 21,
+      value: 0,
+    },
+    {
+      index: 22,
+      value: 0,
+    },
+    {
+      index: 23,
+      value: 0,
+    },
+    {
+      index: 24,
+      value: 0,
+    },
+    {
+      index: 25,
+      value: 0,
+    },
+    {
+      index: 25,
+      value: 0,
+    },
+    {
+      index: 79,
+      value: 0,
+    },
+    {
+      index: 80,
+      value: 0,
+    },
+    {
+      index: 81,
+      value: 0,
+    },
+    {
+      index: 82,
+      value: 0,
+    },
+    {
+      index: 83,
+      value: 0,
+    },
+    {
+      index: 84,
+      value: 0,
+    },
+    {
+      index: 85,
+      value: 0,
+    },
+    {
+      index: 86,
+      value: 0,
+    },
+    {
+      index: 87,
+      value: 0,
+    },
+    {
+      index: 88,
+      value: 0,
+    },
+    {
+      index: 89,
+      value: 0,
+    },
+    {
+      index: 90,
+      value: 0,
+    },
+    {
+      index: 91,
+      value: 0,
+    },
+    {
+      index: 92,
+      value: 0,
+    },
+    {
+      index: 93,
+      value: 0,
+    },
+    {
+      index: 94,
+      value: 0,
+    },
+    {
+      index: 95,
+      value: 0,
+    },
+    {
+      index: 96,
+      value: 0,
+    },
+  ],
+  "1.8.2": [
+    {
+      index: 0,
+      value: 0,
+    },
+    {
+      index: 1,
+      value: 0,
+    },
+    {
+      index: 2,
+      value: 0,
+    },
+    {
+      index: 3,
+      value: 0,
+    },
+    {
+      index: 4,
+      value: 0,
+    },
+    {
+      index: 5,
+      value: 0,
+    },
+    {
+      index: 6,
+      value: 0,
+    },
+    {
+      index: 7,
+      value: 0,
+    },
+    {
+      index: 8,
+      value: 0,
+    },
+    {
+      index: 9,
+      value: 0,
+    },
+    {
+      index: 10,
+      value: 0,
+    },
+    {
+      index: 11,
+      value: 0,
+    },
+    {
+      index: 12,
+      value: 0,
+    },
+    {
+      index: 13,
+      value: 0,
+    },
+    {
+      index: 14,
+      value: 0,
+    },
+    {
+      index: 15,
+      value: 0,
+    },
+    {
+      index: 16,
+      value: 0,
+    },
+    {
+      index: 17,
+      value: 0,
+    },
+    {
+      index: 18,
+      value: 0,
+    },
+    {
+      index: 19,
+      value: 0,
+    },
+    {
+      index: 20,
+      value: 0,
+    },
+    {
+      index: 21,
+      value: 0,
+    },
+    {
+      index: 22,
+      value: 0,
+    },
+    {
+      index: 23,
+      value: 0,
+    },
+    {
+      index: 24,
+      value: 0,
+    },
+    {
+      index: 25,
+      value: 0,
+    },
+    {
+      index: 25,
+      value: 0,
+    },
+    {
+      index: 79,
+      value: 0,
+    },
+    {
+      index: 80,
+      value: 0,
+    },
+    {
+      index: 81,
+      value: 0,
+    },
+    {
+      index: 82,
+      value: 0,
+    },
+    {
+      index: 83,
+      value: 0,
+    },
+    {
+      index: 84,
+      value: 0,
+    },
+    {
+      index: 85,
+      value: 0,
+    },
+    {
+      index: 86,
+      value: 0,
+    },
+    {
+      index: 87,
+      value: 0,
+    },
+    {
+      index: 88,
+      value: 0,
+    },
+    {
+      index: 89,
+      value: 0,
+    },
+    {
+      index: 90,
+      value: 0,
+    },
+    {
+      index: 91,
+      value: 0,
+    },
+    {
+      index: 92,
+      value: 0,
+    },
+    {
+      index: 93,
+      value: 0,
+    },
+    {
+      index: 94,
+      value: 0,
+    },
+    {
+      index: 95,
+      value: 0,
+    },
+    {
+      index: 96,
+      value: 0,
+    },
+  ],
+  "1.8.3": [
+    {
+      index: 0,
+      value: 0,
+    },
+    {
+      index: 1,
+      value: 0,
+    },
+    {
+      index: 2,
+      value: 0,
+    },
+    {
+      index: 3,
+      value: 0,
+    },
+    {
+      index: 4,
+      value: 0,
+    },
+    {
+      index: 5,
+      value: 0,
+    },
+    {
+      index: 6,
+      value: 0,
+    },
+    {
+      index: 7,
+      value: 0,
+    },
+    {
+      index: 8,
+      value: 0,
+    },
+    {
+      index: 9,
+      value: 0,
+    },
+    {
+      index: 10,
+      value: 0,
+    },
+    {
+      index: 11,
+      value: 0,
+    },
+    {
+      index: 12,
+      value: 0,
+    },
+    {
+      index: 13,
+      value: 0,
+    },
+    {
+      index: 14,
+      value: 0,
+    },
+    {
+      index: 15,
+      value: 0,
+    },
+    {
+      index: 16,
+      value: 0,
+    },
+    {
+      index: 17,
+      value: 0,
+    },
+    {
+      index: 18,
+      value: 0,
+    },
+    {
+      index: 19,
+      value: 0,
+    },
+    {
+      index: 20,
+      value: 0,
+    },
+    {
+      index: 21,
+      value: 0,
+    },
+    {
+      index: 22,
+      value: 0,
+    },
+    {
+      index: 23,
+      value: 0,
+    },
+    {
+      index: 24,
+      value: 0,
+    },
+    {
+      index: 25,
+      value: 0,
+    },
+    {
+      index: 25,
+      value: 0,
+    },
+    {
+      index: 79,
+      value: 0,
+    },
+    {
+      index: 80,
+      value: 0,
+    },
+    {
+      index: 81,
+      value: 0,
+    },
+    {
+      index: 82,
+      value: 0,
+    },
+    {
+      index: 83,
+      value: 0,
+    },
+    {
+      index: 84,
+      value: 0,
+    },
+    {
+      index: 85,
+      value: 0,
+    },
+    {
+      index: 86,
+      value: 0,
+    },
+    {
+      index: 87,
+      value: 0,
+    },
+    {
+      index: 88,
+      value: 0,
+    },
+    {
+      index: 89,
+      value: 0,
+    },
+    {
+      index: 90,
+      value: 0,
+    },
+    {
+      index: 91,
+      value: 0,
+    },
+    {
+      index: 92,
+      value: 0,
+    },
+    {
+      index: 93,
+      value: 0,
+    },
+    {
+      index: 94,
+      value: 0,
+    },
+    {
+      index: 95,
+      value: 0,
+    },
+    {
+      index: 96,
       value: 0,
     },
   ],

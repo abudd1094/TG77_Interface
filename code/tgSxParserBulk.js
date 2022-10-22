@@ -29,21 +29,26 @@ function parseBulkDump(sysExMessage) {
     // 1 --- 1AFM bulk dump
     case 466:
       post("BULK TYPE: 1AFM bulk dump --- tgSxParserBulk.js \n");
-      distributeAfmParameters(1, sysExMessage);
+      distributeElementMixerParameters(1, sysExMessage);
+      distributeAfmDataParameters(1, sysExMessage);
       break;
     // 2 --- 2AFM bulk dump
     case 832:
       post("BULK TYPE: 2AFM bulk dump --- tgSxParserBulk.js \n");
-      distributeAfmParameters(2, sysExMessage);
+      distributeElementMixerParameters(2, sysExMessage);
+      distributeAfmDataParameters(2, sysExMessage);
       break;
     // 3 --- 4AFM bulk dump
     case 1564:
       post("BULK TYPE: 4AFM bulk dump --- tgSxParserBulk.js \n");
-      // distributeAfmParameters(4, sysExMessage);
+      distributeElementMixerParameters(4, sysExMessage);
+      distributeAfmDataParameters(4, sysExMessage);
       break;
     // 4 --- 1AWM bulk dump
     case 221:
       post("BULK TYPE: 1AWM bulk dump --- tgSxParserBulk.js \n");
+      distributeElementMixerParameters(1, sysExMessage);
+      distributeAwmDataParameters(1, sysExMessage);
       break;
     // 5 --- 2AWM bulk dump
     case 342:
@@ -97,11 +102,6 @@ function distributeCommonParameters(bulkSysExMessage) {
   outlet(0, "vc", vcSegment);
 }
 
-function distributeAfmParameters(voiceCount, bulkSysExMessage) {
-  distributeElementMixerParameters(voiceCount, bulkSysExMessage);
-  distributeAfmDataParameters(voiceCount, bulkSysExMessage);
-}
-
 function distributeElementMixerParameters(voiceCount, bulkSysExMessage) {
   // 1 Voice
   var veMixerSegment1 = bulkSysExMessage.slice(98, 107);
@@ -142,26 +142,92 @@ function distributeAfmDataParameters(voiceCount, bulkSysExMessage) {
   }
 
   // 2 AFM
-  // if (voiceCount == 2) {
-  //   var veDataSegment1 = bulkSysExMessage.slice(116, 473);
-  //   outlet(0, "veData", 1, veDataSegment1);
+  if (voiceCount == 2) {
+    // also includes index 386 FM ALG
+    var veDataSegment1 = bulkSysExMessage.slice(116, 387);
+    var veDataModSegment1 = bulkSysExMessage.slice(386, 412);
+    var veDataFilterSegment1 = bulkSysExMessage.slice(412, 473);
 
-  //   var veDataSegment2 = bulkSysExMessage.slice(473, 830);
-  //   outlet(0, "veData", 2, veDataSegment2);
-  // }
+    writeCollToGBulk("1.6.0", veDataModSegment1);
 
-  // // 4 AFM
-  // if (voiceCount == 4) {
-  //   var veDataSegment1 = bulkSysExMessage.slice(134, 491);
-  //   outlet(0, "veData", 1, veDataSegment1);
+    outlet(0, "veData1", 1, veDataSegment1);
+    outlet(0, "veDataMod1", 1, veDataModSegment1);
+    outlet(0, "veDataFilter1", 1, veDataFilterSegment1);
 
-  //   var veDataSegment2 = bulkSysExMessage.slice(491, 848);
-  //   outlet(0, "veData", 2, veDataSegment2);
+    // also includes index 743 FM ALG
+    var veDataSegment2 = bulkSysExMessage.slice(473, 744);
+    var veDataModSegment2 = bulkSysExMessage.slice(743, 769);
+    var veDataFilterSegment2 = bulkSysExMessage.slice(769, 830);
 
-  //   var veDataSegment3 = bulkSysExMessage.slice(848, 1205);
-  //   outlet(0, "veData", 3, veDataSegment3);
+    writeCollToGBulk("1.6.1", veDataModSegment2);
 
-  //   var veDataSegment4 = bulkSysExMessage.slice(1205, 1562);
-  //   outlet(0, "veData", 4, veDataSegment4);
-  // }
+    outlet(0, "veData2", 2, veDataSegment2);
+    outlet(0, "veDataMod2", 2, veDataModSegment2);
+    outlet(0, "veDataFilter2", 2, veDataFilterSegment2);
+  }
+
+  // 4 AFM
+  if (voiceCount == 4) {
+    // also includes index 404 FM ALG
+    var veDataSegment1 = bulkSysExMessage.slice(134, 405);
+    var veDataModSegment1 = bulkSysExMessage.slice(404, 430);
+    var veDataFilterSegment1 = bulkSysExMessage.slice(430, 491);
+
+    writeCollToGBulk("1.6.0", veDataModSegment1);
+
+    outlet(0, "veData1", 1, veDataSegment1);
+    outlet(0, "veDataMod1", 1, veDataModSegment1);
+    outlet(0, "veDataFilter1", 1, veDataFilterSegment1);
+
+    // also includes index 761 FM ALG
+    var veDataSegment2 = bulkSysExMessage.slice(491, 762);
+    var veDataModSegment2 = bulkSysExMessage.slice(761, 787);
+    var veDataFilterSegment2 = bulkSysExMessage.slice(787, 848);
+
+    writeCollToGBulk("1.6.1", veDataModSegment2);
+
+    outlet(0, "veData2", 2, veDataSegment2);
+    outlet(0, "veDataMod2", 2, veDataModSegment2);
+    outlet(0, "veDataFilter2", 2, veDataFilterSegment2);
+
+    // also includes index 1118 FM ALG
+    var veDataSegment3 = bulkSysExMessage.slice(848, 1119);
+    var veDataModSegment3 = bulkSysExMessage.slice(1118, 1144);
+    var veDataFilterSegment3 = bulkSysExMessage.slice(1144, 1205);
+
+    writeCollToGBulk("1.6.2", veDataModSegment3);
+
+    outlet(0, "veData3", 3, veDataSegment3);
+    outlet(0, "veDataMod3", 3, veDataModSegment3);
+    outlet(0, "veDataFilter3", 3, veDataFilterSegment3);
+
+    // also includes index 1475 FM ALG
+    var veDataSegment4 = bulkSysExMessage.slice(1205, 1476);
+    var veDataModSegment4 = bulkSysExMessage.slice(1475, 1501);
+    var veDataFilterSegment4 = bulkSysExMessage.slice(1501, 1562);
+
+    writeCollToGBulk("1.6.3", veDataModSegment4);
+
+    outlet(0, "veData4", 4, veDataSegment4);
+    outlet(0, "veDataMod4", 4, veDataModSegment4);
+    outlet(0, "veDataFilter4", 4, veDataFilterSegment4);
+  }
+}
+
+function distributeAwmDataParameters(voiceCount, bulkSysExMessage) {
+  // 1 AWM
+  if (voiceCount == 1) {
+    var veDataSegment1part1 = bulkSysExMessage.slice(107, 113);
+    var veDataSegment1part2 = bulkSysExMessage.slice(195, 219);
+    var veDataSegment1 = [].concat.apply(
+      [],
+      [veDataSegment1part1, veDataSegment1part2]
+    );
+    var veDataModSegment1 = bulkSysExMessage.slice(113, 134);
+    var veDataFilterSegment1 = bulkSysExMessage.slice(134, 195);
+
+    outlet(0, "veData1", 1, veDataSegment1);
+    outlet(0, "veDataMod1", 1, veDataModSegment1);
+    outlet(0, "veDataFilter1", 1, veDataFilterSegment1);
+  }
 }

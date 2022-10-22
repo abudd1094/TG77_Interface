@@ -76,7 +76,7 @@
 			}
 , 			{
 				"box" : 				{
-					"comment" : "DATA IN: EL1_FILTER",
+					"comment" : "DATA IN: FILTER",
 					"id" : "obj-205",
 					"index" : 0,
 					"maxclass" : "inlet",
@@ -89,7 +89,7 @@
 			}
 , 			{
 				"box" : 				{
-					"comment" : "DATA IN: EL1_MOD",
+					"comment" : "DATA IN: MOD",
 					"id" : "obj-204",
 					"index" : 0,
 					"maxclass" : "inlet",
@@ -102,7 +102,7 @@
 			}
 , 			{
 				"box" : 				{
-					"comment" : "EL NO IN",
+					"comment" : "ELEMENT NUMBER",
 					"id" : "obj-3",
 					"index" : 0,
 					"maxclass" : "inlet",
@@ -115,7 +115,7 @@
 			}
 , 			{
 				"box" : 				{
-					"comment" : "DATA IN: EL1_VOICE",
+					"comment" : "DATA IN: VOICE",
 					"id" : "obj-203",
 					"index" : 0,
 					"maxclass" : "inlet",
