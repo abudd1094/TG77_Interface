@@ -163,6 +163,12 @@ exports.computeCollId = function computeCollId(collId, parsedSxArr) {
       "." +
       operatorNumber.toString();
   }
+  if (collId == 1.8) {
+    // determine el and op numbers and use to compute new collId
+    var elementNumber = parseElementNumber(parsedSxArr);
+
+    computedCollId = collId.toString() + "." + elementNumber.toString();
+  }
   if (collId == "1.10") {
     // determine el and op numbers and use to compute new collId
     var elementNumber = parseElementFilterNumber(parsedSxArr)[0];

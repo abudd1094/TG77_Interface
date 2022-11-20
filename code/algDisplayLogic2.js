@@ -1,4 +1,4 @@
-inlets = 2;
+inlets = 4;
 outlets = 2;
 
 var utilities = require("utilities");

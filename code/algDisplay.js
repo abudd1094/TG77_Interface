@@ -1,12 +1,12 @@
-inlets = 2;
+inlets = 7;
 outlets = 2;
 
-var utilities = require("utilities");
 var tgAlgorithms = require("tgAlgorithms");
-var tgDatabase = require("tgDatabase");
 
 function list() {
   var a = arrayfromargs(arguments);
+
+  post("received list \n");
 }
 
 function msg_int(v) {}

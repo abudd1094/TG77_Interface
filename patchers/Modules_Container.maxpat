@@ -50,10 +50,10 @@
 					"lockedsize" : 0,
 					"maxclass" : "bpatcher",
 					"name" : "AwmVoice_Panel.maxpat",
-					"numinlets" : 5,
-					"numoutlets" : 4,
+					"numinlets" : 4,
+					"numoutlets" : 3,
 					"offset" : [ 0.0, 0.0 ],
-					"outlettype" : [ "int", "", "", "" ],
+					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 1171.0, 773.399999999999977, 961.0, 170.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 916.0, 531.0, 880.0, 170.0 ],
@@ -475,6 +475,15 @@
 				"patchline" : 				{
 					"destination" : [ "obj-78", 3 ],
 					"midpoints" : [ 1056.749999999999773, 759.0, 889.0, 759.0 ],
+					"order" : 1,
+					"source" : [ "obj-150", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-8", 3 ],
+					"order" : 0,
 					"source" : [ "obj-150", 0 ]
 				}
 
@@ -903,6 +912,7 @@
 			"obj-78::obj-78::obj-1246" : [ "OP6_SHIFT1", "Level", 0 ],
 			"obj-78::obj-78::obj-1247" : [ "OP6_SHIFT0", "Level", 0 ],
 			"obj-78::obj-78::obj-1286" : [ "FM_COR", "Level Correction", 0 ],
+			"obj-78::obj-78::obj-29" : [ "FM_ALGO[1]", "Algorithm", 0 ],
 			"obj-78::obj-78::obj-921" : [ "FM_OFFSET4", "Offset 4", 0 ],
 			"obj-78::obj-78::obj-922" : [ "FM_OFFSET3", "Offset 3", 0 ],
 			"obj-78::obj-78::obj-923" : [ "FM_OFFSET2", "Offset 2", 0 ],
@@ -928,9 +938,18 @@
 			"obj-78::obj-78::obj-995" : [ "FM_COARSE", "Coarse", 0 ],
 			"obj-78::obj-78::obj-997" : [ "FM_FREQMODE", "Ratio", 0 ],
 			"obj-78::obj-78::obj-998" : [ "FM_PITCHMOD", "Pitch Mod", 0 ],
+			"obj-8::obj-105" : [ "menu_egMode", "live.menu", 0 ],
+			"obj-8::obj-110" : [ "PAR1", "R1", 0 ],
+			"obj-8::obj-111" : [ "PAR2", "R2", 0 ],
+			"obj-8::obj-115" : [ "PAR3", "R3", 0 ],
+			"obj-8::obj-119" : [ "PAR4", "R4", 0 ],
 			"obj-8::obj-12" : [ "menu_wavesource", "live.menu", 0 ],
+			"obj-8::obj-123" : [ "PARR1", "RR1", 0 ],
+			"obj-8::obj-127" : [ "PAL2", "L2", 0 ],
+			"obj-8::obj-131" : [ "PAL3", "L3", 0 ],
+			"obj-8::obj-139" : [ "PARS", "Rate Scale", 0 ],
+			"obj-8::obj-142" : [ "menu_freqmode", "live.menu", 0 ],
 			"obj-8::obj-1451" : [ "FM_FLFWAV", "Wave", 0 ],
-			"obj-8::obj-15" : [ "menu_wavenumber", "live.menu", 0 ],
 			"obj-8::obj-1534" : [ "FM_FR4", "R4", 0 ],
 			"obj-8::obj-1579" : [ "FM_FRR2", "RR2", 0 ],
 			"obj-8::obj-1602" : [ "FM_FRL4", "L4", 0 ],
@@ -938,7 +957,6 @@
 			"obj-8::obj-1682" : [ "FM_RATESCALE[1]", "Rate Scale", 0 ],
 			"obj-8::obj-1982" : [ "FM_RATESCALE[2]", "Rate Scale", 0 ],
 			"obj-8::obj-1994" : [ "FM_FRRL2[1]", "RL2", 0 ],
-			"obj-8::obj-20" : [ "live.toggle", "live.toggle", 0 ],
 			"obj-8::obj-2061" : [ "FM_FRL4[1]", "L4", 0 ],
 			"obj-8::obj-2084" : [ "FM_FRR2[1]", "RR2", 0 ],
 			"obj-8::obj-2129" : [ "FM_FR4[1]", "R4", 0 ],
@@ -965,6 +983,9 @@
 			"obj-8::obj-2185" : [ "FM_FPL0[1]", "L0", 0 ],
 			"obj-8::obj-2187" : [ "FM_FLT1_MODE[1]", "Wave", 0 ],
 			"obj-8::obj-2189" : [ "FM_FLT1_TYPE[1]", "Wave", 0 ],
+			"obj-8::obj-223" : [ "PAVSON", "Vel. Sens.", 0 ],
+			"obj-8::obj-224" : [ "live.toggle[1]", "live.toggle", 0 ],
+			"obj-8::obj-233" : [ "PAMS", "Amp Sens.", 0 ],
 			"obj-8::obj-26" : [ "PPF", "Fine", 0 ],
 			"obj-8::obj-30" : [ "PPF[1]", "Pitch Mod. Sens.", 0 ],
 			"obj-8::obj-587" : [ "FM_FCMS", "Mod", 0 ],
@@ -1008,8 +1029,15 @@
 			"obj-8::obj-916" : [ "FM_PENV_L3", "L3", 0 ],
 			"obj-8::obj-917" : [ "FM_PENV_L2", "L2", 0 ],
 			"obj-8::obj-918" : [ "FM_PENV_L1", "L1", 0 ],
-			"obj-8::obj-929" : [ "ELEMENT[1]", "ELEMENT", 0 ],
-			"obj-8::obj-932" : [ "FM_ALGO[1]", "Fixed Note", 0 ],
+			"obj-8::obj-921" : [ "FM_OFFSET4[1]", "Offset 4", 0 ],
+			"obj-8::obj-922" : [ "FM_OFFSET3[1]", "Offset 3", 0 ],
+			"obj-8::obj-923" : [ "FM_OFFSET2[1]", "Offset 2", 0 ],
+			"obj-8::obj-924" : [ "FM_OFFSET1[1]", "Offset 1", 0 ],
+			"obj-8::obj-925" : [ "FM_BP4[1]", "BP4", 0 ],
+			"obj-8::obj-926" : [ "FM_BP3[1]", "BP3", 0 ],
+			"obj-8::obj-927" : [ "FM_BP2[1]", "BP2", 0 ],
+			"obj-8::obj-928" : [ "FM_BP1[1]", "BP1", 0 ],
+			"obj-8::obj-932" : [ "FM_ALGO[2]", "Fixed Note", 0 ],
 			"parameterbanks" : 			{
 
 			}
@@ -1335,12 +1363,40 @@
 					"parameter_longname" : "FM_PENV_L1[1]"
 				}
 ,
-				"obj-8::obj-929" : 				{
-					"parameter_longname" : "ELEMENT[1]"
+				"obj-8::obj-921" : 				{
+					"parameter_longname" : "FM_OFFSET4[1]"
+				}
+,
+				"obj-8::obj-922" : 				{
+					"parameter_longname" : "FM_OFFSET3[1]"
+				}
+,
+				"obj-8::obj-923" : 				{
+					"parameter_longname" : "FM_OFFSET2[1]"
+				}
+,
+				"obj-8::obj-924" : 				{
+					"parameter_longname" : "FM_OFFSET1[1]"
+				}
+,
+				"obj-8::obj-925" : 				{
+					"parameter_longname" : "FM_BP4[1]"
+				}
+,
+				"obj-8::obj-926" : 				{
+					"parameter_longname" : "FM_BP3[1]"
+				}
+,
+				"obj-8::obj-927" : 				{
+					"parameter_longname" : "FM_BP2[1]"
+				}
+,
+				"obj-8::obj-928" : 				{
+					"parameter_longname" : "FM_BP1[1]"
 				}
 ,
 				"obj-8::obj-932" : 				{
-					"parameter_longname" : "FM_ALGO[1]"
+					"parameter_longname" : "FM_ALGO[2]"
 				}
 
 			}
@@ -1398,7 +1454,14 @@
 				"implicit" : 1
 			}
 , 			{
-				"name" : "algDisplayLogic.js",
+				"name" : "algDisplay.js",
+				"bootpath" : "~/Documents/Max 8/Max for Live Devices/TG77-Interface-Final Project/code",
+				"patcherrelativepath" : "../code",
+				"type" : "TEXT",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "algDisplayLogic2.js",
 				"bootpath" : "~/Documents/Max 8/Max for Live Devices/TG77-Interface-Final Project/code",
 				"patcherrelativepath" : "../code",
 				"type" : "TEXT",
@@ -1406,6 +1469,13 @@
 			}
 , 			{
 				"name" : "envDisplayLogic.js",
+				"bootpath" : "~/Documents/Max 8/Max for Live Devices/TG77-Interface-Final Project/code",
+				"patcherrelativepath" : "../code",
+				"type" : "TEXT",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "envDisplayLogicAwm.js",
 				"bootpath" : "~/Documents/Max 8/Max for Live Devices/TG77-Interface-Final Project/code",
 				"patcherrelativepath" : "../code",
 				"type" : "TEXT",
@@ -1433,6 +1503,13 @@
 				"implicit" : 1
 			}
 , 			{
+				"name" : "tgAwmMenuLogic.js",
+				"bootpath" : "~/Documents/Max 8/Max for Live Devices/TG77-Interface-Final Project/code",
+				"patcherrelativepath" : "../code",
+				"type" : "TEXT",
+				"implicit" : 1
+			}
+, 			{
 				"name" : "tgDbToPanel.js",
 				"bootpath" : "~/Documents/Max 8/Max for Live Devices/TG77-Interface-Final Project/code",
 				"patcherrelativepath" : "../code",
@@ -1448,6 +1525,13 @@
 			}
 , 			{
 				"name" : "tgPanelAfmDistributor.js",
+				"bootpath" : "~/Documents/Max 8/Max for Live Devices/TG77-Interface-Final Project/code",
+				"patcherrelativepath" : "../code",
+				"type" : "TEXT",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "tgPanelAwmDistributor.js",
 				"bootpath" : "~/Documents/Max 8/Max for Live Devices/TG77-Interface-Final Project/code",
 				"patcherrelativepath" : "../code",
 				"type" : "TEXT",
