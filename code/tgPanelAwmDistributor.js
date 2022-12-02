@@ -43,3 +43,12 @@ function fetchElementDbObj(elementNo, opNo) {
 
   return tgState;
 }
+
+function storeAndOutputBulkData(a) {
+  post("LIST RECEIVED tgPanelAwmDistributor" + "\n");
+  post(a + "\n");
+  post(a.length + "\n");
+
+  // var veDataSegment1part1 = bulkSysExMessage.slice(107, 113);
+  // var veDataSegment1part2 = bulkSysExMessage.slice(195, 219);
+}
