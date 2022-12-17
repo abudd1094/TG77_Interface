@@ -17,6 +17,9 @@ var opBoxWidth = 20;
 var opBoxHeight = 15;
 var opBoxGapX = 10;
 var opBoxGapY = 10;
+var initOffsetX = 10;
+var initOffsetY = 10;
+ 
 var textIndentX = 7;
 var textIndentY = 11;
 var input1indent = (opBoxWidth - 2) / 3;
@@ -24,20 +27,31 @@ var input2indent = input1indent * 2 + 1;
 
 var positionX = 0;
 var positionY = 0;
-
+    
 // METHODS
 function initialize(algNo) {
+  // set colors
+  outlet(0, "brgb", 38, 37, 37);
+  outlet(0, "frgb", 255, 255, 255);
   // set algorithm locally
   currentAlgorithm = algNo;
   algDataObject = tgAlgorithms.tgAlgorithms[currentAlgorithm];
+  var algInitOffsets = algDataObject.lcdConfig[6];
+  if (algInitOffsets) {
+    initOffsetX = algInitOffsets[0];
+    initOffsetY = algInitOffsets[1];
+  } else {
+    initOffsetX = 10;
+    initOffsetY = 10;
+  }
   // init variables, clear lcd
   positionX = 0;
   positionY = 0;
   outlet(0, "clear");
   initializeLcdPixelRowsArray();
   // add init offset and move to starting point
-  positionX += opBoxGapX;
-  positionY += opBoxGapY;
+  positionX += initOffsetX;
+  positionY += initOffsetY;
   outlet(0, "moveto", positionX, positionY);
 }
 
@@ -301,10 +315,10 @@ function drawAlgorithm(v) {
     }
     moveDown();
     // reset horizontal position
-    positionX = opBoxGapX;
+    positionX = initOffsetX;
   }
   // reset vertical position
-  positionY = opBoxGapY;
+  positionY = initOffsetY;
 }
 
 // RECEPTION FUNCTIONS
