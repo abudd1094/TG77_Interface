@@ -15,16 +15,15 @@ g = new Global("VOICE");
 g.receiveSxToParser = true;
 
 var {
+  conditionalPost,
   combineBits,
   mapDbValues,
   dec2bin,
   writeIndexToGBulk,
-  conditionalPost,
 } = require("utilities");
 var { tgAlgorithms } = require("tgAlgorithms");
 var { tgDataModels } = require("tgDataModels");
 var { DEFAULT_FM_ALGO } = require("defaults");
-var { fetchTgStateModel } = require("tgSxParserParamDataModel");
 
 var displayedElement = 1;
 var displayedOperator = 1;
@@ -34,7 +33,6 @@ var allowReceiveInteger = true;
 var allowOutputAlg = true;
 
 // PATCHER OBJECTS
-var ELEMENT = this.patcher.getnamed("ELEMENT");
 var OP1_ALGSRC0 = this.patcher.getnamed("OP1_ALGSRC0");
 var OP1_ALGSRC1 = this.patcher.getnamed("OP1_ALGSRC1");
 var OP1_SHIFT0 = this.patcher.getnamed("OP1_SHIFT0");
@@ -61,7 +59,6 @@ var OP6_SHIFT0 = this.patcher.getnamed("OP6_SHIFT0");
 var OP6_SHIFT1 = this.patcher.getnamed("OP6_SHIFT1");
 
 function bang() {
-  ELEMENT = this.patcher.getnamed("ELEMENT");
   OP1_ALGSRC0 = this.patcher.getnamed("OP1_ALGSRC0");
   OP1_ALGSRC1 = this.patcher.getnamed("OP1_ALGSRC1");
   OP1_SHIFT0 = this.patcher.getnamed("OP1_SHIFT0");
@@ -91,9 +88,12 @@ function bang() {
 // RECEPTION FUNCTIONS
 function msg_int(v) {
   if (allowReceiveInteger) {
-    // SWITCH ELEMENT
+    // SET ELEMENT #
     if (inlet == 1) {
-      handleSwitchElement(v);
+      conditionalPost(
+        "EL_NO SET to " + v + " --- tgPanelAfmDistributor.js" + "\n"
+      );
+      displayedElement = v;
     }
 
     // SWITCH OPERATOR
@@ -117,102 +117,16 @@ function list() {
   // Disable PARAM SX and DATA reception so we don't save anything
   // post("PARSER OFF tgPanelAfmDistributor.js \n")
   // outlet(4, "off", 0);
-
+  conditionalPost(
+    "STORE & OUPUT AFM VOICE DATA, EL# " +
+      displayedElement +
+      " --- tgPanelAfmDIstributor.js"
+  );
   storeAndOutputBulkData(a);
 
   // Re-enable PARAM SX and DATA reception
   // outlet(4, "on", 1);
   allowReceiveInteger = true;
-}
-
-// HELPER FUNCTIONS --- ELEMENT
-function handleSwitchElement(v) {
-  allowOutputAlg = false;
-  displayedElement = v;
-
-  var afmElementOperatorData6 = fetchElementDbObj(v, 6);
-  var afmElementOperatorData5 = fetchElementDbObj(v, 5);
-  var afmElementOperatorData4 = fetchElementDbObj(v, 4);
-  var afmElementOperatorData3 = fetchElementDbObj(v, 3);
-  var afmElementOperatorData2 = fetchElementDbObj(v, 2);
-  var afmElementOperatorData1 = fetchElementDbObj(v, 1);
-  var afmElementAlgNo = fetchAlgNo(v);
-
-  // Disable PARAM SX and DATA reception so we don't save anything
-  outlet(4, "off", 0);
-  allowOutputOperator = false;
-
-  outputElementData(
-    afmElementOperatorData6,
-    afmElementOperatorData5,
-    afmElementOperatorData4,
-    afmElementOperatorData3,
-    afmElementOperatorData2,
-    afmElementOperatorData1,
-    afmElementAlgNo
-  );
-
-  // Re-enable PARAM SX and DATA reception
-  outlet(4, "on", 1);
-  allowOutputOperator = true;
-  allowOutputAlg = true;
-}
-
-function outputElementData(
-  opData6,
-  opData5,
-  opData4,
-  opData3,
-  opData2,
-  opData1,
-  elAlg
-) {
-  var fbOpsOutput = extractFbOpsFromBulk(
-    elAlg,
-    opData1.slice(20, 21)[0].value,
-    opData2.slice(20, 21)[0].value,
-    opData3.slice(20, 21)[0].value,
-    opData4.slice(20, 21)[0].value,
-    opData5.slice(20, 21)[0].value,
-    opData6.slice(20, 21)[0].value
-  );
-  outlet(3, "", fbOpsOutput);
-
-  // // However, we always see the op connections in the matrix panel
-  outputOperatorConnectionData(6, opData6.slice(19, 22), fbOpsOutput, elAlg);
-  outputOperatorConnectionData(5, opData5.slice(19, 22), fbOpsOutput, elAlg);
-  outputOperatorConnectionData(4, opData4.slice(19, 22), fbOpsOutput, elAlg);
-  outputOperatorConnectionData(3, opData3.slice(19, 22), fbOpsOutput, elAlg);
-  outputOperatorConnectionData(2, opData2.slice(19, 22), fbOpsOutput, elAlg);
-  outputOperatorConnectionData(1, opData1.slice(19, 22), fbOpsOutput, elAlg);
-  // Output the currently displayed op data
-  currentOpData = null;
-
-  switch (displayedOperator) {
-    case 1:
-      currentOpData = opData1;
-      break;
-    case 2:
-      currentOpData = opData2;
-      break;
-    case 3:
-      currentOpData = opData3;
-      break;
-    case 4:
-      currentOpData = opData4;
-      break;
-    case 5:
-      currentOpData = opData5;
-      break;
-    case 6:
-      currentOpData = opData6;
-      break;
-    default:
-      break;
-  }
-
-  outlet(5, elAlg);
-  outputOperatorData(currentOpData);
 }
 
 function fetchElementDbObj(elementNo, opNo) {
@@ -655,15 +569,6 @@ function distributeAlgInputData(
   inputLevelPatcherObj.message(inputShiftFinal);
 }
 
-function fetchAlgNo(elementNo) {
-  var dbElementNo = elementNo - 1;
-  var computedCollId = "1.6." + dbElementNo;
-
-  var algNo = g.bulk[computedCollId][0].value;
-
-  return algNo + 1;
-}
-
 function extractFbOpsFromAlgo(tgAlgo) {
   var fbOps = {
     algoFbOp1: {
@@ -681,23 +586,25 @@ function extractFbOpsFromAlgo(tgAlgo) {
   };
 
   for (var opNo in tgAlgo) {
-    var initFbOpNo = tgAlgo[opNo]["fbConfig"][0];
-    var fixedFbOp =
-      tgAlgo[opNo]["fbConfig"][1] == -1 || tgAlgo[opNo]["fbConfig"][2] == -1;
+    if (opNo != "lcdConfig") {
+      var initFbOpNo = tgAlgo[opNo]["fbConfig"][0];
+      var fixedFbOp =
+        tgAlgo[opNo]["fbConfig"][1] == -1 || tgAlgo[opNo]["fbConfig"][2] == -1;
 
-    switch (initFbOpNo) {
-      case 1:
-        fbOps.algoFbOp1.value = opNo;
-        fbOps.algoFbOp1.fixed = fixedFbOp ? 1 : 0;
-        break;
-      case 2:
-        fbOps.algoFbOp2.value = opNo;
-        fbOps.algoFbOp2.fixed = fixedFbOp ? 1 : 0;
-        break;
-      case 3:
-        fbOps.algoFbOp3.value = opNo;
-        fbOps.algoFbOp3.fixed = fixedFbOp ? 1 : 0;
-        break;
+      switch (initFbOpNo) {
+        case 1:
+          fbOps.algoFbOp1.value = opNo;
+          fbOps.algoFbOp1.fixed = fixedFbOp ? 1 : 0;
+          break;
+        case 2:
+          fbOps.algoFbOp2.value = opNo;
+          fbOps.algoFbOp2.fixed = fixedFbOp ? 1 : 0;
+          break;
+        case 3:
+          fbOps.algoFbOp3.value = opNo;
+          fbOps.algoFbOp3.fixed = fixedFbOp ? 1 : 0;
+          break;
+      }
     }
   }
 
@@ -717,7 +624,7 @@ function extractAlgDst(i20) {
 
 // BULK DIST FUNCTIONS
 function storeAndOutputBulkData(bulkElementData) {
-  var elNo = bulkElementData.shift();
+  var elNo = displayedElement;
   var algNo = bulkElementData.pop() + 1;
 
   // We only see most op data one at a time

@@ -8,7 +8,7 @@ g.receiveSxToParser = true;
 
 var { conditionalPost } = require("utilities");
 
-var elementNo = 1;
+var elementNo = 0;
 
 // RECEPTION FUNCTIONS
 function msg_int(v) {
@@ -26,14 +26,7 @@ function list() {
   var elNo = elementNo;
   var tgState = fetchElementDbObj(elNo);
 
-  // Disable PARAM SX and DATA reception so we don't save anything
-  // post("PARSER OFF tgPanelVoiceModDistributor.js \n");
-  // outlet(1, "off", 0);
-
   storeAndOutputIndexedBulkData(a, tgState);
-
-  // Re-enable PARAM SX and DATA reception
-  // outlet(1, "on", 1);
 }
 
 function storeAndOutputIndexedBulkData(dataArr, tgState) {
@@ -47,7 +40,7 @@ function storeAndOutputIndexedBulkData(dataArr, tgState) {
 
 function fetchElementDbObj(elementNo) {
   var dbElementNo = elementNo - 1;
-  var computedCollId = "1.6." + dbElementNo;
+  var computedCollId = "1.8." + dbElementNo;
 
   var tgState = g.bulk[computedCollId];
 

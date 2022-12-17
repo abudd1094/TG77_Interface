@@ -1,11 +1,12 @@
-outlets = 1;
+// outlet 0 = data out, outlet 1 = bang for bpatcher EL NO set
+outlets = 2;
 inlets = 1;
 
 // Global Object
 g = new Global("VOICE");
 
 var tgDataModels = require("tgDataModels");
-var { dec2bin, conditionalPost } = require("utilities");
+var { conditionalPost } = require("utilities");
 var { defaultBulk } = require("defaultBulk");
 var {
   calculatebyteCount,
@@ -13,6 +14,7 @@ var {
   calculateVoiceCounts,
   extractValues,
   generateAfmSegments,
+  generateAwmSegments,
   generateMixerSegments,
 } = require("tgDatabaseHelpers");
 
@@ -42,6 +44,8 @@ function initialize() {
   g.allowBulkWrite = true;
   g.elementMode = 0;
   g.receiveSxToParser = true;
+  // bang bpatchers to ensure js files receive current element
+  outlet(1, "bang");
 
   generateBulk(0);
 }
@@ -171,16 +175,12 @@ function generateBulk(targetMemNo) {
   var modeNameSegment = extractValues(g.bulk[1.3].slice(0, 11));
   var efxSegment = extractValues(g.bulk[1.9]);
   var ccAndVcSegment = extractValues(g.bulk[1.3].slice(11, 35));
+  // TODO
   // [0, 0] when not an AWM voice
   var awmSegment = [0, 0];
   var veMixerSegments = generateMixerSegments(totalVoiceCount);
   var afmSegments = generateAfmSegments(afmVoiceCount);
-  // TODO
-  // var awmSegments = generateAwmSegments(awmVoiceCount);
-
-  // post("afmSegments" + "\n");
-  // post(JSON.stringify(afmSegments) + "\n");
-  // post("LENGTH: " + afmSegments.length + "\n");
+  var awmSegments = generateAwmSegments(awmVoiceCount);
 
   var compiledBulkArr = [].concat.apply(
     [],
@@ -192,7 +192,7 @@ function generateBulk(targetMemNo) {
       awmSegment,
       veMixerSegments,
       afmSegments,
-      // awmSegments,
+      awmSegments,
     ]
   );
 

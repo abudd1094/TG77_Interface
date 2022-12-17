@@ -6,23 +6,17 @@ outlets = 4;
 g = new Global("VOICE");
 g.receiveSxToParser = true;
 
-var {
-  combineBits,
-  mapDbValues,
-  dec2bin,
-  writeIndexToGBulk,
-  conditionalPost,
-} = require("utilities");
-var { tgAlgorithms } = require("tgAlgorithms");
+var { combineBits, conditionalPost } = require("utilities");
 var { tgDataModels } = require("tgDataModels");
-var { DEFAULT_FM_ALGO } = require("defaults");
-var { fetchTgStateModel } = require("tgSxParserParamDataModel");
 
 var elementNo = 0;
 
 // RECEPTION FUNCTIONS
 function msg_int(v) {
   if (inlet == 1) {
+    conditionalPost(
+      "EL_NO SET to " + v + " --- tgPanelFilterDistributor.js" + "\n"
+    );
     elementNo = v;
   }
 }
@@ -30,8 +24,7 @@ function msg_int(v) {
 // Voice Filter Data length should be 26
 function list() {
   var a = arrayfromargs(messagename, arguments);
-  var elNo = a.shift();
-  elementNo = elNo;
+  var elNo = elementNo;
 
   var rawDataFilter1 = a.slice(0, 29);
   var rawDataFilter2 = a.slice(29, 58);

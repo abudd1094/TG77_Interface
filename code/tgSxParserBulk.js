@@ -298,9 +298,6 @@ function distributeAwmDataParameters(
       var veDataModSegment1 = bulkSysExMessage.slice(113, 134);
       var veDataFilterSegment1 = bulkSysExMessage.slice(134, 195);
 
-      post("veDataSegment" + "\n");
-      post(veDataSegment1 + "\n");
-
       outlet(0, "veData", 1, veDataSegment1);
       outlet(0, "veDataMod", 1, veDataModSegment1);
       outlet(0, "veDataFilter", 1, veDataFilterSegment1);

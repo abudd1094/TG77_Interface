@@ -1,3 +1,5 @@
+var { dec2bin } = require("utilities");
+
 function extractValues(coll) {
   return coll.map(function (dataObj) {
     return dataObj.value;
@@ -9,7 +11,6 @@ exports.calculatebyteCount = function (voiceMode) {
   switch (voiceMode) {
     // 1 AFM MONO
     case 0:
-      post("calculatebyteCount \n");
       g.byteCount = 466;
       // byteCount1, byteCount2
       return [3, 74];
@@ -368,4 +369,104 @@ exports.generateAfmSegments = function (voiceCount) {
   );
 
   return compiledAfmSegments;
+};
+
+exports.generateAwmSegments = function (voiceCount) {
+  var awmSegment1 = [];
+  var awmSegment2 = [];
+  var awmSegment3 = [];
+  var awmSegment4 = [];
+
+  if (voiceCount > 0) {
+    // 1 AWM
+    var veAwmDataSegment1 = expandAfmOpData(extractValues(g.bulk["1.8.0"]));
+    var veAwmDataSegment1_Filter1 = expandFilterData(
+      extractValues(g.bulk["1.10.0.0"])
+    );
+    var veAwmDataSegment1_Filter2 = expandFilterData(
+      extractValues(g.bulk["1.10.0.1"])
+    );
+    var veAwmDataSegment1_FilterCommon = extractValues(g.bulk["1.10.0.2"]);
+
+    awmSegment1 = [].concat.apply(
+      [],
+      [
+        veAwmDataSegment1,
+        veAwmDataSegment1_Filter1,
+        veAwmDataSegment1_Filter2,
+        veAwmDataSegment1_FilterCommon,
+      ]
+    );
+  }
+
+  if (voiceCount > 1) {
+    // 2 AWM
+    var veAwmDataSegment2 = expandAfmOpData(extractValues(g.bulk["1.8.1"]));
+    var veAwmDataSegment2_Filter1 = expandFilterData(
+      extractValues(g.bulk["1.10.0.0"])
+    );
+    var veAwmDataSegment2_Filter2 = expandFilterData(
+      extractValues(g.bulk["1.10.0.1"])
+    );
+    var veAwmDataSegment2_FilterCommon = extractValues(g.bulk["1.10.0.2"]);
+
+    awmSegment2 = [].concat.apply(
+      [],
+      [
+        veAwmDataSegment2,
+        veAwmDataSegment2_Filter1,
+        veAwmDataSegment2_Filter2,
+        veAwmDataSegment2_FilterCommon,
+      ]
+    );
+  }
+
+  if (voiceCount > 2) {
+    // 4 AWM
+    var veAwmDataSegment3 = expandAfmOpData(extractValues(g.bulk["1.8.2"]));
+    var veAwmDataSegment3_Filter1 = expandFilterData(
+      extractValues(g.bulk["1.10.0.0"])
+    );
+    var veAwmDataSegment3_Filter2 = expandFilterData(
+      extractValues(g.bulk["1.10.0.1"])
+    );
+    var veAwmDataSegment3_FilterCommon = extractValues(g.bulk["1.10.0.2"]);
+
+    awmSegment3 = [].concat.apply(
+      [],
+      [
+        veAwmDataSegment3,
+        veAwmDataSegment3_Filter1,
+        veAwmDataSegment3_Filter2,
+        veAwmDataSegment3_FilterCommon,
+      ]
+    );
+
+    // 4 AWM
+    var veAwmDataSegment4 = expandAfmOpData(extractValues(g.bulk["1.8.3"]));
+    var veAwmDataSegment4_Filter1 = expandFilterData(
+      extractValues(g.bulk["1.10.0.0"])
+    );
+    var veAwmDataSegment4_Filter2 = expandFilterData(
+      extractValues(g.bulk["1.10.0.1"])
+    );
+    var veAwmDataSegment4_FilterCommon = extractValues(g.bulk["1.10.0.2"]);
+
+    awmSegment4 = [].concat.apply(
+      [],
+      [
+        veAwmDataSegment4,
+        veAwmDataSegment4_Filter1,
+        veAwmDataSegment4_Filter2,
+        veAwmDataSegment4_FilterCommon,
+      ]
+    );
+  }
+
+  var compiledAwmSegments = [].concat.apply(
+    [],
+    [awmSegment1, awmSegment2, awmSegment3, awmSegment4]
+  );
+
+  return compiledAwmSegments;
 };

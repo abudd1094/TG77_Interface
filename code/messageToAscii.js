@@ -1,4 +1,7 @@
 outlets = 1;
+
+var { conditionalPost } = require("utilities");
+
 // --- --- --- UTILITIES --- --- --- //
 function asciiArrToString(asciiArr) {
   var charArr = [];
@@ -32,6 +35,9 @@ function anything() {
     var asciiArr = stringToAsciiArr(a.join(" "));
   }
 
-  post("voice name changed to: " + a[0] + "\n");
+  g.voiceName = a[0];
+
+  conditionalPost("voice name changed to: " + a[0] + "\n");
+
   outlet(0, asciiArr);
 }

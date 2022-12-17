@@ -1,6 +1,6 @@
 // inlet 0: receive list with data value to be parsed, collId, collIndex
 // inlet 1: receive displayedElement from panel dial
-inlets = 1;
+inlets = 2;
 outlets = 1;
 
 g = new Global("VOICE");
@@ -17,38 +17,50 @@ var {
 var allowReceiveInteger = true;
 var allowOutputAlg = true;
 
-// AFM Voice Data length should be 357
+// AWM Voice Data length should be 30
 function list() {
-  allowReceiveInteger = false;
-  // store all element data and output first element by default
   var a = arrayfromargs(messagename, arguments);
-
-  // Disable PARAM SX and DATA reception so we don't save anything
-  // post("PARSER OFF tgPanelAfmDistributor.js \n")
-  // outlet(4, "off", 0);
-
-  storeAndOutputBulkData(a);
-
-  // Re-enable PARAM SX and DATA reception
-  // outlet(4, "on", 1);
+  allowReceiveInteger = false;
+  var trimmedData = trimAwmData(a);
+  storeAndOutputBulkData(trimmedData);
   allowReceiveInteger = true;
 }
 
 function fetchElementDbObj(elementNo, opNo) {
   var dbElementNo = elementNo - 1;
   var dbOpNo = opNo || displayedOperator;
-  var computedCollId = "1.7." + dbElementNo + "." + dbOpNo;
+  var computedCollId = "1.8." + dbElementNo + "." + dbOpNo;
 
   var tgState = g.bulk[computedCollId];
 
   return tgState;
 }
 
-function storeAndOutputBulkData(a) {
-  post("LIST RECEIVED tgPanelAwmDistributor" + "\n");
-  post(a + "\n");
-  post(a.length + "\n");
+function trimAwmData(awmData) {
+  // combine MSB LS7 values to one single value
+  var compressedDataForPanel = [];
+  var msb = null;
 
-  // var veDataSegment1part1 = bulkSysExMessage.slice(107, 113);
-  // var veDataSegment1part2 = bulkSysExMessage.slice(195, 219);
+  awmData.forEach(function (value, index) {
+    if (index == 19 || index == 21 || index == 23 || index == 25) {
+      msb = value;
+    } else if (index == 20 || index == 22 || index == 24 || index == 26) {
+      var ls7 = value;
+      var combinedValue = combineBits(msb, ls7);
+
+      compressedDataForPanel.push(combinedValue);
+    } else {
+      msb = null;
+      compressedDataForPanel.push(value);
+    }
+  });
+
+  return compressedDataForPanel;
+}
+
+function storeAndOutputBulkData(trimmedData) {
+  for (var i = 0; i < trimmedData.length; i++) {
+    // writeIndexToGBulk(collId, bulkIndex, a[i]);
+    outlet(0, i, trimmedData[i]);
+  }
 }

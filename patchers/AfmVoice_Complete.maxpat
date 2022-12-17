@@ -397,6 +397,7 @@
 			"obj-78::obj-1246" : [ "OP6_SHIFT1", "Level", 0 ],
 			"obj-78::obj-1247" : [ "OP6_SHIFT0", "Level", 0 ],
 			"obj-78::obj-1286" : [ "FM_COR", "Level Correction", 0 ],
+			"obj-78::obj-29" : [ "FM_ALGO[1]", "Algorithm", 0 ],
 			"obj-78::obj-921" : [ "FM_OFFSET4", "Offset 4", 0 ],
 			"obj-78::obj-922" : [ "FM_OFFSET3", "Offset 3", 0 ],
 			"obj-78::obj-923" : [ "FM_OFFSET2", "Offset 2", 0 ],
@@ -449,7 +450,14 @@
 				"implicit" : 1
 			}
 , 			{
-				"name" : "algDisplayLogic.js",
+				"name" : "algDisplay.js",
+				"bootpath" : "~/Documents/Max 8/Max for Live Devices/TG77-Interface-Final Project/code",
+				"patcherrelativepath" : "../code",
+				"type" : "TEXT",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "algDisplayLogic2.js",
 				"bootpath" : "~/Documents/Max 8/Max for Live Devices/TG77-Interface-Final Project/code",
 				"patcherrelativepath" : "../code",
 				"type" : "TEXT",

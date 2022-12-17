@@ -1,4 +1,7 @@
 outlets = 1;
+
+g = new Global("VOICE");
+
 // --- --- --- UTILITIES --- --- --- //
 function asciiArrToString(asciiArr) {
   var charArr = [];
@@ -17,6 +20,10 @@ function anything() {
     voiceName = "unknown";
   } else {
     var voiceName = asciiArrToString(a);
+    g.voiceName = voiceName;
+
+    post("VOICE NAME \n");
+    post(voiceName + "\n");
   }
 
   outlet(0, voiceName);

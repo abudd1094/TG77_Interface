@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 1546.0, 87.0, 1573.0, 959.0 ],
+		"rect" : [ 1546.0, 87.0, 1501.0, 959.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -1348,8 +1348,8 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1560.259182251417315, 41.999998927116394, 132.0, 22.0 ],
-					"text" : "receive currentElement"
+					"patching_rect" : [ 1560.259182251417315, 41.999998927116394, 175.0, 22.0 ],
+					"text" : "receive currentElementDecimal"
 				}
 
 			}
@@ -1588,7 +1588,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 4752.841435426520547, 249.761379793535582, 163.0, 22.0 ],
+					"patching_rect" : [ 4755.841435426520547, 67.761379793535582, 163.0, 22.0 ],
 					"text" : "send currentElementDecimal"
 				}
 
@@ -1780,7 +1780,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 4602.798170956282775, 249.761379793535582, 135.0, 22.0 ],
+					"patching_rect" : [ 4605.798170956282775, 67.761379793535582, 135.0, 22.0 ],
 					"saved_object_attributes" : 					{
 						"description" : "",
 						"digest" : "",
@@ -1800,7 +1800,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 4602.798170956282775, 279.292838793535566, 50.0, 22.0 ]
+					"patching_rect" : [ 4605.798170956282775, 97.292838793535566, 50.0, 22.0 ]
 				}
 
 			}
@@ -1810,7 +1810,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 4602.798170956282775, 311.992757499218897, 119.0, 22.0 ],
+					"patching_rect" : [ 4605.798170956282775, 129.992757499218897, 119.0, 22.0 ],
 					"text" : "send currentElement"
 				}
 
@@ -1826,7 +1826,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 4602.798170956282775, 193.761379793535582, 30.0, 30.0 ]
+					"patching_rect" : [ 4605.798170956282775, 11.761379793535582, 30.0, 30.0 ]
 				}
 
 			}
