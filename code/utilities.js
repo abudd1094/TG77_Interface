@@ -91,3 +91,52 @@ exports.writeIndexToGBulk = function (
   );
   gBulkColl[collectionIndex].value = dataValueToWrite;
 };
+
+exports.extractFbOpsFromAlgo = function (tgAlgo) {
+  var fbOps = {
+    algoFbOp1: {
+      value: null,
+      fixed: false,
+    },
+    algoFbOp2: {
+      value: null,
+      fixed: false,
+    },
+    algoFbOp3: {
+      value: null,
+      fixed: false,
+    },
+  };
+
+  for (var opNo in tgAlgo) {
+    if (opNo != "lcdConfig") {
+      var initFbOpNo = tgAlgo[opNo]["fbConfig"][0];
+      var fixedFbOp =
+        tgAlgo[opNo]["fbConfig"][1] == -1 || tgAlgo[opNo]["fbConfig"][2] == -1;
+
+      switch (initFbOpNo) {
+        case 1:
+          fbOps.algoFbOp1.value = opNo;
+          fbOps.algoFbOp1.fixed = fixedFbOp ? 1 : 0;
+          break;
+        case 2:
+          fbOps.algoFbOp2.value = opNo;
+          fbOps.algoFbOp2.fixed = fixedFbOp ? 1 : 0;
+          break;
+        case 3:
+          fbOps.algoFbOp3.value = opNo;
+          fbOps.algoFbOp3.fixed = fixedFbOp ? 1 : 0;
+          break;
+      }
+    }
+  }
+
+  return [
+    fbOps.algoFbOp1.value,
+    fbOps.algoFbOp1.fixed,
+    fbOps.algoFbOp2.value,
+    fbOps.algoFbOp2.fixed,
+    fbOps.algoFbOp3.value,
+    fbOps.algoFbOp3.fixed,
+  ];
+};

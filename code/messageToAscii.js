@@ -10,7 +10,6 @@ function asciiArrToString(asciiArr) {
   }
   return charArr.join("");
 }
-
 function stringToAsciiArr(string) {
   var asciiArr = [];
   if (string) {
@@ -25,7 +24,6 @@ function stringToAsciiArr(string) {
   }
   return asciiArr;
 }
-
 function anything() {
   var a = arrayfromargs(arguments);
   // if a is undefined, set voice name to "my voice"

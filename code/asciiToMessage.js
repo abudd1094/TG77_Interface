@@ -10,7 +10,6 @@ function asciiArrToString(asciiArr) {
   }
   return charArr.join("");
 }
-
 function anything() {
   var a = arrayfromargs(arguments);
 
