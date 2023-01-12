@@ -5,31 +5,30 @@
 inlets = 4;
 // outlet 0: UNUSED
 // outlet 1: displayed op number
-// outlet 2: op specific data
+// outlet 2: op specific data  
 // outlet 3: set fb ops
 // outlet 4: sxParser gates outside bpatcher
 // outlet 5: to ALG dial
 outlets = 6;
 
-g = new Global("VOICE");
-g.receiveSxToParser = true;
+g = new Global("VOICE"); 
+g.receiveSxToParser = true;  
 
 var {
+  catchError,
   conditionalPost,
-  combineBits,
   extractFbOpsFromAlgo,
   mapDbValues,
   dec2bin,
   writeIndexToGBulk,
-} = require("utilities");
+} = require("utilities"); 
 var { tgAlgorithms } = require("tgAlgorithms");
-var { tgDataModels } = require("tgDataModels");
 var { DEFAULT_FM_ALGO } = require("defaults");
 
 var displayedElement = 1;
 var displayedOperator = 1;
 var displayedAlgo = DEFAULT_FM_ALGO;
-var allowOutputOperator = true;
+var allowOutputOperator = true; 
 var allowReceiveInteger = true;
 var allowOutputAlg = true;
 
@@ -95,6 +94,8 @@ function msg_int(v) {
         "EL_NO SET to " + v + " --- tgPanelAfmDistributor.js" + "\n"
       );
       displayedElement = v;
+      post("displayedElement in msg_int" + "\n")
+      post(displayedElement + "\n")
     }
 
     // SWITCH OPERATOR
@@ -118,12 +119,17 @@ function list() {
   // Disable PARAM SX and DATA reception so we don't save anything
   // post("PARSER OFF tgPanelAfmDistributor.js \n")
   // outlet(4, "off", 0);
-  conditionalPost(
-    "STORE & OUPUT AFM VOICE DATA, EL# " +
+  post(
+    "OUPUT AFM VOICE DATA, EL# " +
       displayedElement +
-      " --- tgPanelAfmDIstributor.js"
+      " --- tgPanelAfmDIstributor.js" +
+      "\n"
   );
-  storeAndOutputBulkData(a);
+        post("displayedElement" + "\n");
+        post(displayedElement + "\n");
+
+  catchError(outputBulkData, a)
+  // outputBulkData(a);
 
   // Re-enable PARAM SX and DATA reception
   // outlet(4, "on", 1);
@@ -151,7 +157,6 @@ function handleSwitchOperator(v) {
 
   // Disable PARAM SX and DATA reception so we don't save anything
   outlet(4, "off", 0);
-
   outputOperatorData(afmElementOperatorData);
 
   // Re-enable PARAM SX and DATA reception
@@ -162,6 +167,8 @@ function outputOperatorData(opData) {
   outlet(1, displayedOperator);
 
   var numericalData = mapDbValues(opData);
+
+  post("outputOperatorData" + "\n")
 
   outlet(2, numericalData);
 }
@@ -260,132 +267,25 @@ function outputOperatorConnectionData(
   );
 }
 
-function storeOperatorData(elementNo, opNo, newElementData) {
-  var postElNo = elementNo - 1;
-  conditionalPost(
-    "WRITING COLLECTION 1.7." +
-      postElNo +
-      "." +
-      opNo +
-      " to g.bulk --- tgPanelAfmDistributor.js"
-  );
-  var tgState = fetchElementDbObj(elementNo, opNo);
-  populateOperatorDb(tgState, newElementData);
-}
-
-function populateOperatorDb(tgState, elementData) {
-  tgState.forEach(function (elDataObj, index) {
-    elDataObj.value = elementData[index];
-  });
-}
-
 // HELPER FUNCTIONS --- ALGORITHM
 function handleSwitchAlgorithm(v) {
+  g = new Global("VOICE");
+  bang();
+
+  g.displayedAlgo = v;
   displayedAlgo = v;
 
   // Disable PARSER out so we don't store or send a bunch of extra SX messages
   outlet(4, "off", 0);
+
+  // catchError(distributeAlgInputData)
 
   distributeAllAlgInputData();
 
   // Re-enable PARSER out
   outlet(4, "on", 1);
 }
-
-function encodeSrc(src, fbOpsOutput) {
-  var fbOp1 = parseInt(fbOpsOutput[0], 10);
-  var fbOp2 = parseInt(fbOpsOutput[2], 10);
-  var fbOp3 = parseInt(fbOpsOutput[4], 10);
-
-  switch (src) {
-    case 0:
-      return 0;
-    case fbOp1:
-      return 6;
-    case fbOp2:
-      return 7;
-    case fbOp3:
-      return 8;
-    default:
-      return 1;
-  }
-}
-
-function computei19(inputsArr, fbOpsOutput) {
-  var SRC0_dec = encodeSrc(inputsArr[0], fbOpsOutput);
-  var SRC1_dec = encodeSrc(inputsArr[1], fbOpsOutput);
-
-  var SRC0_bin = dec2bin(SRC0_dec, 4);
-  var SRC1_bin = dec2bin(SRC1_dec, 4);
-  var i19_bin = SRC1_bin + SRC0_bin;
-  return parseInt(i19_bin, 2);
-}
-
-function computei20(fbConfig) {
-  var OACSRC0_input = fbConfig[1];
-  var OACSRC1_input = fbConfig[2];
-
-  // If either OAC is fixed (-1) reassign to 0
-  if (OACSRC0_input == -1) {
-    OACSRC0_input = 0;
-  }
-  if (OACSRC1_input == -1) {
-    OACSRC1_input = 0;
-  }
-
-  var OACSRC0_bin = dec2bin(OACSRC0_input, 2);
-  var OACSRC1_bin = dec2bin(OACSRC1_input, 4);
-  var ALGDST_bin = dec2bin(fbConfig[0], 2);
-  var i20_bin = OACSRC1_bin + OACSRC0_bin + ALGDST_bin;
-
-  return parseInt(i20_bin, 2);
-}
-
-function computei21(inputsArr) {
-  var SHIFT0 = 0;
-  var SHIFT1 = 0;
-  var fullLevel = dec2bin(7, 3);
-  var noLevel = dec2bin(0, 3);
-
-  if (inputsArr[0] != 0) {
-    SHIFT0 = fullLevel;
-  } else {
-    SHIFT0 = noLevel;
-  }
-  if (inputsArr[1] != 0) {
-    SHIFT1 = fullLevel;
-  } else {
-    SHIFT1 = noLevel;
-  }
-
-  var i21_bin = "00" + SHIFT0 + SHIFT1;
-  return parseInt(i21_bin, 2);
-}
-
-function storeAlgParameters(tgAlgo, fbOpsOutput) {
-  storeAlgOpParameters(tgAlgo, 6, fbOpsOutput);
-  storeAlgOpParameters(tgAlgo, 5, fbOpsOutput);
-  storeAlgOpParameters(tgAlgo, 4, fbOpsOutput);
-  storeAlgOpParameters(tgAlgo, 3, fbOpsOutput);
-  storeAlgOpParameters(tgAlgo, 2, fbOpsOutput);
-  storeAlgOpParameters(tgAlgo, 1, fbOpsOutput);
-}
-
-function storeAlgOpParameters(tgAlgo, opNo, fbOpsOutput) {
-  var dbElementNo = displayedElement - 1;
-  var collId = "1.7." + dbElementNo + "." + opNo;
-
-  var Op_i19 = computei19(tgAlgo[opNo].inputs, fbOpsOutput);
-  var Op_i20 = computei20(tgAlgo[opNo].fbConfig);
-  var Op_i21 = computei21(tgAlgo[opNo].inputs);
-
-  fetchElementDbObj(displayedElement, opNo);
-
-  writeIndexToGBulk(collId, 19, Op_i19);
-  writeIndexToGBulk(collId, 20, Op_i20);
-  writeIndexToGBulk(collId, 21, Op_i21);
-}
-
+ 
 function distributeAllAlgInputData() {
   // take defaults from new algorithm and distribute to panel
   var tgAlgo = tgAlgorithms[displayedAlgo];
@@ -570,30 +470,118 @@ function distributeAlgInputData(
   inputLevelPatcherObj.message(inputShiftFinal);
 }
 
+function encodeSrc(src, fbOpsOutput) {
+  var fbOp1 = parseInt(fbOpsOutput[0], 10);
+  var fbOp2 = parseInt(fbOpsOutput[2], 10);
+  var fbOp3 = parseInt(fbOpsOutput[4], 10);
+
+  switch (src) {
+    case 0:
+      return 0;
+    case fbOp1:
+      return 6;
+    case fbOp2:
+      return 7;
+    case fbOp3:
+      return 8;
+    default:
+      return 1;
+  }
+}
+
+function computei19(inputsArr, fbOpsOutput) {
+  var SRC0_dec = encodeSrc(inputsArr[0], fbOpsOutput);
+  var SRC1_dec = encodeSrc(inputsArr[1], fbOpsOutput);
+
+  var SRC0_bin = dec2bin(SRC0_dec, 4);
+  var SRC1_bin = dec2bin(SRC1_dec, 4);
+  var i19_bin = SRC1_bin + SRC0_bin;
+  return parseInt(i19_bin, 2);
+}
+
+function computei20(fbConfig) {
+  var OACSRC0_input = fbConfig[1];
+  var OACSRC1_input = fbConfig[2];
+
+  // If either OAC is fixed (-1) reassign to 0
+  if (OACSRC0_input == -1) {
+    OACSRC0_input = 0;
+  }
+  if (OACSRC1_input == -1) {
+    OACSRC1_input = 0;
+  }
+
+  var OACSRC0_bin = dec2bin(OACSRC0_input, 2);
+  var OACSRC1_bin = dec2bin(OACSRC1_input, 4);
+  var ALGDST_bin = dec2bin(fbConfig[0], 2);
+  var i20_bin = OACSRC1_bin + OACSRC0_bin + ALGDST_bin;
+
+  return parseInt(i20_bin, 2);
+}
+
+function computei21(inputsArr) {
+  var SHIFT0 = 0;
+  var SHIFT1 = 0;
+  var fullLevel = dec2bin(7, 3);
+  var noLevel = dec2bin(0, 3);
+
+  if (inputsArr[0] != 0) {
+    SHIFT0 = fullLevel;
+  } else {
+    SHIFT0 = noLevel;
+  }
+  if (inputsArr[1] != 0) {
+    SHIFT1 = fullLevel;
+  } else {
+    SHIFT1 = noLevel;
+  }
+
+  var i21_bin = "00" + SHIFT0 + SHIFT1;
+  return parseInt(i21_bin, 2);
+}
+
+function storeAlgParameters(tgAlgo, fbOpsOutput) {
+  storeAlgOpParameters(tgAlgo, 6, fbOpsOutput);
+  storeAlgOpParameters(tgAlgo, 5, fbOpsOutput);
+  storeAlgOpParameters(tgAlgo, 4, fbOpsOutput);
+  storeAlgOpParameters(tgAlgo, 3, fbOpsOutput);
+  storeAlgOpParameters(tgAlgo, 2, fbOpsOutput);
+  storeAlgOpParameters(tgAlgo, 1, fbOpsOutput);
+}
+
+function storeAlgOpParameters(tgAlgo, opNo, fbOpsOutput) {
+  post("storeAlgOpParameters" + "\n");
+  post("OP " + opNo + "\n");
+
+  var dbElementNo = displayedElement - 1;
+  var collId = "1.7." + dbElementNo + "." + opNo;
+
+  var Op_i19 = computei19(tgAlgo[opNo].inputs, fbOpsOutput);
+  var Op_i20 = computei20(tgAlgo[opNo].fbConfig);
+  var Op_i21 = computei21(tgAlgo[opNo].inputs);
+
+  fetchElementDbObj(displayedElement, opNo);
+
+  writeIndexToGBulk(collId, 19, Op_i19);
+  writeIndexToGBulk(collId, 20, Op_i20);
+  writeIndexToGBulk(collId, 21, Op_i21);
+}
+
 function extractAlgDst(i20) {
   return parseInt(dec2bin(i20).split("").slice(6, 8).join(""), 2);
 }
 
 // BULK DIST FUNCTIONS
-function storeAndOutputBulkData(bulkElementData) {
-  var elNo = displayedElement;
+function outputBulkData(bulkElementData) {
   var algNo = bulkElementData.pop() + 1;
 
   // We only see most op data one at a time
-  var opData6 = trimAfmOpData(bulkElementData.slice(0, 45));
-  var opData5 = trimAfmOpData(bulkElementData.slice(45, 90));
-  var opData4 = trimAfmOpData(bulkElementData.slice(90, 135));
-  var opData3 = trimAfmOpData(bulkElementData.slice(135, 180));
-  var opData2 = trimAfmOpData(bulkElementData.slice(180, 225));
-  var opData1 = trimAfmOpData(bulkElementData.slice(225, 270));
-
-  // store all operator data
-  storeOperatorData(elNo, 6, opData6);
-  storeOperatorData(elNo, 5, opData5);
-  storeOperatorData(elNo, 4, opData4);
-  storeOperatorData(elNo, 3, opData3);
-  storeOperatorData(elNo, 2, opData2);
-  storeOperatorData(elNo, 1, opData1);
+  var opData6 = bulkElementData.slice(0, 39);
+  var opData5 = bulkElementData.slice(39, 78);
+  var opData4 = bulkElementData.slice(78, 117);
+  var opData3 = bulkElementData.slice(117, 156);
+  var opData2 = bulkElementData.slice(156, 195);
+  var opData1 = bulkElementData.slice(195, 234);
 
   // output ALG number to panel dial
   var fbOpsOutput = extractFbOpsFromBulk(
@@ -719,43 +707,5 @@ function extractOpSrcFromBulk(srcNo, srcVal, algNo, opNo, fbOpsOutput) {
     default:
       error("OP SRC SOURCE NOT IDENTIFIED for " + srcVal + "\n");
       return 0;
-  }
-}
-
-function trimAfmOpData(bulkSysExFragment) {
-  var dataModel = tgDataModels[1.7];
-  // combine MSB LS7 values to one single value
-  var compressedDataForPanel = [];
-  var skipIndex = null;
-
-  bulkSysExFragment.forEach(function (value, index) {
-    // skip this index, it was already added
-    if (index == skipIndex) {
-      skipIndex = null;
-      // combine this index with the next one as they are broken out in MSB LS7 format in bulk msg
-    } else if (
-      index == 19 ||
-      // special condition index 26, KOE and PHASE are received as separate values in BULK but stored together in one decimal value
-      index == 26 ||
-      index == 34 ||
-      index == 36 ||
-      index == 38 ||
-      index == 40
-    ) {
-      skipIndex = index + 1;
-      var nextValue = bulkSysExFragment[index + 1];
-      var combinedValue = combineBits(value, nextValue);
-      compressedDataForPanel.push(combinedValue);
-    } else {
-      compressedDataForPanel.push(value);
-    }
-  });
-
-  if (dataModel.length == compressedDataForPanel.length) {
-    return compressedDataForPanel;
-  } else {
-    error(
-      "trimAfmOpData in tgPanelAfmDistributor.js --- compressedData array length does not match data model"
-    );
   }
 }

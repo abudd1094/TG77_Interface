@@ -1,4 +1,6 @@
+// Element Number is 0 indexed --- Operator Number is not
 exports.defaultBulk = {
+  // COMMON: modeNameSegment + ccSegment + vcSegment
   1.3: [
     {
       index: 0,
@@ -44,6 +46,7 @@ exports.defaultBulk = {
       index: 10,
       value: 101,
     },
+    // index gap
     {
       index: 40,
       value: 6,
@@ -141,6 +144,7 @@ exports.defaultBulk = {
       value: 127,
     },
   ],
+  // MIXER: veMixerSegment1 --- Element 1
   "1.4.0": [
     {
       index: 0,
@@ -179,6 +183,7 @@ exports.defaultBulk = {
       value: 0,
     },
   ],
+  // MIXER: veMixerSegment2 --- Element 2
   "1.4.1": [
     {
       index: 0,
@@ -217,6 +222,7 @@ exports.defaultBulk = {
       value: 0,
     },
   ],
+  // MIXER: veMixerSegment3 --- Element 3
   "1.4.2": [
     {
       index: 0,
@@ -255,6 +261,7 @@ exports.defaultBulk = {
       value: 0,
     },
   ],
+  // MIXER: veMixerSegment4 --- Element 4
   "1.4.3": [
     {
       index: 0,
@@ -293,6 +300,7 @@ exports.defaultBulk = {
       value: 0,
     },
   ],
+  // AFM MOD: veDataModSegment1 --- Element 1
   "1.6.0": [
     { index: 0, value: 41 },
     { index: 1, value: 0 },
@@ -304,7 +312,7 @@ exports.defaultBulk = {
     { index: 7, value: 0 },
     { index: 8, value: 0 },
     { index: 9, value: 0 },
-    { index: 10, value: 0 },
+    { index: 10, value: 2 },
     { index: 11, value: 0 },
     { index: 12, value: 0 },
     { index: 13, value: 0 },
@@ -321,6 +329,7 @@ exports.defaultBulk = {
     { index: 24, value: 0 },
     { index: 25, value: 0 },
   ],
+  // AFM MOD: veDataModSegment2 --- Element 2
   "1.6.1": [
     { index: 0, value: 41 },
     { index: 1, value: 0 },
@@ -332,7 +341,7 @@ exports.defaultBulk = {
     { index: 7, value: 0 },
     { index: 8, value: 0 },
     { index: 9, value: 0 },
-    { index: 10, value: 0 },
+    { index: 10, value: 2 },
     { index: 11, value: 0 },
     { index: 12, value: 0 },
     { index: 13, value: 0 },
@@ -349,6 +358,7 @@ exports.defaultBulk = {
     { index: 24, value: 0 },
     { index: 25, value: 0 },
   ],
+  // AFM MOD: veDataModSegment3 --- Element 3
   "1.6.2": [
     { index: 0, value: 41 },
     { index: 1, value: 0 },
@@ -360,7 +370,7 @@ exports.defaultBulk = {
     { index: 7, value: 0 },
     { index: 8, value: 0 },
     { index: 9, value: 0 },
-    { index: 10, value: 0 },
+    { index: 10, value: 2 },
     { index: 11, value: 0 },
     { index: 12, value: 0 },
     { index: 13, value: 0 },
@@ -377,6 +387,7 @@ exports.defaultBulk = {
     { index: 24, value: 0 },
     { index: 25, value: 0 },
   ],
+  // AFM MOD: veDataModSegment4 --- Element 4
   "1.6.3": [
     { index: 0, value: 41 },
     { index: 1, value: 0 },
@@ -388,7 +399,7 @@ exports.defaultBulk = {
     { index: 7, value: 0 },
     { index: 8, value: 0 },
     { index: 9, value: 0 },
-    { index: 10, value: 0 },
+    { index: 10, value: 2 },
     { index: 11, value: 0 },
     { index: 12, value: 0 },
     { index: 13, value: 0 },
@@ -405,6 +416,7 @@ exports.defaultBulk = {
     { index: 24, value: 0 },
     { index: 25, value: 0 },
   ],
+  // AFM DATA: veDataSegment1 --- Element 1 by Operator
   "1.7.0.6": [
     {
       index: 0,
@@ -1353,6 +1365,7 @@ exports.defaultBulk = {
       value: 0,
     },
   ],
+  // AFM DATA: veDataSegment2 --- Element 2 by Operator
   "1.7.1.6": [
     {
       index: 0,
@@ -2301,6 +2314,7 @@ exports.defaultBulk = {
       value: 0,
     },
   ],
+  // AFM DATA: veDataSegment3 --- Element 3 by Operator
   "1.7.2.6": [
     {
       index: 0,
@@ -3249,6 +3263,7 @@ exports.defaultBulk = {
       value: 0,
     },
   ],
+  // AFM DATA: veDataSegment4 --- Element 4 by Operator
   "1.7.3.6": [
     {
       index: 0,
@@ -4197,6 +4212,7 @@ exports.defaultBulk = {
       value: 0,
     },
   ],
+  // AWM DATA: veDataSegment1 --- Element 1
   "1.8.0": [
     {
       index: 0,
@@ -4302,10 +4318,7 @@ exports.defaultBulk = {
       index: 25,
       value: 0,
     },
-    {
-      index: 25,
-      value: 0,
-    },
+    // index gap
     {
       index: 79,
       value: 0,
@@ -4378,7 +4391,16 @@ exports.defaultBulk = {
       index: 96,
       value: 0,
     },
+    {
+      index: 97,
+      value: 0,
+    },
+    {
+      index: 98,
+      value: 0,
+    },
   ],
+  // AWM DATA: veDataSegment2 --- Element 2
   "1.8.1": [
     {
       index: 0,
@@ -4484,10 +4506,7 @@ exports.defaultBulk = {
       index: 25,
       value: 0,
     },
-    {
-      index: 25,
-      value: 0,
-    },
+    // index gap
     {
       index: 79,
       value: 0,
@@ -4560,7 +4579,16 @@ exports.defaultBulk = {
       index: 96,
       value: 0,
     },
+    {
+      index: 97,
+      value: 0,
+    },
+    {
+      index: 98,
+      value: 0,
+    },
   ],
+  // AWM DATA: veDataSegment3 --- Element 3
   "1.8.2": [
     {
       index: 0,
@@ -4666,10 +4694,7 @@ exports.defaultBulk = {
       index: 25,
       value: 0,
     },
-    {
-      index: 25,
-      value: 0,
-    },
+    // index gap
     {
       index: 79,
       value: 0,
@@ -4742,7 +4767,16 @@ exports.defaultBulk = {
       index: 96,
       value: 0,
     },
+    {
+      index: 97,
+      value: 0,
+    },
+    {
+      index: 98,
+      value: 0,
+    },
   ],
+  // AWM DATA: veDataSegment4 --- Element 4
   "1.8.3": [
     {
       index: 0,
@@ -4848,10 +4882,7 @@ exports.defaultBulk = {
       index: 25,
       value: 0,
     },
-    {
-      index: 25,
-      value: 0,
-    },
+    // index gap
     {
       index: 79,
       value: 0,
@@ -4924,7 +4955,16 @@ exports.defaultBulk = {
       index: 96,
       value: 0,
     },
+    {
+      index: 97,
+      value: 0,
+    },
+    {
+      index: 98,
+      value: 0,
+    },
   ],
+  // EFX: efxSegment
   1.9: [
     {
       index: 0,
@@ -5036,15 +5076,16 @@ exports.defaultBulk = {
     },
     {
       index: 27,
-      value: 127,
+      value: 0,
     },
     {
       index: 28,
       value: 0,
     },
   ],
-  // 1.10.El#.Flt#
-  // 2 filters each plus 1 common section that applies to both filters
+  // FILTERS: efxSegment
+  // 1.10.El#.Flt#: 2 filters each plus 1 common section that applies to both filters
+  // FILTER 1: veDataFilterSegment1 (first half) --- Element 1
   "1.10.0.0": [
     {
       index: 0,
@@ -5147,6 +5188,7 @@ exports.defaultBulk = {
       value: 0,
     },
   ],
+  // FILTER 2: veDataFilterSegment1 (second half) --- Element 1
   "1.10.0.1": [
     {
       index: 0,
@@ -5249,6 +5291,7 @@ exports.defaultBulk = {
       value: 0,
     },
   ],
+  // FILTER COMMON: veDataFilterSegment1 (last few) --- Element 1
   "1.10.0.2": [
     {
       index: 25,
@@ -5263,6 +5306,7 @@ exports.defaultBulk = {
       value: 0,
     },
   ],
+  // FILTER 1: veDataFilterSegment2 (first half) --- Element 2
   "1.10.1.0": [
     {
       index: 0,
@@ -5365,6 +5409,7 @@ exports.defaultBulk = {
       value: 0,
     },
   ],
+  // FILTER 2: veDataFilterSegment2 (second half) --- Element 2
   "1.10.1.1": [
     {
       index: 0,
@@ -5467,6 +5512,7 @@ exports.defaultBulk = {
       value: 0,
     },
   ],
+  // FILTER COMMON: veDataFilterSegment2 (last few) --- Element 2
   "1.10.1.2": [
     {
       index: 25,
@@ -5481,6 +5527,7 @@ exports.defaultBulk = {
       value: 0,
     },
   ],
+  // FILTER 1: veDataFilterSegment3 (first half) --- Element 3
   "1.10.2.0": [
     {
       index: 0,
@@ -5583,6 +5630,7 @@ exports.defaultBulk = {
       value: 0,
     },
   ],
+  // FILTER 2: veDataFilterSegment3 (second half) --- Element 3
   "1.10.2.1": [
     {
       index: 0,
@@ -5685,6 +5733,7 @@ exports.defaultBulk = {
       value: 0,
     },
   ],
+  // FILTER COMMON: veDataFilterSegment3 (last few) --- Element 3
   "1.10.2.2": [
     {
       index: 25,
@@ -5699,6 +5748,7 @@ exports.defaultBulk = {
       value: 0,
     },
   ],
+  // FILTER 1: veDataFilterSegment4 (first half) --- Element 4
   "1.10.3.0": [
     {
       index: 0,
@@ -5801,6 +5851,7 @@ exports.defaultBulk = {
       value: 0,
     },
   ],
+  // FILTER 2: veDataFilterSegment4 (second half) --- Element 4
   "1.10.3.1": [
     {
       index: 0,
@@ -5903,6 +5954,7 @@ exports.defaultBulk = {
       value: 0,
     },
   ],
+  // FILTER COMMON: veDataFilterSegment4 (last few) --- Element 4
   "1.10.3.2": [
     {
       index: 25,

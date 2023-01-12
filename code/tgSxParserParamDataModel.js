@@ -4,15 +4,19 @@ g = new Global("VOICE");
 // IMPORTS
 var { conditionalPost, dec2bin } = require("utilities");
 var { tgDataModels } = require("tgDataModels");
+var { tgAlgorithms } = require("tgAlgorithms");
 
 // HELPER FUNCTIONS
-function formatValues(dataModel, values) {
+function formatValues(dataModel, values, collId) {
   var formattedValues = [];
   // format values based on data model
   switch (dataModel.name) {
     // 1.7.19
     case "ALGSRC0, ALGSRC1":
-      formattedValues = [formatInputSrc(values[0]), formatInputSrc(values[1])];
+      formattedValues = [
+        formatInputSrc(values[0], 1, collId),
+        formatInputSrc(values[1], 2, collId),
+      ];
       break;
     default:
       formattedValues = values;
@@ -22,21 +26,44 @@ function formatValues(dataModel, values) {
   return formattedValues;
 }
 
-function formatInputSrc(inputSrc) {
+function formatInputSrc(inputSrc, inputNo, collId) {
+  var opNo = collId.split(".")[3];
+
+  var algOpDefaultSrc1 = tgAlgorithms[g.displayedAlgo][opNo].inputs[0];
+  var algOpDefaultSrc2 = tgAlgorithms[g.displayedAlgo][opNo].inputs[1];
+
+  var returnVal;
+
   switch (inputSrc) {
+    // add default op from algorithm if necessary
+    case 0:
+      if (inputNo == 1 && algOpDefaultSrc1 != 0) {
+        returnVal = 1;
+      } else if (inputNo == 2 && algOpDefaultSrc2 != 0) {
+        returnVal = 1;
+      } else {
+        returnVal = inputSrc;
+      }
+      break;
     // FB OPs
     case 1:
     case 2:
     case 3:
-      return inputSrc + 5;
+      returnVal = inputSrc + 5;
+      break;
     // AWM
     case 4:
-      return 2;
+      returnVal = 2;
+      break;
     case 5:
-      return 10;
+      returnVal = 10;
+      break;
     default:
-      return inputSrc;
+      returnVal = inputSrc;
+      break;
   }
+
+  return returnVal;
 }
 
 // EXPORTS
@@ -58,10 +85,13 @@ exports.fetchTgStateModel = function fetchTgStateModel(baseCollId, collIndex) {
 
 exports.computeMultiBitValue = function computeMultiBitValue(
   dataModel,
-  values
+  values,
+  collId,
+  collIndex
 ) {
   // some values must be converted to fit their representation on the TG
-  formattedValues = formatValues(dataModel, values);
+  formattedValues = formatValues(dataModel, values, collId);
+
   // some values must be output in MSB LS7 syntax
   var twoHexValue = false;
   // initialize byte

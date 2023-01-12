@@ -30,15 +30,20 @@ var {
   computeElementFilterNumber,
 } = require("tgSxParserParamHelpers");
 
+// Local Variables
+var copyBuffer;
+
 // --- --- --- RECEPTION FUNCTIONS --- --- --- //
 function list() {
   var a = arrayfromargs(messagename, arguments);
 
+  post("received: " + "›");
+  post(JSON.stringify(a) + "›");
+
   // sysEx message passed in
   if (inlet == 0) {
     conditionalPost("PARAMETER RECEIVED in list() --- tgSxParserParam.js");
-    catchError(parseParameterChange, parseParamChangeType(a));
-    // parseParameterChange(parseParamChangeType(a));
+    parseParameterChange(parseParamChangeType(a));
   }
 
   // message w collection and index passed in
@@ -47,6 +52,14 @@ function list() {
     catchError(parseParameterData, a);
     // parseParameterData(a);
   }
+}
+
+function copy() {
+  var a = arrayfromargs(messagename, arguments);
+  // receive collId collIndex value
+
+  post("COPY" + "\n");
+  post(JSON.stringify(a) + "\n");
 }
 
 function anything() {
@@ -77,10 +90,18 @@ function parseParameterData(a) {
     values.shift();
     var baseCollId = collId.split(".").slice(0, 2).join(".");
     var dataModel = fetchTgStateModel(baseCollId, collIndex);
+
+    post("dataModel" + "\n");
+    post(JSON.stringify(dataModel) + "\n");
+
+    post("values" + "\n");
+    post(values + "\n");
+
     // combines values based on dataModel conditions for said index and indicates whether we need to break computed value into MSB LS7 syntax (twoHexValue)
     var { computedValue, twoHexValue } = computeMultiBitValue(
       dataModel,
-      values
+      values,
+      collId
     );
     var sxArr = generateSxArr(collId, collIndex, computedValue, twoHexValue);
 
@@ -287,12 +308,12 @@ function storeParameterValue(
   tgState.value = computedValue;
 
   // conditional posts
-  conditionalPost(
+  post(
     "Change stored in DB: " +
       computedCollId +
       " index " +
       computedCollIndex +
-      ""
+      "\n"
   );
-  conditionalPost(JSON.stringify(tgState) + "");
+  post(JSON.stringify(tgState) + "\n");
 }

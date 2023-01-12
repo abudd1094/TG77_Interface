@@ -39,25 +39,18 @@ var input2indent = input1indent * 2 + 1;
 var positionX = 0;
 var positionY = 0;
 
+var defaultOpColor = [255, 255, 255];
+var fbOpColor = [242, 187, 92];
+
 var defaultWireColors = {
   0: [34, 33, 33],
-  1: [128, 81, 0],
-  2: [149, 93, 0],
-  3: [170, 105, 0],
-  4: [191, 116, 0],
-  5: [210, 127, 10],
-  6: [217, 137, 25],
-  7: [222, 147, 42],
-};
-
-var userWireColors = {
-  1: [43, 0, 0],
-  2: [79, 0, 0],
-  3: [114, 0, 0],
-  4: [149, 0, 0],
-  5: [185, 0, 0],
-  6: [210, 0, 0],
-  7: [225, 0, 0],
+  1: [61, 61, 61],
+  2: [89, 89, 89],
+  3: [116, 116, 116],
+  4: [144, 144, 144],
+  5: [171, 171, 171],
+  6: [200, 200, 200],
+  7: [255, 255, 255],
 };
 
 var compiledAlgData = {
@@ -90,6 +83,39 @@ var compiledAlgData = {
 };
 
 // METHODS
+function applyAlgOffsets(algDataObject) {
+  var xTaken = 0;
+  var yTaken = 0;
+  var xUnit = lcdWidth / 6;
+  var yUnit = lcdHeight / 6;
+
+  for (var y = 0; y < 6; y++) {
+    for (var x = 0; x < 6; x++) {
+      if (y > yTaken && algDataObject.lcdConfig[y][x] != 0) {
+        yTaken = y;
+      }
+      if (x > xTaken && algDataObject.lcdConfig[y][x] != 0) {
+        xTaken = x;
+      }
+    }
+  }
+
+  xTaken += 1;
+  yTaken += 1;
+
+  var xAvailable = 6 - xTaken;
+  var yAvailable = 6 - yTaken;
+  var xAvailablePixels = (xAvailable * xUnit) / 2;
+  var yAvailablePixels = (yAvailable * yUnit) / 2;
+
+  if (xAvailable != 0) {
+    initOffsetX = xAvailablePixels;
+  }
+  if (yAvailable != 0) {
+    initOffsetY = yAvailablePixels;
+  }
+}
+
 function initialize(algNo) {
   // set colors
   outlet(0, "brgb", 38, 37, 37);
@@ -99,33 +125,24 @@ function initialize(algNo) {
   algDataObject = JSON.parse(
     JSON.stringify(tgAlgorithms.tgAlgorithms[currentAlgorithm])
   );
-
-  post("INIT \n")
-  post("algDataObject \n");
-  post(JSON.stringify(algDataObject) +  "\n");
-
-  var algInitOffsets = algDataObject.lcdConfig[6];
-  if (algInitOffsets) {
-    initOffsetX = algInitOffsets[0];
-    initOffsetY = algInitOffsets[1];
-  } else {
-    initOffsetX = 10;
-    initOffsetY = 10;
-  }
-  initializeLcd();
+  initializeCompiledAlgData(algDataObject);
+  initializeLcd(algDataObject);
 }
-function initializeLcd() {
+function initializeLcd(algDataObject) {
   // init variables, clear lcd
   positionX = 0;
   positionY = 0;
   outlet(0, "clear");
   initializeLcdPixelRowsArray();
-  // add init offset and move to starting point
+
+  // determine and add init offsets and move to starting point
+  applyAlgOffsets(algDataObject);
   positionX += initOffsetX;
   positionY += initOffsetY;
   outlet(0, "moveto", positionX, positionY);
 }
 function initializeLcdPixelRowsArray() {
+  lcdPixelRowsArray = [];
   for (var y = 0; y < lcdHeight; y++) {
     var lcdRowData = [];
 
@@ -151,6 +168,15 @@ function addToLcdPixelRowsArray(startX, startY, countX, countY, opNo) {
   }
 }
 
+function parseFbOpNo(opNo) {
+  var fbOpNos = compiledAlgData.fbOps.filter(function (item, index) {
+    if (index % 2 == 0) {
+      return item;
+    }
+  });
+  return fbOpNos.indexOf(opNo);
+}
+
 // Movement Functions
 function moveDown() {
   positionY += opBoxHeight + opBoxGapY;
@@ -170,26 +196,22 @@ function moveLeft() {
 }
 
 // Draw Functions
-function drawConnection(startX, startY, endX, endY, symbol) {
-  addToLcdPixelRowsArray(startX, startY, endX, endY, symbol);
-  outlet(0, "linesegment", startX, startY, endX, endY);
-}
-function drawOperator(opNo) {
-  // set draw color
-  outlet(0, "frgb", 255, 255, 255);
-  // draw rectangle & update pixel array with position
-  outlet(
-    0,
-    "framerect",
-    positionX,
-    positionY,
-    positionX + opBoxWidth,
-    positionY + opBoxHeight
-  );
-  addToLcdPixelRowsArray(positionX, positionY, opBoxWidth, opBoxHeight, opNo);
-  // draw numeric operator label
-  outlet(0, "moveto", positionX + textIndentX, positionY + textIndentY);
-  outlet(0, "write", opNo);
+function drawAlgorithm() {
+  for (var y = 0; y < 6; y++) {
+    for (var x = 0; x < 6; x++) {
+      var currentOp = algDataObject.lcdConfig[y][x];
+      if (currentOp != 0) {
+        drawDefaultAlgConnection(currentOp);
+        drawOperator(currentOp);
+      }
+      moveRight();
+    }
+    moveDown();
+    // reset horizontal position
+    positionX = initOffsetX;
+  }
+  // reset vertical position
+  positionY = initOffsetY;
 }
 function drawDefaultAlgConnection(opNo) {
   var input1level = compiledAlgData[opNo]["levels"][0];
@@ -217,6 +239,47 @@ function drawDefaultAlgConnection(opNo) {
     opNo,
     inputOps[1]
   );
+}
+function parseOpCoordinates(
+  opCoordinates,
+  inputcoordinates,
+  inputIndent,
+  opNo,
+  inputOp
+) {
+  if (inputcoordinates != "off") {
+    if (typeof inputcoordinates[0] == "object") {
+      inputcoordinates.forEach(function (coordSet) {
+        connectOpCoordinates(opCoordinates, coordSet, inputIndent);
+      });
+    } else if (opNo == inputOp) {
+      connectOpSelfFeedback(opCoordinates, inputIndent);
+    } else {
+      connectOpCoordinates(opCoordinates, inputcoordinates, inputIndent);
+    }
+  }
+}
+function drawOperator(opNo) {
+  // check for fb op and set draw color
+  var fbOpNo = parseFbOpNo(opNo);
+  outlet(0, "frgb", fbOpNo > -1 ? fbOpColor : defaultOpColor);
+  // draw rectangle & update pixel array with position
+  outlet(
+    0,
+    "framerect",
+    positionX,
+    positionY,
+    positionX + opBoxWidth,
+    positionY + opBoxHeight
+  );
+  addToLcdPixelRowsArray(positionX, positionY, opBoxWidth, opBoxHeight, opNo);
+  // draw numeric operator label
+  outlet(0, "moveto", positionX + textIndentX, positionY + textIndentY);
+  outlet(0, "write", opNo);
+}
+function drawConnection(startX, startY, endX, endY, symbol) {
+  addToLcdPixelRowsArray(startX, startY, endX, endY, symbol);
+  outlet(0, "linesegment", startX, startY, endX, endY);
 }
 function findOpCoordinates(opNo) {
   if (opNo == 0) return "off";
@@ -246,25 +309,7 @@ function findOpCoordinates(opNo) {
 
   return result;
 }
-function parseOpCoordinates(
-  opCoordinates,
-  inputcoordinates,
-  inputIndent,
-  opNo,
-  inputOp
-) {
-  if (inputcoordinates != "off") {
-    if (typeof inputcoordinates[0] == "object") {
-      inputcoordinates.forEach(function (coordSet) {
-        connectOpCoordinates(opCoordinates, coordSet, inputIndent);
-      });
-    } else if (opNo == inputOp) {
-      connectOpSelfFeedback(opCoordinates, inputIndent);
-    } else {
-      connectOpCoordinates(opCoordinates, inputcoordinates, inputIndent);
-    }
-  }
-}
+
 function connectOpCoordinates(startCoord, endCoord, inputIndent) {
   var distanceY = endCoord[0] - startCoord[0];
   var distanceX = endCoord[1] - startCoord[1];
@@ -371,23 +416,6 @@ function connectOpSelfFeedback(opCoordinates, inputIndent) {
     );
   }
 }
-function drawAlgorithm(v) {
-  for (var y = 0; y < 6; y++) {
-    for (var x = 0; x < 6; x++) {
-      var currentOp = algDataObject.lcdConfig[y][x];
-      if (currentOp != 0) {
-        drawOperator(currentOp);
-        drawDefaultAlgConnection(currentOp);
-      }
-      moveRight();
-    }
-    moveDown();
-    // reset horizontal position
-    positionX = initOffsetX;
-  }
-  // reset vertical position
-  positionY = initOffsetY;
-}
 
 // RECEPTION FUNCTIONS
 function msg_int(v) {
@@ -408,38 +436,26 @@ function list() {
   if (receiveListGate == true) {
     switch (inlet) {
       case 1: {
-        post("RECEIVED LIST INPUT 1 \n");
-        post(a + "\n");
         parseOpInputChange(a, inlet);
         break;
       }
       case 2: {
-        post("RECEIVED LIST INPUT 2 \n");
-        post(a + "\n");
         parseOpInputChange(a, inlet);
         break;
       }
       case 3: {
-        post("RECEIVED LIST INPUT 3 \n");
-        post(a + "\n");
         parseOpInputChange(a, inlet);
         break;
       }
       case 4: {
-        post("RECEIVED LIST INPUT 4 \n");
-        post(a + "\n");
         parseOpInputChange(a, inlet);
         break;
       }
       case 5: {
-        post("RECEIVED LIST INPUT 5 \n");
-        post(a + "\n");
         parseOpInputChange(a, inlet);
         break;
       }
       case 6: {
-        post("RECEIVED LIST INPUT 6 \n");
-        post(a + "\n");
         parseOpInputChange(a, inlet);
         break;
       }
@@ -450,14 +466,11 @@ function list() {
             compiledAlgData.fbOps[index] = val;
           }
         });
-        post("SET FB OPS \n");
-        post(JSON.stringify(compiledAlgData.fbOps));
-        post("\n");
         break;
       }
     }
     // re-render
-    initializeLcd();
+    initializeLcd(algDataObject);
     drawAlgorithm(currentAlgorithm);
   }
 }
@@ -472,17 +485,9 @@ function initializeCompiledAlgData(algDataObject) {
   for (var i = 1; i < 7; i++) {
     compiledAlgData[i]["inputs"] = algDataObject[i]["inputs"];
   }
-
-  post("INITIALIZED COMPILED ALG DATA FOR ALG: " + currentAlgorithm + "\n");
-  post(JSON.stringify(compiledAlgData));
-  post("\n");
 }
 
 function parseOpInputChange(a, opNo) {
-  post("parseOpInputChange for opNo " + opNo + "\n");
-  post(JSON.stringify(a));
-  post("\n");
-
   var fbOp1 = compiledAlgData.fbOps[0];
   var fbOp2 = compiledAlgData.fbOps[2];
   var fbOp3 = compiledAlgData.fbOps[4];
@@ -495,17 +500,13 @@ function parseOpInputChange(a, opNo) {
       // check if op input is fixed in algorithm & change if not
       case 0:
       case 1:
-        post("PARSING INPUTS FOR ALG: " + currentAlgorithm + "\n");
-        post(JSON.stringify(algDefaultOpInputs));
-        post(JSON.stringify(tgAlgorithms.tgAlgorithms[currentAlgorithm]));
-        post("\n");
-
         if (algDefaultOpInputs[index] == 0) {
           var opInputNo = 0;
           // TO DO: cases for AWM and NOISE op inputs NOTE 4 and 5 mapping to 7 and 8 does NOT WORK
           switch (val) {
             case 0:
               opInputNo = 0;
+              break;
             case 1:
               opInputNo = fbOp1;
               break;
@@ -539,8 +540,4 @@ function parseOpInputChange(a, opNo) {
         break;
     }
   });
-
-  post("UPDATED COMPILED ALG DATA FOR ALG: " + currentAlgorithm + "\n");
-  post(JSON.stringify(compiledAlgData));
-  post("\n");
 }

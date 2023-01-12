@@ -1,9 +1,23 @@
+inlets = 2;
+outlets = 2;
+
 var yOffset = 22;
 var yIncrement = 22;
 var xOffset = 0;
 var xIncrement = 200;
 var patcherObjects = [];
 var basePath = "";
+var messageCount = 0;
+
+function msg_int(v) {
+  // scroll patcher with slider range 0 - 100
+  if ((inlet = 1)) {
+    post(v + "\n");
+    var scrollUnit = 100 / messageCount;
+    var scrollValue = 0 - v * scrollUnit;
+    outlet(1, scrollValue);
+  }
+}
 
 function initialize() {
   yOffset = 22;
@@ -31,12 +45,17 @@ function clearAll() {
 }
 
 function printFiles() {
+  messageCount = 0;
   var fol = new Folder(basePath);
 
   while (!fol.end) {
     addMessage(fol.filename);
     fol.next();
+    messageCount += 1;
   }
+
+  post("printed files \n");
+  post("message count is: " + messageCount + "\n");
 }
 
 function addMessage(messageText) {

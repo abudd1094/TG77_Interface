@@ -14,6 +14,79 @@ exports.tgDataModels = {
   },
   // key indicates coll ID
   // index refers to N2 or computed combination of N1 and N2
+  1.2: [
+    {
+      index: 0,
+      name: "OFVCSW, INDOUT, OUT0CH, OUT1CH",
+      // ??
+      range: [0, 127],
+      note: "Stereo Output 1 Select",
+      condition: [
+        // off voice switch
+        {
+          V2: [6],
+          range: [0, 1],
+        },
+        // Individual output select
+        {
+          V2: [5, 4, 3, 2],
+          range: [0, 8],
+        },
+        // Output 1 select
+        {
+          V2: [0],
+          range: [0, 1],
+        },
+        // Output 2 select
+        {
+          V2: [1],
+          range: [0, 1],
+        },
+      ],
+    },
+    {
+      index: 1,
+      name: "VMEM",
+      range: [0, 3],
+      note: "Voice Memory Select",
+      condition: [],
+    },
+    {
+      index: 2,
+      name: "VNUM",
+      range: [0, 63],
+      note: "Voice Number",
+      condition: [],
+    },
+    {
+      index: 3,
+      name: "VOL",
+      range: [0, 127],
+      note: "Volume",
+      condition: [],
+    },
+    {
+      index: 4,
+      name: "MTUN",
+      range: [-64, 63],
+      note: "Tuning",
+      condition: [],
+    },
+    {
+      index: 5,
+      name: "MNSF",
+      range: [-64, 63],
+      note: "Note Shift",
+      condition: [],
+    },
+    {
+      index: 6,
+      name: "STPAN",
+      range: [-31, 31],
+      note: "Multi Static Pan",
+      condition: [],
+    },
+  ],
   1.3: [
     {
       index: 0,
@@ -706,11 +779,11 @@ exports.tgDataModels = {
       note: "Oscillator input 0 Shift value, Oscillator input 1 Shift value",
       condition: [
         {
-          V2: [5, 4, 3],
+          V2: [2, 1, 0],
           range: [0, 7],
         },
         {
-          V2: [2, 1, 0],
+          V2: [5, 4, 3],
           range: [0, 7],
         },
       ],
@@ -1183,7 +1256,7 @@ exports.tgDataModels = {
       condition: [],
     },
     {
-      index: 96,
+      index: 98,
       name: "PAMS",
       range: [-7, 7],
       note: "amplitude mod sens.",

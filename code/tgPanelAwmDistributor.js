@@ -15,52 +15,17 @@ var {
 } = require("utilities");
 
 var allowReceiveInteger = true;
-var allowOutputAlg = true;
 
 // AWM Voice Data length should be 30
 function list() {
   var a = arrayfromargs(messagename, arguments);
   allowReceiveInteger = false;
-  var trimmedData = trimAwmData(a);
-  storeAndOutputBulkData(trimmedData);
+  outputBulkData(a);
   allowReceiveInteger = true;
 }
 
-function fetchElementDbObj(elementNo, opNo) {
-  var dbElementNo = elementNo - 1;
-  var dbOpNo = opNo || displayedOperator;
-  var computedCollId = "1.8." + dbElementNo + "." + dbOpNo;
-
-  var tgState = g.bulk[computedCollId];
-
-  return tgState;
-}
-
-function trimAwmData(awmData) {
-  // combine MSB LS7 values to one single value
-  var compressedDataForPanel = [];
-  var msb = null;
-
-  awmData.forEach(function (value, index) {
-    if (index == 19 || index == 21 || index == 23 || index == 25) {
-      msb = value;
-    } else if (index == 20 || index == 22 || index == 24 || index == 26) {
-      var ls7 = value;
-      var combinedValue = combineBits(msb, ls7);
-
-      compressedDataForPanel.push(combinedValue);
-    } else {
-      msb = null;
-      compressedDataForPanel.push(value);
-    }
-  });
-
-  return compressedDataForPanel;
-}
-
-function storeAndOutputBulkData(trimmedData) {
+function outputBulkData(trimmedData) {
   for (var i = 0; i < trimmedData.length; i++) {
-    // writeIndexToGBulk(collId, bulkIndex, a[i]);
     outlet(0, i, trimmedData[i]);
   }
 }

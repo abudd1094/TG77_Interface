@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 1546.0, 380.0, 1268.0, 666.0 ],
+		"rect" : [ 1546.0, 87.0, 1515.0, 959.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -40,12 +40,23 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-21",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 902.731366273145795, 59.000023606609375, 214.0, 22.0 ],
+					"text" : "print ELNO_IN_MODULECONTAINER"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-96",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1047.249999999999773, 1790.33338189125061, 29.5, 22.0 ],
+					"patching_rect" : [ 1032.249999999999773, 1789.33338189125061, 29.5, 22.0 ],
 					"text" : "4"
 				}
 
@@ -375,7 +386,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1047.249999999999773, 1438.000038504600525, 29.5, 22.0 ],
+					"patching_rect" : [ 1063.249999999999773, 1437.000038504600525, 29.5, 22.0 ],
 					"text" : "3"
 				}
 
@@ -705,7 +716,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1047.249999999999773, 1085.666695117950439, 29.5, 22.0 ],
+					"patching_rect" : [ 1063.249999999999773, 1085.666695117950439, 29.5, 22.0 ],
 					"text" : "2"
 				}
 
@@ -2041,18 +2052,6 @@
 			}
 , 			{
 				"box" : 				{
-					"id" : "obj-150",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 1047.249999999999773, 94.800000786781311, 29.5, 22.0 ],
-					"text" : "1"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"bgmode" : 0,
 					"border" : 0,
 					"clickthrough" : 0,
@@ -2224,15 +2223,15 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-150", 0 ],
-					"order" : 3,
+					"destination" : [ "obj-21", 0 ],
+					"order" : 0,
 					"source" : [ "obj-1", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-71", 0 ],
+					"destination" : [ "obj-78", 3 ],
 					"order" : 2,
 					"source" : [ "obj-1", 0 ]
 				}
@@ -2240,16 +2239,8 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-72", 0 ],
+					"destination" : [ "obj-8", 3 ],
 					"order" : 1,
-					"source" : [ "obj-1", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-96", 0 ],
-					"order" : 0,
 					"source" : [ "obj-1", 0 ]
 				}
 
@@ -2555,24 +2546,6 @@
 				"patchline" : 				{
 					"destination" : [ "obj-14", 0 ],
 					"source" : [ "obj-15", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-78", 3 ],
-					"midpoints" : [ 1056.749999999999773, 805.0, 889.0, 805.0 ],
-					"order" : 1,
-					"source" : [ "obj-150", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-8", 3 ],
-					"midpoints" : [ 1056.749999999999773, 758.0, 1887.0, 758.0 ],
-					"order" : 0,
-					"source" : [ "obj-150", 0 ]
 				}
 
 			}
@@ -2905,9 +2878,33 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-102", 1 ],
+					"midpoints" : [ 223.499999999999886, 87.0, 36.0, 87.0, 36.0, 1857.0, 205.5, 1857.0 ],
+					"source" : [ "obj-35", 3 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-18", 1 ],
 					"midpoints" : [ 172.499999999999886, 87.0, 36.0, 87.0, 36.0, 759.0, 205.5, 759.0 ],
 					"source" : [ "obj-35", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-52", 1 ],
+					"midpoints" : [ 189.499999999999886, 87.0, 36.0, 87.0, 36.0, 1152.0, 205.5, 1152.0 ],
+					"source" : [ "obj-35", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-79", 1 ],
+					"midpoints" : [ 206.499999999999886, 87.0, 36.0, 87.0, 36.0, 1503.0, 205.5, 1503.0 ],
+					"source" : [ "obj-35", 2 ]
 				}
 
 			}
@@ -2969,6 +2966,14 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-101", 1 ],
+					"midpoints" : [ 343.499999999999886, 87.0, 36.0, 87.0, 36.0, 1857.0, 441.0, 1857.0 ],
+					"source" : [ "obj-41", 3 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-19", 1 ],
 					"midpoints" : [ 292.499999999999886, 87.0, 36.0, 87.0, 36.0, 759.0, 441.0, 759.0 ],
 					"source" : [ "obj-41", 0 ]
@@ -2977,9 +2982,49 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-48", 1 ],
+					"midpoints" : [ 309.499999999999886, 87.0, 36.0, 87.0, 36.0, 1152.0, 441.0, 1152.0 ],
+					"source" : [ "obj-41", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-77", 1 ],
+					"midpoints" : [ 326.499999999999886, 87.0, 36.0, 87.0, 36.0, 1503.0, 441.0, 1503.0 ],
+					"source" : [ "obj-41", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-100", 1 ],
+					"midpoints" : [ 457.499999999999886, 969.666696550046936, 676.5, 969.666696550046936 ],
+					"source" : [ "obj-42", 3 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-20", 1 ],
 					"midpoints" : [ 406.499999999999886, 87.0, 36.0, 87.0, 36.0, 759.0, 676.5, 759.0 ],
 					"source" : [ "obj-42", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-47", 1 ],
+					"midpoints" : [ 423.499999999999886, 87.0, 36.0, 87.0, 36.0, 1152.0, 676.5, 1152.0 ],
+					"source" : [ "obj-42", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-76", 1 ],
+					"midpoints" : [ 440.499999999999886, 793.500024856721893, 676.5, 793.500024856721893 ],
+					"source" : [ "obj-42", 2 ]
 				}
 
 			}
@@ -7969,6 +8014,13 @@
 				"bootpath" : "~/Documents/Max 8/Max for Live Devices/TG77-Interface-Final Project/patchers",
 				"patcherrelativepath" : ".",
 				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "algDisplayLogic.js",
+				"bootpath" : "~/Documents/Max 8/Max for Live Devices/TG77-Interface-Final Project/code",
+				"patcherrelativepath" : "../code",
+				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
