@@ -40,6 +40,17 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-106",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 1379.731366273145795, 81.0, 169.0, 22.0 ],
+					"text" : "print EL_NO_AfmVoice_Panel"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-81",
 					"maxclass" : "newobj",
 					"numinlets" : 2,
@@ -201,17 +212,6 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 2908.000086665153503, 1734.666718363761902, 69.0, 22.0 ],
 					"text" : "pack ID 0 0"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-76",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 2878.093262311201215, 1780.497374408520045, 32.0, 22.0 ],
-					"text" : "print"
 				}
 
 			}
@@ -1828,7 +1828,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 93.885120269041181, 1587.460278213024594, 24.0, 24.0 ]
+					"patching_rect" : [ 95.430858324140672, 1567.928818821907043, 24.0, 24.0 ]
 				}
 
 			}
@@ -3531,7 +3531,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 11.0,
 					"id" : "obj-1248",
-					"items" : [ "Off", ",", "6", ",", "5", ",", "4", ",", "AWM", ",", "Noise" ],
+					"items" : [ "Off", ",", 6, ",", 1, ",", 2, ",", "AWM", ",", "Noise" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -3558,7 +3558,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 11.0,
 					"id" : "obj-1249",
-					"items" : [ "Off", ",", "6", ",", "5", ",", "4", ",", "AWM", ",", "Noise" ],
+					"items" : [ "Off", ",", 6, ",", 1, ",", 2, ",", "AWM", ",", "Noise" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -3928,7 +3928,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 11.0,
 					"id" : "obj-1227",
-					"items" : [ "Off", ",", "6", ",", "5", ",", "4", ",", "AWM", ",", "Noise" ],
+					"items" : [ "Off", ",", 6, ",", 1, ",", 2, ",", "AWM", ",", "Noise" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -3956,7 +3956,7 @@
 					"fontsize" : 11.0,
 					"id" : "obj-1228",
 					"ignoreclick" : 1,
-					"items" : [ 6, ",", "6", ",", "5", ",", "4", ",", "AWM", ",", "Noise" ],
+					"items" : [ 6, ",", 6, ",", 1, ",", 2, ",", "AWM", ",", "Noise" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -4326,7 +4326,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 11.0,
 					"id" : "obj-1205",
-					"items" : [ "Off", ",", "6", ",", "5", ",", "4", ",", "AWM", ",", "Noise" ],
+					"items" : [ "Off", ",", 6, ",", 1, ",", 2, ",", "AWM", ",", "Noise" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -4354,7 +4354,7 @@
 					"fontsize" : 11.0,
 					"id" : "obj-1206",
 					"ignoreclick" : 1,
-					"items" : [ 5, ",", "6", ",", "5", ",", "4", ",", "AWM", ",", "Noise" ],
+					"items" : [ 5, ",", 6, ",", 1, ",", 2, ",", "AWM", ",", "Noise" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -4724,7 +4724,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 11.0,
 					"id" : "obj-1184",
-					"items" : [ "Off", ",", "6", ",", "5", ",", "4", ",", "AWM", ",", "Noise" ],
+					"items" : [ "Off", ",", 6, ",", 1, ",", 2, ",", "AWM", ",", "Noise" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -4752,7 +4752,7 @@
 					"fontsize" : 11.0,
 					"id" : "obj-1185",
 					"ignoreclick" : 1,
-					"items" : [ 4, ",", "6", ",", "5", ",", "4", ",", "AWM", ",", "Noise" ],
+					"items" : [ 4, ",", 6, ",", 1, ",", 2, ",", "AWM", ",", "Noise" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -5133,7 +5133,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 11.0,
 					"id" : "obj-1160",
-					"items" : [ "Off", ",", "6", ",", "5", ",", "4", ",", "AWM", ",", "Noise" ],
+					"items" : [ "Off", ",", 6, ",", 1, ",", 2, ",", "AWM", ",", "Noise" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -5161,7 +5161,7 @@
 					"fontsize" : 11.0,
 					"id" : "obj-1161",
 					"ignoreclick" : 1,
-					"items" : [ 3, ",", "6", ",", "5", ",", "4", ",", "AWM", ",", "Noise" ],
+					"items" : [ 3, ",", 6, ",", 1, ",", 2, ",", "AWM", ",", "Noise" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -8186,7 +8186,7 @@
 					"patching_rect" : [ 2660.528446313123823, 1162.360230088234403, 74.0, 20.0 ],
 					"pictures" : [ "afmWave01.png", "afmWave02.png", "afmWave03.png", "afmWave04.png", "afmWave05.png", "afmWave06.png", "afmWave07.png", "afmWave08.png", "afmWave09.png", "afmWave10.png", "afmWave11.png", "afmWave12.png", "afmWave13.png", "afmWave14.png", "afmWave15.png", "afmWave16.png" ],
 					"presentation" : 1,
-					"presentation_rect" : [ 217.321188839042861, 26.0, 41.75, 20.0 ],
+					"presentation_rect" : [ 224.821188839042861, 32.0, 41.75, 20.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_enum" : [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" ],
@@ -8757,7 +8757,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 11.0,
 					"id" : "obj-973",
-					"items" : [ "Off", ",", "6", ",", "5", ",", "4", ",", "AWM", ",", "Noise" ],
+					"items" : [ "Off", ",", 6, ",", 1, ",", 2, ",", "AWM", ",", "Noise" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -8785,7 +8785,7 @@
 					"fontsize" : 11.0,
 					"id" : "obj-974",
 					"ignoreclick" : 1,
-					"items" : [ 2, ",", "6", ",", "5", ",", "4", ",", "AWM", ",", "Noise" ],
+					"items" : [ 2, ",", 6, ",", 1, ",", 2, ",", "AWM", ",", "Noise" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -10958,14 +10958,14 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Ableton Sans Light",
-					"fontsize" : 12.0,
+					"fontsize" : 11.0,
 					"id" : "obj-930",
 					"maxclass" : "live.comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 2603.730369445066572, 1439.460278213024594, 75.0, 21.0 ],
+					"patching_rect" : [ 2603.730369445066572, 1439.460278213024594, 71.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 9.071188839042861, 57.261904954910278, 64.0, 21.0 ],
+					"presentation_rect" : [ 9.071188839042861, 57.261904954910278, 60.0, 20.0 ],
 					"saved_attribute_attributes" : 					{
 						"textcolor" : 						{
 							"expression" : ""
@@ -10982,14 +10982,14 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Ableton Sans Light",
-					"fontsize" : 12.0,
+					"fontsize" : 11.0,
 					"id" : "obj-987",
 					"maxclass" : "live.comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 3152.260120269040272, 1646.119040367695561, 76.0, 21.0 ],
+					"patching_rect" : [ 3152.260120269040272, 1646.119040367695561, 71.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 9.071188839042861, 145.5, 65.0, 21.0 ],
+					"presentation_rect" : [ 9.071188839042861, 145.5, 64.0, 20.0 ],
 					"saved_attribute_attributes" : 					{
 						"textcolor" : 						{
 							"expression" : ""
@@ -10997,7 +10997,7 @@
 
 					}
 ,
-					"text" : "Init Phase",
+					"text" : "Phase Sync",
 					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"textjustification" : 0
 				}
@@ -11006,14 +11006,14 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Ableton Sans Light",
-					"fontsize" : 12.0,
+					"fontsize" : 11.0,
 					"id" : "obj-989",
 					"maxclass" : "live.comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 3098.260120269038453, 668.856181403765049, 75.0, 21.0 ],
+					"patching_rect" : [ 3098.260120269038453, 668.856181403765049, 70.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 9.071188839042861, 122.940476249999989, 64.0, 21.0 ],
+					"presentation_rect" : [ 9.071188839042861, 122.940476249999989, 60.0, 20.0 ],
 					"saved_attribute_attributes" : 					{
 						"textcolor" : 						{
 							"expression" : ""
@@ -11030,14 +11030,14 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Ableton Sans Light",
-					"fontsize" : 12.0,
+					"fontsize" : 11.0,
 					"id" : "obj-991",
 					"maxclass" : "live.comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 3218.760120269040272, 1198.850435440357614, 77.0, 21.0 ],
+					"patching_rect" : [ 3218.760120269040272, 1198.850435440357614, 72.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 9.071188839042861, 100.380952499999992, 64.0, 21.0 ],
+					"presentation_rect" : [ 9.071188839042861, 100.380952499999992, 60.0, 20.0 ],
 					"saved_attribute_attributes" : 					{
 						"textcolor" : 						{
 							"expression" : ""
@@ -13402,7 +13402,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-929", 0 ],
+					"destination" : [ "obj-106", 0 ],
 					"source" : [ "obj-13", 0 ]
 				}
 

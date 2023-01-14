@@ -37,6 +37,7 @@ function initialize() {
   g.receiveSxToParser = true;
   // output element number 1 to patchers
   outlet(1, 1);
+  outlet(3, INIT_AFM_POLY);
   outlet(0, INIT_AFM_POLY);
 }
 

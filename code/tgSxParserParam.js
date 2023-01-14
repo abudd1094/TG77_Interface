@@ -10,7 +10,7 @@ outlets = 11;
 inlets = 2;
 
 var { defaultBulk } = require("defaultBulk");
-
+ 
 // Global Object
 g = new Global("VOICE");
 g.bulk = defaultBulk;
@@ -36,9 +36,6 @@ var copyBuffer;
 // --- --- --- RECEPTION FUNCTIONS --- --- --- //
 function list() {
   var a = arrayfromargs(messagename, arguments);
-
-  post("received: " + "›");
-  post(JSON.stringify(a) + "›");
 
   // sysEx message passed in
   if (inlet == 0) {
@@ -90,12 +87,6 @@ function parseParameterData(a) {
     values.shift();
     var baseCollId = collId.split(".").slice(0, 2).join(".");
     var dataModel = fetchTgStateModel(baseCollId, collIndex);
-
-    post("dataModel" + "\n");
-    post(JSON.stringify(dataModel) + "\n");
-
-    post("values" + "\n");
-    post(values + "\n");
 
     // combines values based on dataModel conditions for said index and indicates whether we need to break computed value into MSB LS7 syntax (twoHexValue)
     var { computedValue, twoHexValue } = computeMultiBitValue(

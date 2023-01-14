@@ -40,6 +40,17 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-150",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 4540.798170956282775, 1320.0, 174.0, 22.0 ],
+					"text" : "print EL_NO_AwmVoice_Panel"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"appearance" : 1,
 					"fontname" : "Arial",
 					"fontsize" : 10.0,
@@ -39411,7 +39422,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-55", 1 ],
+					"destination" : [ "obj-150", 0 ],
 					"order" : 2,
 					"source" : [ "obj-97", 0 ]
 				}

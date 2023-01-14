@@ -40,6 +40,20 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"annotation" : "EL NO OUT",
+					"comment" : "EL NO OUT",
+					"hint" : "EL NO OUT",
+					"id" : "obj-6",
+					"index" : 0,
+					"maxclass" : "outlet",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 1133.935714047295278, 290.0, 30.0, 30.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"annotation" : "GLOBAL UPDATE BANG",
 					"comment" : "GLOBAL UPDATE BANG",
 					"hint" : "GLOBAL UPDATE BANG",
@@ -112,7 +126,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 1133.935714047295278, 290.0, 30.0, 30.0 ]
+					"patching_rect" : [ 763.947618713962015, 290.0, 30.0, 30.0 ]
 				}
 
 			}
@@ -126,7 +140,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 578.953571047295327, 290.0, 30.0, 30.0 ]
+					"patching_rect" : [ 393.959523380628696, 290.0, 30.0, 30.0 ]
 				}
 
 			}
@@ -154,7 +168,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 856.444642547295302, 811.0, 30.0, 30.0 ]
+					"patching_rect" : [ 856.444642547295302, 818.0, 30.0, 30.0 ]
 				}
 
 			}
@@ -168,7 +182,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 1133.935714047295278, 811.0, 30.0, 30.0 ]
+					"patching_rect" : [ 1133.935714047295278, 818.0, 30.0, 30.0 ]
 				}
 
 			}
@@ -182,7 +196,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 578.953571047295327, 811.0, 30.0, 30.0 ]
+					"patching_rect" : [ 578.953571047295327, 818.0, 30.0, 30.0 ]
 				}
 
 			}
@@ -216,21 +230,6 @@
 			}
 , 			{
 				"box" : 				{
-					"annotation" : "EL MODE IN",
-					"comment" : "EL MODE IN",
-					"hint" : "EL MODE IN",
-					"id" : "obj-6",
-					"index" : 0,
-					"maxclass" : "inlet",
-					"numinlets" : 0,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 1133.935714047295278, 18.0, 30.0, 30.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"annotation" : "EL NO IN",
 					"comment" : "EL NO IN",
 					"hint" : "EL NO IN",
@@ -240,7 +239,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 578.953571047295327, 18.0, 30.0, 30.0 ]
+					"patching_rect" : [ 1133.935714047295278, 18.0, 30.0, 30.0 ]
 				}
 
 			}
@@ -271,10 +270,10 @@
 					"lockedsize" : 0,
 					"maxclass" : "bpatcher",
 					"name" : "Voice_Panel.maxpat",
-					"numinlets" : 3,
-					"numoutlets" : 3,
+					"numinlets" : 2,
+					"numoutlets" : 4,
 					"offset" : [ 0.0, 0.0 ],
-					"outlettype" : [ "int", "", "" ],
+					"outlettype" : [ "int", "", "", "" ],
 					"patching_rect" : [ 23.971428047295376, 82.333357572555542, 1128.964285999999902, 170.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 1257.964285999999902, 170.0 ],
@@ -324,6 +323,13 @@
 				"patchline" : 				{
 					"destination" : [ "obj-12", 0 ],
 					"source" : [ "obj-1", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 0 ],
+					"source" : [ "obj-1", 3 ]
 				}
 
 			}
@@ -388,13 +394,6 @@
 				"patchline" : 				{
 					"destination" : [ "obj-1", 1 ],
 					"source" : [ "obj-5", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-1", 2 ],
-					"source" : [ "obj-6", 0 ]
 				}
 
 			}
@@ -511,7 +510,7 @@
 			"obj-1::obj-229::obj-1487::obj-694" : [ "CCPITCHASSIGN", "live.menu", 0 ],
 			"obj-1::obj-229::obj-1487::obj-695" : [ "CCVOL", "Volume Ctrl", 0 ],
 			"obj-1::obj-229::obj-1487::obj-696" : [ "CCVOLASSIGN", "live.menu", 0 ],
-			"obj-1::obj-229::obj-16" : [ "live.tab[3]", "live.tab", 0 ],
+			"obj-1::obj-229::obj-16" : [ "live.tab[8]", "live.tab", 0 ],
 			"obj-1::obj-229::obj-234" : [ "live.tab[7]", "live.tab", 0 ],
 			"obj-1::obj-229::obj-32::obj-600" : [ "OUTSEL1[1]", "Ratio", 0 ],
 			"obj-1::obj-229::obj-32::obj-601" : [ "OUTSEL0[1]", "Ratio", 0 ],
@@ -664,6 +663,7 @@
 			"obj-1::obj-229::obj-78::obj-78::obj-1247" : [ "OP6_SHIFT0", "Level", 0 ],
 			"obj-1::obj-229::obj-78::obj-78::obj-1286" : [ "FM_COR", "Level Correction", 0 ],
 			"obj-1::obj-229::obj-78::obj-78::obj-29" : [ "FM_ALGO[1]", "Algorithm", 0 ],
+			"obj-1::obj-229::obj-78::obj-78::obj-77" : [ "live.tab", "live.tab", 0 ],
 			"obj-1::obj-229::obj-78::obj-78::obj-921" : [ "FM_OFFSET4", "Offset 4", 0 ],
 			"obj-1::obj-229::obj-78::obj-78::obj-922" : [ "FM_OFFSET3", "Offset 3", 0 ],
 			"obj-1::obj-229::obj-78::obj-78::obj-923" : [ "FM_OFFSET2", "Offset 2", 0 ],
@@ -687,7 +687,6 @@
 			"obj-1::obj-229::obj-78::obj-78::obj-993" : [ "FM_DETUNE", "Detune", 0 ],
 			"obj-1::obj-229::obj-78::obj-78::obj-994" : [ "FM_FINE", "Fine", 0 ],
 			"obj-1::obj-229::obj-78::obj-78::obj-995" : [ "FM_COARSE", "Coarse", 0 ],
-			"obj-1::obj-229::obj-78::obj-78::obj-997" : [ "FM_FREQMODE", "Ratio", 0 ],
 			"obj-1::obj-229::obj-78::obj-78::obj-998" : [ "FM_PITCHMOD", "Pitch Mod", 0 ],
 			"obj-1::obj-229::obj-8::obj-105" : [ "menu_egMode", "live.tab", 0 ],
 			"obj-1::obj-229::obj-8::obj-110" : [ "PAR1", "R1", 0 ],
@@ -702,7 +701,7 @@
 			"obj-1::obj-229::obj-8::obj-142" : [ "menu_freqmode", "live.tab", 0 ],
 			"obj-1::obj-229::obj-8::obj-1451" : [ "FM_FLFWAV[2]", "Wave", 0 ],
 			"obj-1::obj-229::obj-8::obj-147" : [ "live.tab[6]", "live.tab", 0 ],
-			"obj-1::obj-229::obj-8::obj-152" : [ "live.tab", "live.tab", 0 ],
+			"obj-1::obj-229::obj-8::obj-152" : [ "live.tab[3]", "live.tab", 0 ],
 			"obj-1::obj-229::obj-8::obj-153" : [ "live.tab[1]", "live.tab", 0 ],
 			"obj-1::obj-229::obj-8::obj-1534" : [ "FM_FR4[2]", "R4", 0 ],
 			"obj-1::obj-229::obj-8::obj-155" : [ "live.tab[2]", "live.tab", 0 ],
@@ -790,10 +789,12 @@
 			"obj-1::obj-229::obj-8::obj-928" : [ "FM_BP1[1]", "BP1", 0 ],
 			"obj-1::obj-229::obj-8::obj-932" : [ "FM_ALGO[2]", "Fixed Note", 0 ],
 			"obj-1::obj-234" : [ "live.tab[14]", "live.tab", 0 ],
+			"obj-1::obj-39" : [ "COMMON_MNSFT", "Note Shift", 0 ],
 			"obj-1::obj-42" : [ "COMMON_VOICEVOL", "Voice Vol", 0 ],
 			"obj-1::obj-48" : [ "COMMON_MICROTUNING", "common microtuning", 0 ],
 			"obj-1::obj-51" : [ "COMMON_PORTAMENTO", "Portamento", 0 ],
 			"obj-1::obj-52" : [ "COMMON_PORTAMENTOMODE", "live.menu", 0 ],
+			"obj-1::obj-55" : [ "COMMON_MTUNE", "Fine Tune", 0 ],
 			"parameterbanks" : 			{
 				"0" : 				{
 					"index" : 0,
@@ -804,6 +805,14 @@
 			}
 ,
 			"parameter_overrides" : 			{
+				"obj-1::obj-22" : 				{
+					"parameter_longname" : "common_randomPitch"
+				}
+,
+				"obj-1::obj-229::obj-16" : 				{
+					"parameter_longname" : "live.tab[8]"
+				}
+,
 				"obj-1::obj-229::obj-234" : 				{
 					"parameter_longname" : "live.tab[7]"
 				}
@@ -822,6 +831,10 @@
 ,
 				"obj-1::obj-229::obj-8::obj-1451" : 				{
 					"parameter_longname" : "FM_FLFWAV[2]"
+				}
+,
+				"obj-1::obj-229::obj-8::obj-152" : 				{
+					"parameter_longname" : "live.tab[3]"
 				}
 ,
 				"obj-1::obj-229::obj-8::obj-1534" : 				{

@@ -40,13 +40,26 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"annotation" : "EL NO from TABS OUT",
+					"comment" : "EL NO from TABS OUT",
+					"hint" : "EL NO from TABS OUT",
+					"id" : "obj-4",
+					"index" : 0,
+					"maxclass" : "outlet",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 894.453969128169774, 924.33336067199707, 30.0, 30.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-66",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 1682.673810927002251, 643.0, 63.159521611602486, 33.0 ],
-					"presentation_linecount" : 2,
 					"text" : "Coll 1.13 index 41"
 				}
 
@@ -349,8 +362,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 729.037300951518773, 630.0, 50.0, 22.0 ],
-					"text" : "1"
+					"patching_rect" : [ 729.037300951518773, 627.375, 50.0, 22.0 ],
+					"text" : "4"
 				}
 
 			}
@@ -424,7 +437,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 951.453969128169774, 917.33336067199707, 30.0, 30.0 ]
+					"patching_rect" : [ 636.453969128169774, 917.33336067199707, 30.0, 30.0 ]
 				}
 
 			}
@@ -453,21 +466,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 60.453969128169774, 917.33336067199707, 30.0, 30.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"annotation" : "EL MODE IN",
-					"comment" : "EL MODE IN",
-					"hint" : "EL MODE IN",
-					"id" : "obj-5",
-					"index" : 0,
-					"maxclass" : "inlet",
-					"numinlets" : 0,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 951.453969128169774, 557.733349084854126, 30.0, 30.0 ]
 				}
 
 			}
@@ -932,7 +930,7 @@
 					"name" : "Modules_Container_Minimized.maxpat",
 					"numinlets" : 9,
 					"numoutlets" : 3,
-					"offset" : [ 0.0, -530.0 ],
+					"offset" : [ 0.0, 0.0 ],
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 60.453969128169774, 668.666666507720947, 910.0, 170.0 ],
 					"presentation" : 1,
@@ -2344,6 +2342,13 @@
 					"destination" : [ "obj-6", 0 ],
 					"midpoints" : [ 1595.833332538604736, 525.0, 993.0, 525.0, 993.0, 903.0, 69.953969128169774, 903.0 ],
 					"source" : [ "obj-20", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-4", 0 ],
+					"source" : [ "obj-21", 0 ]
 				}
 
 			}

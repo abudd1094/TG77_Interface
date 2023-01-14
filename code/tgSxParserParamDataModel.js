@@ -103,7 +103,7 @@ exports.computeMultiBitValue = function computeMultiBitValue(
     if (cond.hasOwnProperty("V2")) {
       conditionIndexes = cond.V2.slice();
     }
-    // some also use the V1 bit
+    // some also use the V1 bit 
     if (cond.hasOwnProperty("V1")) {
       conditionIndexes = conditionIndexes.concat(cond.V1);
       twoHexValue = true;

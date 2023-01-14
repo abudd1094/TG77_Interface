@@ -1,4 +1,6 @@
-inlets = 1;
+// inlet 1 = sx bulk data in
+// inlet 2 = element number request in
+inlets = 2;
 // 2 = send to parserGate
 outlets = 3;
 
@@ -30,12 +32,17 @@ function list() {
   catchError(processList, a);
 }
 
-// REFACTORS
+function msg_int(v) {
+  post("DUMP ELEMENT " + v + "\n");
+}
+
 function processList(sysExMessage) {
   // disable PARSER out to prevent distributed values from re-storing
   outlet(1, "off", 0);
   // parse out segments
   var {
+    voiceMode,
+
     modeNameSegment,
     ccSegment,
     vcSegment,
@@ -115,8 +122,22 @@ function processList(sysExMessage) {
   ]);
   // 1.9 EFX
   writeCollToGBulk(1.9, efxSegment);
-  // 1.10
-  // TO DO: Conditionally determine filter data combination based on voice mode
+  // 1.10 write filters to bulk and retrieve active segments for distribution based on voice mode
+  var activeFilterSegments = writeFilterDataToGBulk([
+    voiceMode,
+    [
+      afmVeDataFilterSegment1,
+      afmVeDataFilterSegment2,
+      afmVeDataFilterSegment3,
+      afmVeDataFilterSegment4,
+    ],
+    [
+      awmVeDataFilterSegment1,
+      awmVeDataFilterSegment2,
+      awmVeDataFilterSegment3,
+      awmVeDataFilterSegment4,
+    ],
+  ]);
 
   // output data to patchers
   // 1.3 Common
@@ -162,13 +183,15 @@ function processList(sysExMessage) {
     [],
     [awmVeDataSegment4_1, awmVeDataModSegment4, awmVeDataSegment4_2]
   );
-
   outputDataToPatcher("veData", [
     trimAwmData(awmConcatenatedDataSegment1),
     trimAwmData(awmConcatenatedDataSegment2),
     trimAwmData(awmConcatenatedDataSegment3),
-    trimAwmData(awmConcatenatedDataSegment4),
+    trimAwmData(awmConcatenatedDataSegment4), 
   ]);
+  // 1.10 FILTERS
+  var elOneFilterData = parseFilterSegments(activeFilterSegments[0], true)
+  outputDataToPatcher("veFilterData", elOneFilterData);
 
   // re-enable PARSER out
   outlet(1, "on", 1);
@@ -176,6 +199,7 @@ function processList(sysExMessage) {
 
 function parseBulkDump(sysExMessage) {
   post("PARSING BULK DUMP --- tgSxParserBulk.js \n");
+  var voiceMode = sysExMessage[32];
   // parse out common segments
   var modeNameSegment = sysExMessage.slice(32, 43);
   var efxSegment = sysExMessage.slice(43, 72);
@@ -219,6 +243,8 @@ function parseBulkDump(sysExMessage) {
   } = parseAwmDataParameters(totalElCount, awmElCount, sysExMessage);
 
   return {
+    voiceMode: voiceMode,
+
     modeNameSegment: modeNameSegment,
     efxSegment: efxSegment,
     ccSegment: ccSegment,
@@ -686,7 +712,7 @@ function writeAwmVoiceDataToGBulk(awmVeDataSegmentsArr) {
   });
 }
 
-function outputDataToPatcher(route, data) {   
+function outputDataToPatcher(route, data) {
   var ammendedRoute = route;
 
   // single level data
@@ -714,4 +740,125 @@ function createZeroArr(indexes) {
     arr.push(0);
   }
   return arr;
+}
+// 1.10
+function trimFilterData(bulkSysExFragment) {
+  var dataModel = tgDataModels["1.10"];
+  // combine MSB LS7 values to one single value
+  var compressedDataForPanel = [];
+  var skipIndex = null;
+
+  bulkSysExFragment.forEach(function (value, index) {
+    // skip this index if it was already added
+    if (index == skipIndex) {
+      skipIndex = null;
+      // combine this index with the next one as they are broken out in MSB LS7 format in bulk msg
+    } else if (index == 21 || index == 23 || index == 25 || index == 27) {
+      skipIndex = index + 1;
+      var nextValue = bulkSysExFragment[index + 1];
+      var combinedValue = combineBits(value, nextValue);
+      compressedDataForPanel.push(combinedValue);
+    } else {
+      compressedDataForPanel.push(value);
+    }
+  });
+
+  if (dataModel.length - 3 == compressedDataForPanel.length) {
+    return compressedDataForPanel;
+  } else {
+    error(
+      "trimFilterData in tgPanelFilterDistributor.js --- compressedData array length does not match data model"
+    );
+  }
+}
+
+function parseActiveFilters(filterDataSegmentsArr) {
+  var voiceMode = filterDataSegmentsArr[0];
+  var afmFilterSegments = filterDataSegmentsArr[1];
+  var awmFilterSegments = filterDataSegmentsArr[2];
+
+  var activeFilterSegments = [];
+
+  switch (voiceMode) {
+    case 0:
+    case 3:
+      activeFilterSegments = [afmFilterSegments[0]];
+      break;
+    case 1:
+    case 4:
+      activeFilterSegments = [afmFilterSegments[0], afmFilterSegments[1]];
+      break;
+    case 2:
+      activeFilterSegments = afmFilterSegments;
+      break;
+    case 5:
+      activeFilterSegments = [awmFilterSegments[0]];
+      break;
+    case 6:
+      activeFilterSegments = [awmFilterSegments[0], awmFilterSegments[1]];
+      break;
+    case 7:
+      activeFilterSegments = awmFilterSegments;
+      break;
+    case 8:
+      activeFilterSegments = [afmFilterSegments[0], awmFilterSegments[0]];
+      break;
+    case 9:
+      activeFilterSegments = [
+        afmFilterSegments[0],
+        afmFilterSegments[1],
+        awmFilterSegments[0],
+        awmFilterSegments[1],
+      ];
+      break;
+    default:
+      break;
+  }
+
+  return activeFilterSegments;
+}
+
+function parseFilterSegments(veFilterSegment, combineTrimmed) {
+  var veFilterSegment1 = trimFilterData(veFilterSegment.slice(0, 29));
+  var veFilterSegment2 = trimFilterData(veFilterSegment.slice(29, 58));
+  var veFilterSegmentCommon = veFilterSegment.slice(58, 61);
+
+  if (combineTrimmed) {
+    return [].concat.apply(
+      [],
+      [veFilterSegment1, veFilterSegment2, veFilterSegmentCommon]
+    );
+  }
+
+  return {
+    veFilterSegment1: veFilterSegment1,
+    veFilterSegment2: veFilterSegment2,
+    veFilterSegmentCommon: veFilterSegmentCommon,
+  };
+}
+
+function writeFilterDataToGBulk(filterDataSegmentsArr) {
+  var activeFilterSegments = parseActiveFilters(filterDataSegmentsArr);
+
+  activeFilterSegments.forEach(function (veFilterSegment, i) {
+    var dbElementNo = i;
+    var collBaseId = "1.10." + dbElementNo;
+    var offValuesArr = createZeroArr(25);
+    var offValuesArrCommon = createZeroArr(3);
+
+    var { veFilterSegment1, veFilterSegment2, veFilterSegmentCommon } =
+      parseFilterSegments(veFilterSegment);
+
+    if (veFilterSegment) {
+      writeCollToGBulk(collBaseId + ".0", veFilterSegment1);
+      writeCollToGBulk(collBaseId + ".1", veFilterSegment2);
+      writeCollToGBulk(collBaseId + ".2", veFilterSegmentCommon);
+    } else {
+      writeCollToGBulk(collBaseId + ".0", offValuesArr);
+      writeCollToGBulk(collBaseId + ".1", offValuesArr);
+      writeCollToGBulk(collBaseId + ".2", offValuesArrCommon);
+    }
+  });
+
+  return activeFilterSegments;
 }

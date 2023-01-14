@@ -5083,7 +5083,7 @@ exports.defaultBulk = {
       value: 0,
     },
   ],
-  // FILTERS: efxSegment
+  // FILTERS: filterSegment
   // 1.10.El#.Flt#: 2 filters each plus 1 common section that applies to both filters
   // FILTER 1: veDataFilterSegment1 (first half) --- Element 1
   "1.10.0.0": [
