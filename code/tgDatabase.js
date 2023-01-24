@@ -154,7 +154,10 @@ function paste() {
   }
 
   // re-distribute updated bulk
-  distributeBulk(g.targetMemoryNo);
+  const compiledBulkArr = generateBulk(g.targetMemNo);
+  // PATCHERS OUT (tgDatabse --- processList)
+  outlet(4, compiledBulkArr);
+  outlet(0, compiledBulkArr);
 }
 
 function pasteCollection(collId) {
