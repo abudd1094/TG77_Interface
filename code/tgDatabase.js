@@ -41,6 +41,7 @@ function initialize() {
   g.voiceMode = 3;
   g.displayedElement = 1;
   g.receiveSxToParser = true;
+  g.targetMemoryNo = 0;
   // output element number 1 to patchers
   outlet(1, 1);
   outlet(0, INIT_AFM_POLY);
@@ -49,6 +50,11 @@ function initialize() {
   outlet(3, "on", 1);
 }
 
+function setTargetMemoryNo(targetMemoryNo) {
+  g.targetMemoryNo = targetMemoryNo;
+}
+
+// COPY & PASTE LOGIC
 function copy() {
   g = new Global("VOICE");
   var a = arrayfromargs(messagename, arguments);
@@ -62,36 +68,63 @@ function copy() {
   post(collId + "\n");
 
   switch (copyType) {
+    case "op":
+      copyCollection(collId);
+      break;
     case "env":
-      copyEnv(collId);
+      copySegment(collId, copyType);
       break;
     default:
       break;
   }
 }
 
-function copyEnv(collId) {
-  var consoleMessage = "Copied ENV from " + collId;
-  var sliceLength = parseSliceLength(collId);
-
-  var targetBulkSegment = g.bulk[collId].slice(0, sliceLength);
+function copyCollection(collId) {
+  var consoleMessage = "Copied collection " + collId;
+  var targetBulkSegment = g.bulk[collId]
+  var targetCopy = JSON.parse(JSON.stringify(targetBulkSegment))
 
   g.copyBuffer = {
     collId: collId,
-    data: targetBulkSegment,
+    data: targetCopy,
   };
-
-  post("g.copyBuffer" + "\n");
-  post(JSON.stringify(g.copyBuffer) + "\n");
 
   outlet(5, "set", consoleMessage);
 }
 
-function parseSliceLength(collId) {
-  var sliceLength = 0;
+function copyOp(collId) {
+  var consoleMessage = "Copied OP from " + collId;
 
+  var targetBulkSegment = g.bulk[collId];
+  var targetCopy = JSON.parse(JSON.stringify(targetBulkSegment))
+
+  g.copyBuffer = {
+    collId: collId,
+    data: targetCopy,
+  };
+
+  outlet(5, "set", consoleMessage);
+}
+
+function copySegment(collId, copyType) {
+  var consoleMessage = "Copied " + copyType.toUpperCase() + " from " + collId;
+  var sliceLength = parseSliceLength(collId, copyType);
+
+  var targetBulkSegment = g.bulk[collId].slice(0, sliceLength);
+  var targetCopy = JSON.parse(JSON.stringify(targetBulkSegment))
+
+  g.copyBuffer = {
+    collId: collId,
+    data: targetCopy,
+  };
+
+  outlet(5, "set", consoleMessage);
+}
+
+function parseSliceLength(collId, copyType) {
+  var sliceLength = 0;
   // AFM Env
-  if (collId.indexOf("1.7") !== -1) {
+  if (collId.indexOf("1.7") !== -1 && copyType == "env") {
     sliceLength = 16;
   }
   // AWM Env
@@ -109,30 +142,34 @@ function paste() {
   var pasteType = a[1];
   var collId = a[2];
 
-  // receive collId collIndex value
-  // post("PASTE --- tgDatabase.js" + "\n");
-  // post(pasteType + "\n");
-  // post(collId + "\n");
-
-  // post("g.copyBuffer" + "\n");
-  // post(JSON.stringify(g.copyBuffer) + "\n");
-
   switch (pasteType) {
+    case "op":
+      pasteCollection(collId);
+      break;
     case "env":
-      pasteEnv(collId);
+      pasteSegment(collId, pasteType);
       break;
     default:
       break;
   }
 
   // re-distribute updated bulk
-  distributeBulk(1);
+  distributeBulk(g.targetMemoryNo);
 }
 
-// TODO Paste Logic
-function pasteEnv(collId) {
+function pasteCollection(collId) {
   var consoleMessage =
-    "Pasted ENV from " + g.copyBuffer.collId + " to " + collId;
+    "Pasted collection " + g.copyBuffer.collId + " to " + collId;
+
+  var dataCopy = JSON.parse(JSON.stringify(g.copyBuffer.data));
+  g.bulk[collId] = dataCopy;
+
+  outlet(5, "set", consoleMessage);
+}
+
+function pasteSegment(collId, pasteType) {
+  var consoleMessage =
+    "Pasted " + pasteType.toUpperCase() + " from " + g.copyBuffer.collId + " to " + collId;
 
   // map copyBuffer data to gBulk object values and set
   g.copyBuffer.data.forEach(function(copyBufferDataItem, index) {
@@ -236,7 +273,7 @@ function sendBulk(targetMemNo) {
 // send to patchers
 function distributeBulk(targetMemNo) {
   const compiledBulkArr = generateBulk(targetMemNo);
-  // MIDI OUT
+  // PATCHERS OUT (tgDatabse --- processList)
   outlet(4, compiledBulkArr);
 }
 
