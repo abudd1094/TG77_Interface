@@ -40,6 +40,21 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"annotation" : "send tgDatabase",
+					"comment" : "send tgDatabase",
+					"hint" : "send tgDatabase",
+					"id" : "obj-120",
+					"index" : 0,
+					"maxclass" : "outlet",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 1197.0, 1555.0, 30.0, 30.0 ],
+					"tricolor" : [ 0.0, 0.443137254901961, 0.133333333333333, 1.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"comment" : "send toParserGate",
 					"id" : "obj-6",
 					"index" : 0,
@@ -165,9 +180,9 @@
 					"maxclass" : "bpatcher",
 					"name" : "AfmVoice_Panel.maxpat",
 					"numinlets" : 2,
-					"numoutlets" : 3,
+					"numoutlets" : 4,
 					"offset" : [ 0.0, 0.0 ],
-					"outlettype" : [ "int", "", "" ],
+					"outlettype" : [ "int", "", "", "" ],
 					"patching_rect" : [ 13.0, 518.399999999999977, 946.0, 340.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 880.0, 340.0 ],
@@ -216,6 +231,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-70", 0 ],
+					"midpoints" : [ 108.5, 504.0, 0.0, 504.0, 0.0, 892.0, 22.5, 892.0 ],
 					"source" : [ "obj-204", 0 ]
 				}
 
@@ -223,6 +239,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-70", 1 ],
+					"midpoints" : [ 173.5, 504.0, 0.0, 504.0, 0.0, 882.0, 485.75, 882.0 ],
 					"source" : [ "obj-205", 0 ]
 				}
 
@@ -230,6 +247,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-70", 2 ],
+					"midpoints" : [ 981.5, 900.0, 949.0, 900.0 ],
 					"order" : 1,
 					"source" : [ "obj-3", 0 ]
 				}
@@ -266,7 +284,16 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-120", 0 ],
+					"midpoints" : [ 949.5, 879.0, 1206.5, 879.0 ],
+					"source" : [ "obj-78", 3 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-4", 0 ],
+					"midpoints" : [ 22.5, 900.0, 0.0, 900.0, 0.0, 1545.0, 9.5, 1545.0 ],
 					"source" : [ "obj-78", 0 ]
 				}
 
@@ -274,6 +301,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-5", 0 ],
+					"midpoints" : [ 331.5, 900.0, 969.0, 900.0, 969.0, 1545.0, 649.5, 1545.0 ],
 					"source" : [ "obj-78", 1 ]
 				}
 
@@ -281,6 +309,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-6", 0 ],
+					"midpoints" : [ 640.5, 900.0, 1017.5, 900.0 ],
 					"source" : [ "obj-78", 2 ]
 				}
 
@@ -371,11 +400,11 @@
 			"obj-78::obj-1001" : [ "FM_RR1", "RR1", 0 ],
 			"obj-78::obj-1002" : [ "FM_RL2", "RL2", 0 ],
 			"obj-78::obj-1003" : [ "FM_RL1", "RL1", 0 ],
-			"obj-78::obj-1004" : [ "FM_RATESCALE", "Rate Scale", 0 ],
+			"obj-78::obj-1004" : [ "FM_RATESCALE", "Rate", 0 ],
 			"obj-78::obj-1005" : [ "FM_LOOPPT", "Loop Pt", 0 ],
 			"obj-78::obj-1006" : [ "VSON", "Velo", 0 ],
 			"obj-78::obj-1007" : [ "FM_WAVEFORM", "Wave", 0 ],
-			"obj-78::obj-1008" : [ "FM_HOLDTIME", "Hold Time", 0 ],
+			"obj-78::obj-1008" : [ "FM_HOLDTIME", "Hold", 0 ],
 			"obj-78::obj-1009" : [ "FM_L0", "L0", 0 ],
 			"obj-78::obj-1010" : [ "FM_R4", "R4", 0 ],
 			"obj-78::obj-1011" : [ "FM_R3", "R3", 0 ],
@@ -385,6 +414,7 @@
 			"obj-78::obj-1015" : [ "FM_L3", "L3", 0 ],
 			"obj-78::obj-1016" : [ "FM_L2", "L2", 0 ],
 			"obj-78::obj-1017" : [ "FM_L1", "L1", 0 ],
+			"obj-78::obj-108" : [ "live.slider", "Level", 0 ],
 			"obj-78::obj-1138" : [ "FAMS", "Amp Mod", 0 ],
 			"obj-78::obj-1158" : [ "OP2_SHIFT1", "Level", 0 ],
 			"obj-78::obj-1159" : [ "OP2_SHIFT0", "Level", 0 ],
@@ -398,6 +428,8 @@
 			"obj-78::obj-1247" : [ "OP6_SHIFT0", "Level", 0 ],
 			"obj-78::obj-1286" : [ "FM_COR", "Level Correction", 0 ],
 			"obj-78::obj-29" : [ "FM_ALGO[1]", "Algorithm", 0 ],
+			"obj-78::obj-31" : [ "live.tab[1]", "live.tab[1]", 0 ],
+			"obj-78::obj-77" : [ "live.tab", "live.tab", 0 ],
 			"obj-78::obj-921" : [ "FM_OFFSET4", "Offset 4", 0 ],
 			"obj-78::obj-922" : [ "FM_OFFSET3", "Offset 3", 0 ],
 			"obj-78::obj-923" : [ "FM_OFFSET2", "Offset 2", 0 ],
@@ -421,7 +453,6 @@
 			"obj-78::obj-993" : [ "FM_DETUNE", "Detune", 0 ],
 			"obj-78::obj-994" : [ "FM_FINE", "Fine", 0 ],
 			"obj-78::obj-995" : [ "FM_COARSE", "Coarse", 0 ],
-			"obj-78::obj-997" : [ "FM_FREQMODE", "Ratio", 0 ],
 			"obj-78::obj-998" : [ "FM_PITCHMOD", "Pitch Mod", 0 ],
 			"parameterbanks" : 			{
 				"0" : 				{
@@ -450,14 +481,7 @@
 				"implicit" : 1
 			}
 , 			{
-				"name" : "algDisplay.js",
-				"bootpath" : "~/Documents/Max 8/Max for Live Devices/TG77-Interface-Final Project/code",
-				"patcherrelativepath" : "../code",
-				"type" : "TEXT",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "algDisplayLogic2.js",
+				"name" : "algDisplayLogic.js",
 				"bootpath" : "~/Documents/Max 8/Max for Live Devices/TG77-Interface-Final Project/code",
 				"patcherrelativepath" : "../code",
 				"type" : "TEXT",

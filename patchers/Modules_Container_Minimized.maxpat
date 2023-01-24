@@ -40,6 +40,21 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"annotation" : "send tgDatabase",
+					"comment" : "send tgDatabase",
+					"hint" : "send tgDatabase",
+					"id" : "obj-120",
+					"index" : 0,
+					"maxclass" : "outlet",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 1349.0, 1177.0, 30.0, 30.0 ],
+					"tricolor" : [ 0.0, 0.443137254901961, 0.133333333333333, 1.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-39",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -327,7 +342,7 @@
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_enum" : [ "Main", "Mod.", "Flt 1", "Flt 2" ],
-							"parameter_longname" : "live.tab[3]",
+							"parameter_longname" : "live.tab[8]",
 							"parameter_mmax" : 3,
 							"parameter_shortname" : "live.tab",
 							"parameter_type" : 2,
@@ -451,7 +466,7 @@
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_enum" : [ "Main", "Patch", "Mod.", "Flt 1", "Flt 2" ],
-							"parameter_longname" : "live.tab[2]",
+							"parameter_longname" : "live.tab[7]",
 							"parameter_mmax" : 4,
 							"parameter_shortname" : "live.tab",
 							"parameter_type" : 2,
@@ -575,9 +590,9 @@
 					"maxclass" : "bpatcher",
 					"name" : "AfmVoice_Complete.maxpat",
 					"numinlets" : 5,
-					"numoutlets" : 3,
+					"numoutlets" : 4,
 					"offset" : [ 0.0, 0.0 ],
-					"outlettype" : [ "int", "", "" ],
+					"outlettype" : [ "int", "", "", "" ],
 					"patching_rect" : [ 173.0, 863.399999999999977, 961.0, 170.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 34.0, 531.0, 880.0, 170.0 ],
@@ -745,7 +760,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-78", 3 ],
 					"midpoints" : [ 1056.749999999999773, 849.0, 889.0, 849.0 ],
-					"order" : 2,
+					"order" : 1,
 					"source" : [ "obj-1", 0 ]
 				}
 
@@ -754,7 +769,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-8", 3 ],
 					"midpoints" : [ 1056.749999999999773, 849.0, 1887.0, 849.0 ],
-					"order" : 1,
+					"order" : 2,
 					"source" : [ "obj-1", 0 ]
 				}
 
@@ -1137,6 +1152,13 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-120", 0 ],
+					"source" : [ "obj-78", 3 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-4", 0 ],
 					"source" : [ "obj-78", 0 ]
 				}
@@ -1298,8 +1320,8 @@
 			"obj-1487::obj-694" : [ "CCPITCHASSIGN", "live.menu", 0 ],
 			"obj-1487::obj-695" : [ "CCVOL", "Volume Ctrl", 0 ],
 			"obj-1487::obj-696" : [ "CCVOLASSIGN", "live.menu", 0 ],
-			"obj-16" : [ "live.tab[3]", "live.tab", 0 ],
-			"obj-234" : [ "live.tab[2]", "live.tab", 0 ],
+			"obj-16" : [ "live.tab[8]", "live.tab", 0 ],
+			"obj-234" : [ "live.tab[7]", "live.tab", 0 ],
 			"obj-32::obj-600" : [ "OUTSEL1[1]", "Ratio", 0 ],
 			"obj-32::obj-601" : [ "OUTSEL0[1]", "Ratio", 0 ],
 			"obj-32::obj-603" : [ "MCTEN[1]", "Ratio", 0 ],
@@ -1424,11 +1446,11 @@
 			"obj-78::obj-78::obj-1001" : [ "FM_RR1", "RR1", 0 ],
 			"obj-78::obj-78::obj-1002" : [ "FM_RL2", "RL2", 0 ],
 			"obj-78::obj-78::obj-1003" : [ "FM_RL1", "RL1", 0 ],
-			"obj-78::obj-78::obj-1004" : [ "FM_RATESCALE", "Rate Scale", 0 ],
+			"obj-78::obj-78::obj-1004" : [ "FM_RATESCALE", "Rate", 0 ],
 			"obj-78::obj-78::obj-1005" : [ "FM_LOOPPT", "Loop Pt", 0 ],
 			"obj-78::obj-78::obj-1006" : [ "VSON", "Velo", 0 ],
 			"obj-78::obj-78::obj-1007" : [ "FM_WAVEFORM", "Wave", 0 ],
-			"obj-78::obj-78::obj-1008" : [ "FM_HOLDTIME", "Hold Time", 0 ],
+			"obj-78::obj-78::obj-1008" : [ "FM_HOLDTIME", "Hold", 0 ],
 			"obj-78::obj-78::obj-1009" : [ "FM_L0", "L0", 0 ],
 			"obj-78::obj-78::obj-1010" : [ "FM_R4", "R4", 0 ],
 			"obj-78::obj-78::obj-1011" : [ "FM_R3", "R3", 0 ],
@@ -1438,6 +1460,7 @@
 			"obj-78::obj-78::obj-1015" : [ "FM_L3", "L3", 0 ],
 			"obj-78::obj-78::obj-1016" : [ "FM_L2", "L2", 0 ],
 			"obj-78::obj-78::obj-1017" : [ "FM_L1", "L1", 0 ],
+			"obj-78::obj-78::obj-108" : [ "live.slider", "Level", 0 ],
 			"obj-78::obj-78::obj-1138" : [ "FAMS", "Amp Mod", 0 ],
 			"obj-78::obj-78::obj-1158" : [ "OP2_SHIFT1", "Level", 0 ],
 			"obj-78::obj-78::obj-1159" : [ "OP2_SHIFT0", "Level", 0 ],
@@ -1451,6 +1474,8 @@
 			"obj-78::obj-78::obj-1247" : [ "OP6_SHIFT0", "Level", 0 ],
 			"obj-78::obj-78::obj-1286" : [ "FM_COR", "Level Correction", 0 ],
 			"obj-78::obj-78::obj-29" : [ "FM_ALGO[1]", "Algorithm", 0 ],
+			"obj-78::obj-78::obj-31" : [ "live.tab[1]", "live.tab[1]", 0 ],
+			"obj-78::obj-78::obj-77" : [ "live.tab", "live.tab", 0 ],
 			"obj-78::obj-78::obj-921" : [ "FM_OFFSET4", "Offset 4", 0 ],
 			"obj-78::obj-78::obj-922" : [ "FM_OFFSET3", "Offset 3", 0 ],
 			"obj-78::obj-78::obj-923" : [ "FM_OFFSET2", "Offset 2", 0 ],
@@ -1474,21 +1499,24 @@
 			"obj-78::obj-78::obj-993" : [ "FM_DETUNE", "Detune", 0 ],
 			"obj-78::obj-78::obj-994" : [ "FM_FINE", "Fine", 0 ],
 			"obj-78::obj-78::obj-995" : [ "FM_COARSE", "Coarse", 0 ],
-			"obj-78::obj-78::obj-997" : [ "FM_FREQMODE", "Ratio", 0 ],
 			"obj-78::obj-78::obj-998" : [ "FM_PITCHMOD", "Pitch Mod", 0 ],
-			"obj-8::obj-105" : [ "menu_egMode", "live.menu", 0 ],
+			"obj-8::obj-105" : [ "menu_egMode", "live.tab", 0 ],
 			"obj-8::obj-110" : [ "PAR1", "R1", 0 ],
 			"obj-8::obj-111" : [ "PAR2", "R2", 0 ],
 			"obj-8::obj-115" : [ "PAR3", "R3", 0 ],
 			"obj-8::obj-119" : [ "PAR4", "R4", 0 ],
-			"obj-8::obj-12" : [ "menu_wavesource", "live.menu", 0 ],
+			"obj-8::obj-12" : [ "menu_wavesource", "live.tab", 0 ],
 			"obj-8::obj-123" : [ "PARR1", "RR1", 0 ],
 			"obj-8::obj-127" : [ "PAL2", "L2", 0 ],
 			"obj-8::obj-131" : [ "PAL3", "L3", 0 ],
 			"obj-8::obj-139" : [ "PARS", "Rate Scale", 0 ],
-			"obj-8::obj-142" : [ "menu_freqmode", "live.menu", 0 ],
+			"obj-8::obj-142" : [ "menu_freqmode", "live.tab", 0 ],
 			"obj-8::obj-1451" : [ "FM_FLFWAV", "Wave", 0 ],
+			"obj-8::obj-147" : [ "live.tab[6]", "live.tab", 0 ],
+			"obj-8::obj-152" : [ "live.tab[5]", "live.tab", 0 ],
+			"obj-8::obj-153" : [ "live.tab[2]", "live.tab", 0 ],
 			"obj-8::obj-1534" : [ "FM_FR4", "R4", 0 ],
+			"obj-8::obj-155" : [ "live.tab[3]", "live.tab", 0 ],
 			"obj-8::obj-1579" : [ "FM_FRR2", "RR2", 0 ],
 			"obj-8::obj-1602" : [ "FM_FRL4", "L4", 0 ],
 			"obj-8::obj-1680" : [ "FM_FRRL2", "RL2", 0 ],
@@ -1519,8 +1547,6 @@
 			"obj-8::obj-2183" : [ "FM_FPL2[1]", "L2", 0 ],
 			"obj-8::obj-2184" : [ "FM_FPL1[1]", "L1", 0 ],
 			"obj-8::obj-2185" : [ "FM_FPL0[1]", "L0", 0 ],
-			"obj-8::obj-2187" : [ "FM_FLT1_MODE[1]", "Wave", 0 ],
-			"obj-8::obj-2189" : [ "FM_FLT1_TYPE[1]", "Wave", 0 ],
 			"obj-8::obj-223" : [ "PAVSON", "Vel. Sens.", 0 ],
 			"obj-8::obj-224" : [ "live.toggle[1]", "live.toggle", 0 ],
 			"obj-8::obj-233" : [ "PAMS", "Amp Sens.", 0 ],
@@ -1547,8 +1573,6 @@
 			"obj-8::obj-876" : [ "FM_FPL2", "L2", 0 ],
 			"obj-8::obj-877" : [ "FM_FPL1", "L1", 0 ],
 			"obj-8::obj-878" : [ "FM_FPL0", "L0", 0 ],
-			"obj-8::obj-881" : [ "FM_FLT1_MODE", "Wave", 0 ],
-			"obj-8::obj-884" : [ "FM_FLT1_TYPE", "Wave", 0 ],
 			"obj-8::obj-900" : [ "FM_MULTLFO_DELAY", "Delay", 0 ],
 			"obj-8::obj-901" : [ "FM_MULTLFO_SPEED", "Speed", 0 ],
 			"obj-8::obj-902" : [ "FM_FLINTP", "Phase", 0 ],
@@ -1899,6 +1923,30 @@
 ,
 				"obj-78::obj-70::obj-918" : 				{
 					"parameter_longname" : "FM_PENV_L1[1]"
+				}
+,
+				"obj-8::obj-105" : 				{
+					"parameter_longname" : "menu_egMode"
+				}
+,
+				"obj-8::obj-12" : 				{
+					"parameter_longname" : "menu_wavesource"
+				}
+,
+				"obj-8::obj-142" : 				{
+					"parameter_longname" : "menu_freqmode"
+				}
+,
+				"obj-8::obj-152" : 				{
+					"parameter_longname" : "live.tab[5]"
+				}
+,
+				"obj-8::obj-153" : 				{
+					"parameter_longname" : "live.tab[2]"
+				}
+,
+				"obj-8::obj-155" : 				{
+					"parameter_longname" : "live.tab[3]"
 				}
 ,
 				"obj-8::obj-921" : 				{

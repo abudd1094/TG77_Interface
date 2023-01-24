@@ -51,14 +51,6 @@ function list() {
   }
 }
 
-function copy() {
-  var a = arrayfromargs(messagename, arguments);
-  // receive collId collIndex value
-
-  post("COPY" + "\n");
-  post(JSON.stringify(a) + "\n");
-}
-
 function anything() {
   var a = arrayfromargs(messagename, arguments);
 
@@ -292,7 +284,7 @@ function storeParameterValue(
 
   // store element mode globally for UI config
   if (dataModel.name == "ELMODE") {
-    g.elementMode = computedValue;
+    g.voiceMode = computedValue;
   }
 
   // store in DB

@@ -1,8 +1,8 @@
 inlets = 16;
 outlets = 1;
 
-// Screen Size Coefficient: LCD is 40 total x 280 total y, values are 63 x - 441 y
-ssCoeff = 0.63492063;
+// Screen Size Coefficient: LCD used to be 52 total y 230 total x, values are 63y & 441x, coEff is 52 / 63 to scale y values (also used for x, can be revised)
+ssCoeff = 0.825397;
 // Variables
 var L0;
 var holdTime;

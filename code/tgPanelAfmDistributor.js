@@ -5,14 +5,14 @@
 inlets = 4;
 // outlet 0: UNUSED
 // outlet 1: displayed op number
-// outlet 2: op specific data  
+// outlet 2: op specific data
 // outlet 3: set fb ops
 // outlet 4: sxParser gates outside bpatcher
 // outlet 5: to ALG dial
 outlets = 6;
 
-g = new Global("VOICE"); 
-g.receiveSxToParser = true;  
+g = new Global("VOICE");
+g.receiveSxToParser = true;
 
 var {
   catchError,
@@ -21,14 +21,14 @@ var {
   mapDbValues,
   dec2bin,
   writeIndexToGBulk,
-} = require("utilities"); 
+} = require("utilities");
 var { tgAlgorithms } = require("tgAlgorithms");
 var { DEFAULT_FM_ALGO } = require("defaults");
 
 var displayedElement = 1;
 var displayedOperator = 1;
 var displayedAlgo = DEFAULT_FM_ALGO;
-var allowOutputOperator = true; 
+var allowOutputOperator = true;
 var allowReceiveInteger = true;
 var allowOutputAlg = true;
 
@@ -90,12 +90,9 @@ function msg_int(v) {
   if (allowReceiveInteger) {
     // SET ELEMENT #
     if (inlet == 1) {
-      conditionalPost(
-        "EL_NO SET to " + v + " --- tgPanelAfmDistributor.js" + "\n"
-      );
       displayedElement = v;
-      post("displayedElement in msg_int" + "\n")
-      post(displayedElement + "\n")
+      post("displayedElement --- tgPanelAfmDistributor.js" + "\n");
+      post(displayedElement + "\n");
     }
 
     // SWITCH OPERATOR
@@ -112,28 +109,7 @@ function msg_int(v) {
 
 // AFM Voice Data length should be 357
 function list() {
-  allowReceiveInteger = false;
-  // store all element data and output first element by default
-  var a = arrayfromargs(messagename, arguments);
-
-  // Disable PARAM SX and DATA reception so we don't save anything
-  // post("PARSER OFF tgPanelAfmDistributor.js \n")
-  // outlet(4, "off", 0);
-  post(
-    "OUPUT AFM VOICE DATA, EL# " +
-      displayedElement +
-      " --- tgPanelAfmDIstributor.js" +
-      "\n"
-  );
-        post("displayedElement" + "\n");
-        post(displayedElement + "\n");
-
-  catchError(outputBulkData, a)
-  // outputBulkData(a);
-
-  // Re-enable PARAM SX and DATA reception
-  // outlet(4, "on", 1);
-  allowReceiveInteger = true;
+  handleSwitchElement();
 }
 
 function fetchElementDbObj(elementNo, opNo) {
@@ -146,6 +122,26 @@ function fetchElementDbObj(elementNo, opNo) {
   return tgState;
 }
 
+// HELPER FUNCTIONS --- ELEMENT
+function handleSwitchElement() {
+  allowReceiveInteger = false;
+
+  var afmElementOperatorData = fetchElementDbObj(
+    displayedElement,
+    displayedOperator
+  );
+  var numericalOpData = mapDbValues(afmElementOperatorData);
+
+  // Disable PARAM SX and DATA reception so we don't save anything
+  outlet(4, "off", 0);
+  outputOperatorData(numericalOpData);
+
+  // Re-enable PARAM SX and DATA reception
+  outlet(4, "on", 1);
+
+  allowReceiveInteger = true;
+}
+
 // HELPER FUNCTIONS --- OPERATOR
 function handleSwitchOperator(v) {
   displayedOperator = v;
@@ -154,23 +150,25 @@ function handleSwitchOperator(v) {
     displayedElement,
     displayedOperator
   );
+  var numericalOpData = mapDbValues(afmElementOperatorData);
+
+  post("output operator" + displayedOperator + " data \n");
+  post("LENGTH: " + numericalOpData.length + "\n");
 
   // Disable PARAM SX and DATA reception so we don't save anything
   outlet(4, "off", 0);
-  outputOperatorData(afmElementOperatorData);
+  outputOperatorData(numericalOpData);
 
   // Re-enable PARAM SX and DATA reception
   outlet(4, "on", 1);
 }
 
-function outputOperatorData(opData) {
+function outputOperatorData(numericalOpData) {
+  post("outputOperatorData --- tgPanelAfmDistributor.js" + "\n");
+  post(JSON.stringify(numericalOpData) + "\n");
+
+  outlet(2, numericalOpData);
   outlet(1, displayedOperator);
-
-  var numericalData = mapDbValues(opData);
-
-  post("outputOperatorData" + "\n")
-
-  outlet(2, numericalData);
 }
 
 function outputOperatorConnectionData(
@@ -278,14 +276,12 @@ function handleSwitchAlgorithm(v) {
   // Disable PARSER out so we don't store or send a bunch of extra SX messages
   outlet(4, "off", 0);
 
-  // catchError(distributeAlgInputData)
-
   distributeAllAlgInputData();
 
   // Re-enable PARSER out
-  outlet(4, "on", 1);
+  // outlet(4, "on", 1);
 }
- 
+
 function distributeAllAlgInputData() {
   // take defaults from new algorithm and distribute to panel
   var tgAlgo = tgAlgorithms[displayedAlgo];

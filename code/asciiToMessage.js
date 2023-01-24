@@ -21,8 +21,7 @@ function anything() {
     var voiceName = asciiArrToString(a);
     g.voiceName = voiceName;
 
-    post("VOICE NAME \n");
-    post(voiceName + "\n");
+    error("VOICE NAME: " + voiceName + "\n");
   }
 
   outlet(0, voiceName);

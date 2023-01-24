@@ -1,16 +1,18 @@
 // outlet 0 = midi out
-// outlet 1 = bang for bpatcher EL NO set
+// outlet 1 = element number out
 // outlet 2 = tgSxStorage
-// outlet 3 = tgSxParserBulk
-outlets = 4;
+// outlet 3 = to parser gates
+// outlet 4 = to tgParserBulk
+// outlet 5 = to console
+outlets = 6;
 inlets = 1;
 
 // Global Object
 g = new Global("VOICE");
 
 var tgDataModels = require("tgDataModels");
-var { conditionalPost } = require("utilities");
 var { defaultBulk } = require("defaultBulk");
+var { mapDbValues } = require("utilities");
 var { INIT_AFM_POLY } = require("defaults");
 var {
   calculatebyteCount,
@@ -29,16 +31,119 @@ var rawReports = false;
 // --- --- --- ACTIONS --- --- --- //
 function initialize() {
   post("INIT \n");
+
+  outlet(3, "off", 0);
+
   g = new Global("VOICE");
   g.bulk = defaultBulk;
   g.enablePosting = false;
   g.allowBulkWrite = true;
-  g.elementMode = 0;
+  g.voiceMode = 3;
+  g.displayedElement = 1;
   g.receiveSxToParser = true;
   // output element number 1 to patchers
   outlet(1, 1);
-  outlet(3, INIT_AFM_POLY);
   outlet(0, INIT_AFM_POLY);
+  outlet(4, INIT_AFM_POLY);
+
+  outlet(3, "on", 1);
+}
+
+function copy() {
+  g = new Global("VOICE");
+  var a = arrayfromargs(messagename, arguments);
+
+  var copyType = a[1];
+  var collId = a[2];
+
+  // receive collId collIndex value
+  post("COPY --- tgDatabase.js" + "\n");
+  post(copyType + "\n");
+  post(collId + "\n");
+
+  switch (copyType) {
+    case "env":
+      copyEnv(collId);
+      break;
+    default:
+      break;
+  }
+}
+
+function copyEnv(collId) {
+  var consoleMessage = "Copied ENV from " + collId;
+  var sliceLength = parseSliceLength(collId);
+
+  var targetBulkSegment = g.bulk[collId].slice(0, sliceLength);
+
+  g.copyBuffer = {
+    collId: collId,
+    data: targetBulkSegment,
+  };
+
+  post("g.copyBuffer" + "\n");
+  post(JSON.stringify(g.copyBuffer) + "\n");
+
+  outlet(5, "set", consoleMessage);
+}
+
+function parseSliceLength(collId) {
+  var sliceLength = 0;
+
+  // AFM Env
+  if (collId.indexOf("1.7") !== -1) {
+    sliceLength = 16;
+  }
+  // AWM Env
+  if (collId.indexOf("1.8") !== -1) {
+    sliceLength = 9;
+  }
+
+  return sliceLength;
+}
+
+function paste() {
+  g = new Global("VOICE");
+  var a = arrayfromargs(messagename, arguments);
+
+  var pasteType = a[1];
+  var collId = a[2];
+
+  // receive collId collIndex value
+  // post("PASTE --- tgDatabase.js" + "\n");
+  // post(pasteType + "\n");
+  // post(collId + "\n");
+
+  // post("g.copyBuffer" + "\n");
+  // post(JSON.stringify(g.copyBuffer) + "\n");
+
+  switch (pasteType) {
+    case "env":
+      pasteEnv(collId);
+      break;
+    default:
+      break;
+  }
+
+  // re-distribute updated bulk
+  distributeBulk(1);
+}
+
+// TODO Paste Logic
+function pasteEnv(collId) {
+  var consoleMessage =
+    "Pasted ENV from " + g.copyBuffer.collId + " to " + collId;
+
+  // map copyBuffer data to gBulk object values and set
+  g.copyBuffer.data.forEach(function(copyBufferDataItem, index) {
+    g.bulk[collId][index] = copyBufferDataItem;
+  })
+
+  outlet(5, "set", consoleMessage);
+}
+
+function resetCopyBuffer() {
+  g.copyBuffer = { collId: "", data: [] };
 }
 
 // COMPILATION FUNCTIONS
@@ -116,7 +221,7 @@ function generateBulk(targetMemNo) {
 
   return compiledBulkArr;
 }
-// store to file
+// save to file
 function storeBulk(targetMemNo) {
   const compiledBulkArr = generateBulk(targetMemNo);
   // STORAGE OUT (tgSxStorage --- write to file)
@@ -127,8 +232,12 @@ function sendBulk(targetMemNo) {
   const compiledBulkArr = generateBulk(targetMemNo);
   // MIDI OUT
   outlet(0, compiledBulkArr);
-  // PATCHERS OUT (tgSxParserBulk --- write to g.bulk, distribute to patchers)
-  outlet(2, compiledBulkArr);
+}
+// send to patchers
+function distributeBulk(targetMemNo) {
+  const compiledBulkArr = generateBulk(targetMemNo);
+  // MIDI OUT
+  outlet(4, compiledBulkArr);
 }
 
 // --- --- --- SETTERS --- --- --- //
@@ -164,18 +273,14 @@ function reportBulkStatus() {
   dataKeys.forEach(reportColl);
 }
 
-function reportColl(collId, collIndex) {
+function reportColl(collId, collIndex, useIndex) {
   var currentDataColl = g.bulk[collId];
   var dataModelKey = collId.split(".").slice(0, 2).join(".");
-  var currentDataModel = tgDataModels[dataModelKey];
+  var currentDataModel = tgDataModels.tgDataModels[dataModelKey];
   var indexLabels = [];
   var rawData = currentDataColl.map(function (dataObj) {
     return dataObj.value;
   });
-
-  error(
-    "COLL REPORT: " + collId + " --- length: " + currentDataColl.length + "\n"
-  );
 
   if (rawReports) {
     post(rawData);
@@ -183,28 +288,31 @@ function reportColl(collId, collIndex) {
     return;
   }
 
-  if (collIndex) {
+  if (useIndex) {
+    error("COLL INDEX REPORT: " + collId + " at index " + collIndex + "\n");
+
     currentDataColl = currentDataColl.filter(function (collIndexObj) {
       return collIndexObj.index == collIndex;
     });
-  }
 
-  currentDataColl.forEach(function (collIndexObj) {
-    var matchingDataModelObj = currentDataModel.filter(function (
-      dataModelIndexObj
-    ) {
-      return dataModelIndexObj.index == collIndexObj.index;
+    post(currentDataColl[0].value + "\n");
+  } else {
+    error(
+      "COLL REPORT: " + collId + " --- length: " + currentDataColl.length + "\n"
+    );
+    currentDataColl.forEach(function (collIndexObj) {
+      var matchingDataModelObj = currentDataModel.filter(function (
+        dataModelIndexObj
+      ) {
+        return dataModelIndexObj.index == collIndexObj.index;
+      });
+      var dataModel = { name: "undefined" };
+      if (matchingDataModelObj[0]) dataModel = matchingDataModelObj[0];
+      var currentIndexLabel = "[" + collIndexObj.index + "] " + dataModel.name;
+      indexLabels.push(currentIndexLabel);
+      post(currentIndexLabel + " : " + collIndexObj.value + "\n");
+      if (annotatedReports) post("        " + dataModel.note + "\n");
     });
-    var dataModel = { name: "undefined" };
-    if (matchingDataModelObj[0]) dataModel = matchingDataModelObj[0];
-    var currentIndexLabel = "[" + collIndexObj.index + "] " + dataModel.name;
-    indexLabels.push(currentIndexLabel);
-
-    post(currentIndexLabel + " : " + collIndexObj.value + "\n");
-    if (annotatedReports) post("        " + dataModel.note + "\n");
-  });
-
-  if (!collIndex) {
     populateCollIndexUmenu(collId, indexLabels);
   }
 }
@@ -214,11 +322,13 @@ function reportCollIndex() {
   var collId = a[2];
   var collIndex = a[1];
 
-  reportColl(collId, collIndex);
+  reportColl(collId, collIndex, true);
 }
 
 function populateCollIndexUmenu(collId, indexLabels) {
   var reportCollIndexUmenu = this.patcher.getnamed("reportCollIndexUmenu");
+
+  post(reportCollIndexUmenu + "\n");
 
   reportCollIndexUmenu.clear();
   indexLabels.forEach(function (option) {

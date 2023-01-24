@@ -325,7 +325,7 @@ exports.tgDataModels = {
       index: 62,
       name: "INDOUT",
       range: [1, 8],
-      note: "Portamento (valid if mode is only FM element) - Time",
+      note: "Individual Output Select",
       condition: [],
     },
     {

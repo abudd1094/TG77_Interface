@@ -6,14 +6,10 @@ outlets = 3;
 
 // Global Object
 g = new Global("VOICE");
-
+ 
 var { conditionalPost, writeCollToGBulk, combineBits } = require("utilities");
 var { tgDataModels } = require("tgDataModels");
-var {
-  catchError,
-  parseBulkDumpType,
-  hexStringToDecArr,
-} = require("./utilities");
+var { catchError, parseBulkDumpType, mapDbValues } = require("./utilities");
 
 function list() {
   var a = arrayfromargs(messagename, arguments);
@@ -33,7 +29,76 @@ function list() {
 }
 
 function msg_int(v) {
-  post("DUMP ELEMENT " + v + "\n");
+  if (inlet == 1) {
+    handleElementChange(v);
+  }
+}
+
+function parseVoiceDbCollections() {
+  var elementDataCollIds = [];
+
+  switch (g.voiceMode) {
+    case 0:
+    case 3:
+      elementDataCollIds = ["1.7.0"];
+      break;
+    case 1:
+    case 4:
+      elementDataCollIds = ["1.7.0", "1.7.1"];
+      break;
+    case 2:
+      elementDataCollIds = ["1.7.0", "1.7.1", "1.7.2", "1.7.3"];
+      break;
+    case 5:
+      elementDataCollIds = ["1.8.0"];
+      break;
+    case 6:
+      elementDataCollIds = ["1.8.0", "1.8.1"];
+      break;
+    case 7:
+      elementDataCollIds = ["1.8.0", "1.8.1", "1.8.2", "1.8.3"];
+      break;
+    case 8:
+      elementDataCollIds = ["1.7.0", "1.8.0"];
+      break;
+    case 9:
+      elementDataCollIds = ["1.7.0", "1.7.1", "1.8.0", "1.8.1"];
+      break;
+    default:
+      break;
+  }
+
+  return elementDataCollIds;
+}
+
+function handleElementChange(v) {
+  var dbElNo = v - 1;
+
+  post("handleElementChange to: " + v + " --- tgSxParserBulk.js" + "\n");
+
+  var elementDataCollIds = parseVoiceDbCollections();
+  var activeElementBaseCollId = elementDataCollIds[dbElNo];
+
+  var elementData = [];
+
+  // IF voice is AFM voice, combine operator data
+  if (activeElementBaseCollId.indexOf("7") !== -1) {
+    elementData = [].concat.apply(
+      [],
+      [
+        mapDbValues(g.bulk[activeElementBaseCollId + ".6"]),
+        mapDbValues(g.bulk[activeElementBaseCollId + ".5"]),
+        mapDbValues(g.bulk[activeElementBaseCollId + ".4"]),
+        mapDbValues(g.bulk[activeElementBaseCollId + ".3"]),
+        mapDbValues(g.bulk[activeElementBaseCollId + ".2"]),
+        mapDbValues(g.bulk[activeElementBaseCollId + ".1"]),
+      ]
+    );
+  } else {
+    elementData = mapDbValues(g.bulk[activeElementBaseCollId]);
+  }
+
+  outputDataToPatcher("veData", elementData);
 }
 
 function processList(sysExMessage) {
@@ -89,6 +154,8 @@ function processList(sysExMessage) {
     awmVeDataModSegment4,
     awmVeDataFilterSegment4,
   } = parseBulkDump(sysExMessage);
+  // write global variables
+  g.voiceMode = voiceMode;
   // write segments to GBULK & output data to patchers
   // 1.3 Common
   writeCollToGBulk(1.3, modeNameSegment.concat(ccSegment).concat(vcSegment));
@@ -187,14 +254,14 @@ function processList(sysExMessage) {
     trimAwmData(awmConcatenatedDataSegment1),
     trimAwmData(awmConcatenatedDataSegment2),
     trimAwmData(awmConcatenatedDataSegment3),
-    trimAwmData(awmConcatenatedDataSegment4), 
+    trimAwmData(awmConcatenatedDataSegment4),
   ]);
   // 1.10 FILTERS
-  var elOneFilterData = parseFilterSegments(activeFilterSegments[0], true)
+  var elOneFilterData = parseFilterSegments(activeFilterSegments[0], true);
   outputDataToPatcher("veFilterData", elOneFilterData);
 
   // re-enable PARSER out
-  outlet(1, "on", 1);
+  // outlet(1, "on", 1);
 }
 
 function parseBulkDump(sysExMessage) {
@@ -688,7 +755,7 @@ function writeAfmVoiceDataToGBulk(afmVeDataSegmentsArr) {
   });
 }
 // 1.8
-function writeAwmVoiceDataToGBulk(awmVeDataSegmentsArr) {
+function writeAwmVoiceDataToGBulk(awmVeDataSegmentsArr) { 
   awmVeDataSegmentsArr.forEach(function (veDataSegments, i) {
     var dbElementNo = i;
     var collId = "1.8." + dbElementNo;

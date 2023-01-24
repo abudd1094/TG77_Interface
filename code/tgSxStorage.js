@@ -9,18 +9,7 @@ g = new Global("VOICE");
 // set storage location
 var storageLocationBasePath = "/Users/abudd/Music/TG77/patches/";
 g.storageLocationBasePath = "/Users/abudd/Music/TG77/patches/";
-var tgDataModels = require("tgDataModels");
 var { parseBulkDumpType } = require("utilities");
-var { defaultBulk } = require("defaultBulk");
-var {
-  calculatebyteCount,
-  calculateCheckSum,
-  calculateVoiceCounts,
-  extractValues,
-  generateAfmSegments,
-  generateAwmSegments,
-  generateMixerSegments,
-} = require("tgDatabaseHelpers");
 
 var sysExMessage = [];
 

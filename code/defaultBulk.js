@@ -2,10 +2,12 @@
 exports.defaultBulk = {
   // COMMON: modeNameSegment + ccSegment + vcSegment
   1.3: [
+    // EL MODE
     {
       index: 0,
-      value: 0,
+      value: 3,
     },
+    // Voice Name
     {
       index: 1,
       value: 73,
@@ -47,6 +49,7 @@ exports.defaultBulk = {
       value: 101,
     },
     // index gap
+    // CC Controllers
     {
       index: 40,
       value: 6,

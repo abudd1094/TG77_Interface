@@ -271,9 +271,9 @@
 					"maxclass" : "bpatcher",
 					"name" : "Voice_Panel.maxpat",
 					"numinlets" : 2,
-					"numoutlets" : 4,
+					"numoutlets" : 5,
 					"offset" : [ 0.0, 0.0 ],
-					"outlettype" : [ "int", "", "", "" ],
+					"outlettype" : [ "int", "", "", "", "" ],
 					"patching_rect" : [ 23.971428047295376, 82.333357572555542, 1128.964285999999902, 170.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 1257.964285999999902, 170.0 ],
@@ -323,6 +323,14 @@
 				"patchline" : 				{
 					"destination" : [ "obj-12", 0 ],
 					"source" : [ "obj-1", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"midpoints" : [ 1143.435714047295278, 276.0, 1173.0, 276.0, 1173.0, 858.0, 342.0, 858.0, 342.0, 813.0, 310.962499547295351, 813.0 ],
+					"source" : [ "obj-1", 4 ]
 				}
 
 			}
@@ -510,8 +518,8 @@
 			"obj-1::obj-229::obj-1487::obj-694" : [ "CCPITCHASSIGN", "live.menu", 0 ],
 			"obj-1::obj-229::obj-1487::obj-695" : [ "CCVOL", "Volume Ctrl", 0 ],
 			"obj-1::obj-229::obj-1487::obj-696" : [ "CCVOLASSIGN", "live.menu", 0 ],
-			"obj-1::obj-229::obj-16" : [ "live.tab[8]", "live.tab", 0 ],
-			"obj-1::obj-229::obj-234" : [ "live.tab[7]", "live.tab", 0 ],
+			"obj-1::obj-229::obj-16" : [ "live.tab[9]", "live.tab", 0 ],
+			"obj-1::obj-229::obj-234" : [ "live.tab[8]", "live.tab", 0 ],
 			"obj-1::obj-229::obj-32::obj-600" : [ "OUTSEL1[1]", "Ratio", 0 ],
 			"obj-1::obj-229::obj-32::obj-601" : [ "OUTSEL0[1]", "Ratio", 0 ],
 			"obj-1::obj-229::obj-32::obj-603" : [ "MCTEN[1]", "Ratio", 0 ],
@@ -636,11 +644,11 @@
 			"obj-1::obj-229::obj-78::obj-78::obj-1001" : [ "FM_RR1", "RR1", 0 ],
 			"obj-1::obj-229::obj-78::obj-78::obj-1002" : [ "FM_RL2", "RL2", 0 ],
 			"obj-1::obj-229::obj-78::obj-78::obj-1003" : [ "FM_RL1", "RL1", 0 ],
-			"obj-1::obj-229::obj-78::obj-78::obj-1004" : [ "FM_RATESCALE", "Rate Scale", 0 ],
+			"obj-1::obj-229::obj-78::obj-78::obj-1004" : [ "FM_RATESCALE", "Rate", 0 ],
 			"obj-1::obj-229::obj-78::obj-78::obj-1005" : [ "FM_LOOPPT", "Loop Pt", 0 ],
 			"obj-1::obj-229::obj-78::obj-78::obj-1006" : [ "VSON", "Velo", 0 ],
 			"obj-1::obj-229::obj-78::obj-78::obj-1007" : [ "FM_WAVEFORM", "Wave", 0 ],
-			"obj-1::obj-229::obj-78::obj-78::obj-1008" : [ "FM_HOLDTIME", "Hold Time", 0 ],
+			"obj-1::obj-229::obj-78::obj-78::obj-1008" : [ "FM_HOLDTIME", "Hold", 0 ],
 			"obj-1::obj-229::obj-78::obj-78::obj-1009" : [ "FM_L0", "L0", 0 ],
 			"obj-1::obj-229::obj-78::obj-78::obj-1010" : [ "FM_R4", "R4", 0 ],
 			"obj-1::obj-229::obj-78::obj-78::obj-1011" : [ "FM_R3", "R3", 0 ],
@@ -650,6 +658,7 @@
 			"obj-1::obj-229::obj-78::obj-78::obj-1015" : [ "FM_L3", "L3", 0 ],
 			"obj-1::obj-229::obj-78::obj-78::obj-1016" : [ "FM_L2", "L2", 0 ],
 			"obj-1::obj-229::obj-78::obj-78::obj-1017" : [ "FM_L1", "L1", 0 ],
+			"obj-1::obj-229::obj-78::obj-78::obj-108" : [ "live.slider", "Level", 0 ],
 			"obj-1::obj-229::obj-78::obj-78::obj-1138" : [ "FAMS", "Amp Mod", 0 ],
 			"obj-1::obj-229::obj-78::obj-78::obj-1158" : [ "OP2_SHIFT1", "Level", 0 ],
 			"obj-1::obj-229::obj-78::obj-78::obj-1159" : [ "OP2_SHIFT0", "Level", 0 ],
@@ -663,6 +672,7 @@
 			"obj-1::obj-229::obj-78::obj-78::obj-1247" : [ "OP6_SHIFT0", "Level", 0 ],
 			"obj-1::obj-229::obj-78::obj-78::obj-1286" : [ "FM_COR", "Level Correction", 0 ],
 			"obj-1::obj-229::obj-78::obj-78::obj-29" : [ "FM_ALGO[1]", "Algorithm", 0 ],
+			"obj-1::obj-229::obj-78::obj-78::obj-31" : [ "live.tab[1]", "live.tab[1]", 0 ],
 			"obj-1::obj-229::obj-78::obj-78::obj-77" : [ "live.tab", "live.tab", 0 ],
 			"obj-1::obj-229::obj-78::obj-78::obj-921" : [ "FM_OFFSET4", "Offset 4", 0 ],
 			"obj-1::obj-229::obj-78::obj-78::obj-922" : [ "FM_OFFSET3", "Offset 3", 0 ],
@@ -702,9 +712,9 @@
 			"obj-1::obj-229::obj-8::obj-1451" : [ "FM_FLFWAV[2]", "Wave", 0 ],
 			"obj-1::obj-229::obj-8::obj-147" : [ "live.tab[6]", "live.tab", 0 ],
 			"obj-1::obj-229::obj-8::obj-152" : [ "live.tab[3]", "live.tab", 0 ],
-			"obj-1::obj-229::obj-8::obj-153" : [ "live.tab[1]", "live.tab", 0 ],
+			"obj-1::obj-229::obj-8::obj-153" : [ "live.tab[2]", "live.tab", 0 ],
 			"obj-1::obj-229::obj-8::obj-1534" : [ "FM_FR4[2]", "R4", 0 ],
-			"obj-1::obj-229::obj-8::obj-155" : [ "live.tab[2]", "live.tab", 0 ],
+			"obj-1::obj-229::obj-8::obj-155" : [ "live.tab[7]", "live.tab", 0 ],
 			"obj-1::obj-229::obj-8::obj-1579" : [ "FM_FRR2[3]", "RR2", 0 ],
 			"obj-1::obj-229::obj-8::obj-1602" : [ "FM_FRL4[2]", "L4", 0 ],
 			"obj-1::obj-229::obj-8::obj-1680" : [ "FM_FRRL2[3]", "RL2", 0 ],
@@ -810,11 +820,11 @@
 				}
 ,
 				"obj-1::obj-229::obj-16" : 				{
-					"parameter_longname" : "live.tab[8]"
+					"parameter_longname" : "live.tab[9]"
 				}
 ,
 				"obj-1::obj-229::obj-234" : 				{
-					"parameter_longname" : "live.tab[7]"
+					"parameter_longname" : "live.tab[8]"
 				}
 ,
 				"obj-1::obj-229::obj-8::obj-105" : 				{
@@ -837,8 +847,16 @@
 					"parameter_longname" : "live.tab[3]"
 				}
 ,
+				"obj-1::obj-229::obj-8::obj-153" : 				{
+					"parameter_longname" : "live.tab[2]"
+				}
+,
 				"obj-1::obj-229::obj-8::obj-1534" : 				{
 					"parameter_longname" : "FM_FR4[2]"
+				}
+,
+				"obj-1::obj-229::obj-8::obj-155" : 				{
+					"parameter_longname" : "live.tab[7]"
 				}
 ,
 				"obj-1::obj-229::obj-8::obj-1579" : 				{
