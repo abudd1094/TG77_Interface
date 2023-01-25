@@ -5,7 +5,7 @@ inlets = 2;
 outlets = 3;
 
 // Global Object
-g = new Global("VOICE");
+g = new Global("VOICE"); 
  
 var { conditionalPost, writeCollToGBulk, combineBits } = require("utilities");
 var { tgDataModels } = require("tgDataModels");

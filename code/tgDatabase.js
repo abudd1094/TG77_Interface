@@ -154,7 +154,9 @@ function paste() {
   }
 
   // re-distribute updated bulk
-  const compiledBulkArr = generateBulk(g.targetMemNo);
+  var targetMemNo = g.targetMemNo || 0;
+  var compiledBulkArr = generateBulk(targetMemNo);
+
   // PATCHERS OUT (tgDatabse --- processList)
   outlet(4, compiledBulkArr);
   outlet(0, compiledBulkArr);
@@ -256,7 +258,7 @@ function generateBulk(targetMemNo) {
   compiledBulkArr = headerArr.concat(compiledBulkArr);
   compiledBulkArr = compiledBulkArr.concat(bulkSegmentFinal);
 
-  post("GENERATE BULK: Length from DATABASE: " + compiledBulkArr.length + "\n");
+  post("GENERATE BULK for mem slot: " + targetMemNo + " Length from DATABASE: " + compiledBulkArr.length + "\n");
   post(JSON.stringify(compiledBulkArr) + "\n");
 
   return compiledBulkArr;
@@ -269,6 +271,10 @@ function storeBulk(targetMemNo) {
 }
 // send to synth
 function sendBulk(targetMemNo) {
+  post("SEND BULK \n")
+  post("targetMemNo \n")
+  post(targetMemNo + "\n")
+
   const compiledBulkArr = generateBulk(targetMemNo);
   // MIDI OUT
   outlet(0, compiledBulkArr);
