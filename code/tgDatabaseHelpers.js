@@ -154,6 +154,38 @@ function expandAfmOpData(bulkSysExFragment) {
   return expandedDataForBulk;
 }
 
+function expandAwmData(bulkSysExFragment) {
+    post("expandAwmData" + "\n")
+  post(bulkSysExFragment.length + "\n")
+  // combine MSB LS7 values to one single value
+  var expandedDataForBulk = [];
+
+  bulkSysExFragment.forEach(function (value, index) {
+    if (
+      index == 1 ||
+      index == 39 ||
+      index == 40 ||
+      index == 41 ||
+      index == 42
+    ) {
+      var binVal = dec2bin(value);
+      var MSB = parseInt(binVal.slice(0, 1), 2);
+      var LS7bits = parseInt(binVal.slice(1, 8), 2);
+
+      // push 2 bits to the bulk array
+      expandedDataForBulk.push(MSB);
+      expandedDataForBulk.push(LS7bits);
+    } else {
+      expandedDataForBulk.push(value);
+    }
+  });
+
+  post(expandedDataForBulk.length + "\n")
+  post(JSON.stringify(expandedDataForBulk) + "\n")
+
+  return expandedDataForBulk;
+}
+
 function expandFilterData(bulkSysExFragment) {
   // combine MSB LS7 values to one single value
   var expandedDataForBulk = [];
@@ -379,7 +411,7 @@ exports.generateAwmSegments = function (voiceCount) {
 
   if (voiceCount > 0) {
     // 1 AWM
-    var veAwmDataSegment1 = expandAfmOpData(extractValues(g.bulk["1.8.0"]));
+    var veAwmDataSegment1 = expandAwmData(extractValues(g.bulk["1.8.0"]));
     var veAwmDataSegment1_Filter1 = expandFilterData(
       extractValues(g.bulk["1.10.0.0"])
     );

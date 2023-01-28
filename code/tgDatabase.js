@@ -1,7 +1,7 @@
 // outlet 0 = midi out
 // outlet 1 = element number out
 // outlet 2 = tgSxStorage
-// outlet 3 = to parser gates
+// outlet 3 = to parser gates  
 // outlet 4 = to tgParserBulk
 // outlet 5 = to console
 outlets = 6;
@@ -30,7 +30,7 @@ var rawReports = false;
 
 // --- --- --- ACTIONS --- --- --- //
 function initialize() {
-  post("INIT \n");
+  post("INIT UPDATED \n");
 
   outlet(3, "off", 0);
 
@@ -48,6 +48,7 @@ function initialize() {
   outlet(4, INIT_AFM_POLY);
 
   outlet(3, "on", 1);
+  outlet(5, "set", "Initialized voice to 1 AFM POLY")
 }
 
 function setTargetMemoryNo(targetMemoryNo) {
@@ -135,7 +136,7 @@ function parseSliceLength(collId, copyType) {
   return sliceLength;
 }
 
-function paste() {
+function paste() { 
   g = new Global("VOICE");
   var a = arrayfromargs(messagename, arguments);
 
@@ -198,7 +199,9 @@ function generateBulk(targetMemNo) {
   var byteCount1 = byteCountData[0];
   var byteCount2 = byteCountData[1];
 
+  // index 0 to 5
   var headerArr = [240, 67, 15, 122, byteCount1, byteCount2];
+  // index 6 to 31
   var bulkSegmentInitial = [
     76,
     77,
@@ -227,12 +230,15 @@ function generateBulk(targetMemNo) {
     127,
     targetMemNo,
   ];
-
+  // index 32 to 42
   var modeNameSegment = extractValues(g.bulk[1.3].slice(0, 11));
+  // index 43 to 71
   var efxSegment = extractValues(g.bulk[1.9]);
+  // index 72 to 95
   var ccAndVcSegment = extractValues(g.bulk[1.3].slice(11, 35));
   // TODO
   // [0, 0] when not an AWM voice
+  // index 96 to 97
   var awmSegment = [0, 0];
   var veMixerSegments = generateMixerSegments(totalVoiceCount);
   var afmSegments = generateAfmSegments(afmVoiceCount);
@@ -257,6 +263,18 @@ function generateBulk(targetMemNo) {
 
   compiledBulkArr = headerArr.concat(compiledBulkArr);
   compiledBulkArr = compiledBulkArr.concat(bulkSegmentFinal);
+
+  post("awmVoiceCount" + "\n")
+  post(awmVoiceCount + "\n")
+
+  post("veMixerSegments" + "\n")
+  post(JSON.stringify(veMixerSegments) + "\n")
+
+  post("afmSegments" + "\n")
+  post(JSON.stringify(afmSegments) + "\n")
+
+  post("awmSegments" + "\n")
+  post(JSON.stringify(awmSegments) + "\n")
 
   post("GENERATE BULK for mem slot: " + targetMemNo + " Length from DATABASE: " + compiledBulkArr.length + "\n");
   post(JSON.stringify(compiledBulkArr) + "\n");

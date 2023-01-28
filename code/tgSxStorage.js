@@ -47,7 +47,7 @@ function read(fileName) {
   outlet(0, dataObj);
 
   // outlet(0, dataObj);
-}
+} 
 
 function readTest() {
   var testLocation = "/Users/abudd/Documents/My_Patch.json";

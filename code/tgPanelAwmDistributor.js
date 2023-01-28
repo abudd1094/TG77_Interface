@@ -19,6 +19,10 @@ var allowReceiveInteger = true;
 // AWM Voice Data length should be 30
 function list() {
   var a = arrayfromargs(messagename, arguments);
+
+  post("RECEIVED LIST --- tgPanelAwmDistributor.js")
+  post(JSON.stringify(a) + "\n")
+
   allowReceiveInteger = false;
   outputBulkData(a);
   allowReceiveInteger = true;

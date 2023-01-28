@@ -23,6 +23,7 @@ function list() {
       " --- tgSxParserBulk.js" +
       "\n"
   );
+  post(JSON.stringify(a) + "\n")
 
   // processList(a);
   catchError(processList, a);
@@ -154,6 +155,7 @@ function processList(sysExMessage) {
     awmVeDataModSegment4,
     awmVeDataFilterSegment4,
   } = parseBulkDump(sysExMessage);
+
   // write global variables
   g.voiceMode = voiceMode;
   // write segments to GBULK & output data to patchers
@@ -231,37 +233,43 @@ function processList(sysExMessage) {
     parseAfmOperatorData(afmVeDataSegment1, true),
     parseAfmOperatorData(afmVeDataSegment2, true),
     parseAfmOperatorData(afmVeDataSegment3, true),
-    parseAfmOperatorData(afmVeDataSegment4, true),
+    parseAfmOperatorData(afmVeDataSegment4, true), 
   ]);
   // 1.8 AWM
   var awmConcatenatedDataSegment1 = [].concat.apply(
     [],
-    [awmVeDataSegment1_1, awmVeDataModSegment1, awmVeDataSegment1_2]
+    [awmVeDataSegment1_1, awmVeDataSegment1_2]
   );
   var awmConcatenatedDataSegment2 = [].concat.apply(
     [],
-    [awmVeDataSegment2_1, awmVeDataModSegment2, awmVeDataSegment2_2]
+    [awmVeDataSegment2_1, awmVeDataSegment2_2]
   );
   var awmConcatenatedDataSegment3 = [].concat.apply(
     [],
-    [awmVeDataSegment3_1, awmVeDataModSegment3, awmVeDataSegment3_2]
+    [awmVeDataSegment3_1, awmVeDataSegment3_2]
   );
   var awmConcatenatedDataSegment4 = [].concat.apply(
     [],
-    [awmVeDataSegment4_1, awmVeDataModSegment4, awmVeDataSegment4_2]
+    [awmVeDataSegment4_1, awmVeDataSegment4_2]
   );
+  outputDataToPatcher("veDataMod", [
+    awmVeDataModSegment1,
+    awmVeDataModSegment2,
+    awmVeDataModSegment3,
+    awmVeDataModSegment4,
+  ]);
   outputDataToPatcher("veData", [
-    trimAwmData(awmConcatenatedDataSegment1),
-    trimAwmData(awmConcatenatedDataSegment2),
-    trimAwmData(awmConcatenatedDataSegment3),
-    trimAwmData(awmConcatenatedDataSegment4),
+    awmConcatenatedDataSegment1,
+    awmConcatenatedDataSegment2,
+    awmConcatenatedDataSegment3,
+    awmConcatenatedDataSegment4,
   ]);
   // 1.10 FILTERS
   var elOneFilterData = parseFilterSegments(activeFilterSegments[0], true);
   outputDataToPatcher("veFilterData", elOneFilterData);
 
   // re-enable PARSER out
-  // outlet(1, "on", 1);
+  outlet(1, "on", 1);
 }
 
 function parseBulkDump(sysExMessage) {
@@ -295,16 +303,20 @@ function parseBulkDump(sysExMessage) {
   } = parseAfmDataParameters(totalElCount, afmElCount, sysExMessage);
 
   var {
-    awmVeDataSegment1,
+    awmVeDataSegment1_1,
+    awmVeDataSegment1_2,
     awmVeDataModSegment1,
     awmVeDataFilterSegment1,
-    awmVeDataSegment2,
-    awmVeDataModSegment2,
+    awmVeDataSegment2_1,
+    awmVeDataSegment2_2,
+    awmVeDataModSegment2 ,
     awmVeDataFilterSegment2,
-    awmVeDataSegment3,
-    awmVeDataModSegment3,
+    awmVeDataSegment3_1,
+    awmVeDataSegment3_2,
+    awmVeDataModSegment3 ,
     awmVeDataFilterSegment3,
-    awmVeDataSegment4,
+    awmVeDataSegment4_1,
+    awmVeDataSegment4_2,
     awmVeDataModSegment4,
     awmVeDataFilterSegment4,
   } = parseAwmDataParameters(totalElCount, awmElCount, sysExMessage);
@@ -322,6 +334,7 @@ function parseBulkDump(sysExMessage) {
     veMixerSegment3: veMixerSegment3,
     veMixerSegment4: veMixerSegment4,
 
+    // afm data must be trimmed separately by operator
     afmVeDataSegment1: afmVeDataSegment1,
     afmVeDataModSegment1: afmVeDataModSegment1,
     afmVeDataFilterSegment1: afmVeDataFilterSegment1,
@@ -335,16 +348,21 @@ function parseBulkDump(sysExMessage) {
     afmVeDataModSegment4: afmVeDataModSegment4,
     afmVeDataFilterSegment4: afmVeDataFilterSegment4,
 
-    awmVeDataSegment1: awmVeDataSegment1,
+    // awm data  can be trimmed now
+    awmVeDataSegment1_1: trimAwmData(awmVeDataSegment1_1, 1),
+    awmVeDataSegment1_2: trimAwmData(awmVeDataSegment1_2, 2),
     awmVeDataModSegment1: awmVeDataModSegment1,
     awmVeDataFilterSegment1: awmVeDataFilterSegment1,
-    awmVeDataSegment2: awmVeDataSegment2,
+    awmVeDataSegment2_1: trimAwmData(awmVeDataSegment2_1, 1),
+    awmVeDataSegment2_2: trimAwmData(awmVeDataSegment2_2, 2),
     awmVeDataModSegment2: awmVeDataModSegment2,
     awmVeDataFilterSegment2: awmVeDataFilterSegment2,
-    awmVeDataSegment3: awmVeDataSegment3,
+    awmVeDataSegment3_1: trimAwmData(awmVeDataSegment3_1),
+    awmVeDataSegment3_2: trimAwmData(awmVeDataSegment3_2),
     awmVeDataModSegment3: awmVeDataModSegment3,
     awmVeDataFilterSegment3: awmVeDataFilterSegment3,
-    awmVeDataSegment4: awmVeDataSegment4,
+    awmVeDataSegment4_1: trimAwmData(awmVeDataSegment4_1),
+    awmVeDataSegment4_2: trimAwmData(awmVeDataSegment4_2),
     awmVeDataModSegment4: awmVeDataModSegment4,
     awmVeDataFilterSegment4: awmVeDataFilterSegment4,
   };
@@ -644,30 +662,44 @@ function trimAfmOpData(bulkSysExFragment) {
   }
 }
 
-function trimAwmData(awmData) {
-  // post("trimAWM PRE \n");
-  // post(JSON.stringify(awmData) + "\n");
-  // post(awmData.length + "\n");
+function trimAwmData(awmData, segmentNo) { 
   // combine MSB LS7 values to one single value
   var compressedDataForPanel = [];
   var msb = null;
 
-  awmData.forEach(function (value, index) {
-    if (index == 19 || index == 21 || index == 23 || index == 25) {
-      msb = value;
-    } else if (index == 20 || index == 22 || index == 24 || index == 26) {
-      var ls7 = value;
-      var combinedValue = combineBits(msb, ls7);
+  if (awmData) {
+    if (segmentNo == 1) {
+      awmData.forEach(function (value, index) {
+        if (index == 1) {
+          msb = value;
+        } else if (index == 2) {
+          var ls7 = value;
+          var combinedValue = combineBits(msb, ls7);
 
-      compressedDataForPanel.push(combinedValue);
-    } else {
-      msb = null;
-      compressedDataForPanel.push(value);
+          compressedDataForPanel.push(combinedValue);
+        } else {
+          msb = null;
+          compressedDataForPanel.push(value);
+        }
+      });
+    } else if (segmentNo == 2) {
+      awmData.forEach(function (value, index) {
+        if (index == 13 || index == 15 || index == 17 || index == 19) {
+          msb = value;
+        } else if (index == 14 || index == 16 || index == 18 || index == 20) {
+          var ls7 = value;
+          var combinedValue = combineBits(msb, ls7);
+
+          compressedDataForPanel.push(combinedValue);
+        } else {
+          msb = null;
+          compressedDataForPanel.push(value);
+        }
+      });
     }
-  });
-
-  // post("trimAWM POST \n");
-  // post(compressedDataForPanel.length + "\n");
+  } else {
+    compressedDataForPanel = null;
+  }
 
   return compressedDataForPanel;
 }
