@@ -40,6 +40,17 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-23",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 1145.0, 61.0, 32.0, 22.0 ],
+					"text" : "print"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"annotation" : "send tgDatabase",
 					"comment" : "send tgDatabase",
 					"hint" : "send tgDatabase",
@@ -155,7 +166,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 1363.000044703483582, 48.000023606609375, 99.0, 33.0 ],
+					"patching_rect" : [ 1370.000044703483582, 6.000023606609375, 99.0, 33.0 ],
 					"text" : "EL PATCHER DATA GATES"
 				}
 
@@ -760,7 +771,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-78", 3 ],
 					"midpoints" : [ 1056.749999999999773, 849.0, 889.0, 849.0 ],
-					"order" : 1,
+					"order" : 2,
 					"source" : [ "obj-1", 0 ]
 				}
 
@@ -769,7 +780,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-8", 3 ],
 					"midpoints" : [ 1056.749999999999773, 849.0, 1887.0, 849.0 ],
-					"order" : 2,
+					"order" : 1,
 					"source" : [ "obj-1", 0 ]
 				}
 
@@ -898,7 +909,16 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-23", 0 ],
+					"order" : 1,
+					"source" : [ "obj-2", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-7", 0 ],
+					"order" : 0,
 					"source" : [ "obj-2", 0 ]
 				}
 

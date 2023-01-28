@@ -9,6 +9,7 @@ g = new Global("VOICE");
  
 var { conditionalPost, writeCollToGBulk, combineBits } = require("utilities");
 var { tgDataModels } = require("tgDataModels");
+var { calculateVoiceCounts } = require("tgDatabaseHelpers");
 var { catchError, parseBulkDumpType, mapDbValues } = require("./utilities");
 
 function list() {
@@ -31,7 +32,7 @@ function list() {
 
 function msg_int(v) {
   if (inlet == 1) {
-    handleElementChange(v);
+    handleSwitchElement(v);
   }
 }
 
@@ -72,10 +73,13 @@ function parseVoiceDbCollections() {
   return elementDataCollIds;
 }
 
-function handleElementChange(v) {
+function handleSwitchElement(v) {
   var dbElNo = v - 1;
+  var voiceCounts = calculateVoiceCounts(g.voiceMode)
 
-  post("handleElementChange to: " + v + " --- tgSxParserBulk.js" + "\n");
+  error("handleSwitchElement to: " + v + " --- tgSxParserBulk.js" + "\n");
+  post(g.voiceMode + "\n");
+  post(JSON.stringify(voiceCounts) + "\n");
 
   var elementDataCollIds = parseVoiceDbCollections();
   var activeElementBaseCollId = elementDataCollIds[dbElNo];
@@ -99,6 +103,7 @@ function handleElementChange(v) {
     elementData = mapDbValues(g.bulk[activeElementBaseCollId]);
   }
 
+  outlet(2, v);
   outputDataToPatcher("veData", elementData);
 }
 

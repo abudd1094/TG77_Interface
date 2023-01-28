@@ -64,25 +64,25 @@ exports.calculatebyteCount = function (voiceMode) {
 exports.calculateVoiceCounts = function (voiceMode) {
   switch (voiceMode) {
     case 0:
-      return { afmVoiceCount: 1, awmVoiceCount: 0 };
+      return { afmVoiceCount: 1, awmVoiceCount: 0, voiceArr: ["AFM", null, null, null] };
     case 1:
-      return { afmVoiceCount: 2, awmVoiceCount: 0 };
+      return { afmVoiceCount: 2, awmVoiceCount: 0, voiceArr: ["AFM", "AFM", null, null]  };
     case 2:
-      return { afmVoiceCount: 4, awmVoiceCount: 0 };
+      return { afmVoiceCount: 4, awmVoiceCount: 0, voiceArr: ["AFM", "AFM", "AFM", "AFM"]  };
     case 3:
-      return { afmVoiceCount: 1, awmVoiceCount: 0 };
+      return { afmVoiceCount: 1, awmVoiceCount: 0, voiceArr: ["AFM", null, null, null]  };
     case 4:
-      return { afmVoiceCount: 2, awmVoiceCount: 0 };
+      return { afmVoiceCount: 2, awmVoiceCount: 0, voiceArr: ["AFM", "AFM", null, null]  };
     case 5:
-      return { afmVoiceCount: 0, awmVoiceCount: 1 };
+      return { afmVoiceCount: 0, awmVoiceCount: 1, voiceArr: ["AWM", null, null, null]  };
     case 6:
-      return { afmVoiceCount: 0, awmVoiceCount: 2 };
+      return { afmVoiceCount: 0, awmVoiceCount: 2, voiceArr: ["AWM", "AWM", null, null]  };
     case 7:
-      return { afmVoiceCount: 0, awmVoiceCount: 4 };
+      return { afmVoiceCount: 0, awmVoiceCount: 4, voiceArr: ["AWM", "AWM", "AWM", "AWM"]  };
     case 8:
-      return { afmVoiceCount: 1, awmVoiceCount: 1 };
+      return { afmVoiceCount: 1, awmVoiceCount: 1, voiceArr: ["AFM", "AWM", null, null]  };
     case 9:
-      return { afmVoiceCount: 2, awmVoiceCount: 2 };
+      return { afmVoiceCount: 2, awmVoiceCount: 2, voiceArr: ["AFM", "AFM", "AWM", "AWM"]  };
     // case 10 is drum set
     default:
       return { afmVoiceCount: 0, awmVoiceCount: 0 };
